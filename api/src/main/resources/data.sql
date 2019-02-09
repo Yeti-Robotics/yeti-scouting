@@ -1,0 +1,3 @@
+INSERT INTO TEAM (TEAM_NUMBER, TEAM_NAME) VALUES
+(3506, 'Yeti Robotics'),
+(4290, 'Bots on Wheels');

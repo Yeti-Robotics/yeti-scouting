@@ -5,43 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * Team
  */
 @Entity
 @Table(name = "team")
+@Data
 public class Team {
-    
+
     @Id
-    private Integer teamNumber;
+    @Column(name = "team_number")
+    private Integer number;
 
-    @Column(nullable = false)
+    @Column(name = "team_name", nullable = false)
     private String name;
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
 
-    /**
-     * @return the teamNumber
-     */
-    public Integer getTeamNumber() {
-        return teamNumber;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @param teamNumber the teamNumber to set
-     */
-    public void setTeamNumber(Integer teamNumber) {
-        this.teamNumber = teamNumber;
-    }
 }
