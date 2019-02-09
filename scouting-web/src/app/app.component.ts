@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpClient.get("http://localhost:8080/teams")
+    this.httpClient.get("/api/teams")
     .subscribe(data => {
       this.teams = data['_embedded']['teams'];
     });
