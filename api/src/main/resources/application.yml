@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:h2:./build/database/scouting;AUTO_SERVER=TRUE
+    username: scouting
+    password: scouting
+  h2:
+    console:
+      enabled: true
+      path: /h2
