@@ -16,13 +16,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.Data;
 
 /**
- * PitComment
+ * PitPicture
  */
 @Entity
-@Table(name = "pit_comment")
+@Table(name = "pit_picture")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class PitComment {
+public class PitPicture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +31,8 @@ public class PitComment {
     @Column(name = "team_number", nullable = false)
     private Integer teamNumber;
     
-    @Column(name = "comment", nullable = false, length = 2000)
-    private String comment;
+    @Column(name = "picture", nullable = false, length = 2000)
+    private String picture;
 
     @Column(name = "timestamp", nullable = false)
     @LastModifiedDate
