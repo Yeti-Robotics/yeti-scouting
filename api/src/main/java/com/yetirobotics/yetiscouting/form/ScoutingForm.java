@@ -53,4 +53,10 @@ public class ScoutingForm {
 
     @Column(name = "teleop_rocket_ball_count", nullable = false)
     private Integer teleopRocketBallCount;
+
+    @Column(name = "comment", nullable = false)
+    private String comment;
+
+    @Column(name = "score", nullable = false)
+    private Integer score;
 }
