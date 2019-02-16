@@ -1,163 +1,219 @@
-{{form.valid}}
 <div class="container-fluid">
   <form [formGroup]="form">
-    <div class="card">
-      <h5 class="card-header">Match Info</h5>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="teamNumber" class="required">Team Number</label>
-          <input id="teamNumber" type="number" class="form-control" formControlName="teamNumber" min="0">
-        </div>
-        <div class="form-group">
-          <label for="matchNumber" class="required">Match Number</label>
-          <input id="matchNumber" type="number" class="form-control" formControlName="matchNumber" min="0">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h5 class="card-header">Autonomous</h5>
-      <div class="card-body">
-        <div class="form-group custom-control custom-checkbox">
-          <input type="checkbox" id="crossHabitatLine" formControlName="crossHabitatLine" class="custom-control-input">
-          <label for="crossHabitatLine" class="custom-control-label">Did the Robot Cross the Habitat Line?</label>
-        </div>
-
-        <div class="form-group">
-          <label for="sandstormCargoHatchPanelCount" class="required">Cargo Hatch Panel</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button class="btn btn-primary" type="button" (click)="decrementField('sandstormCargoHatchPanelCount')">-</button>
-            </div>
-            <input id="sandstormCargoHatchPanelCount" type="number" class="form-control"
-              formControlName="sandstormCargoHatchPanelCount">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button" (click)="incrementField('sandstormCargoHatchPanelCount')">+</button>
-            </div>
-          </div>
-
+    <div class="card-columns">
+      <div class="card">
+        <h5 class="card-header">Match Info</h5>
+        <div class="card-body">
           <div class="form-group">
-            <label for="sandstormCargoBallCount" class="required">Cargo Ball</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('sandstormCargoBallCount')">-</button>
-              </div>
-              <input id="sandstormCargoBallCount" type="number" class="form-control"
-                formControlName="sandstormCargoBallCount">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('sandstormCargoBallCount')">+</button>
-              </div>
-            </div>
+            <label for="teamNumber" class="required">Team Number</label>
+            <input id="teamNumber" type="number" class="form-control" formControlName="teamNumber" min="0">
           </div>
-
           <div class="form-group">
-            <label for="sandstormRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('sandstormRocketHatchPanelCount')">-</button>
-              </div>
-              <input id="sandstormRocketHatchPanelCount" type="number" class="form-control"
-                formControlName="sandstormRocketHatchPanelCount">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('sandstormRocketHatchPanelCount')">+</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="sandstormRocketBallCount" class="required">Rocket Ball</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('sandstormRocketBallCount')">-</button>
-              </div>
-              <input id="sandstormRocketBallCount" type="number" class="form-control"
-                formControlName="sandstormRocketBallCount">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('sandstormRocketBallCount')">+</button>
-              </div>
-            </div>
+            <label for="matchNumber" class="required">Match Number</label>
+            <input id="matchNumber" type="number" class="form-control" formControlName="matchNumber" min="0">
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h5 class="card-header">TeleOp</h5>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="teleopCargoHatchPanelCount" class="required">Cargo Hatch Panel</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoHatchPanelCount')">-</button>
-            </div>
-            <input id="teleopCargoHatchPanelCount" type="number" class="form-control"
-              formControlName="teleopCargoHatchPanelCount">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoHatchPanelCount')">+</button>
+      <div class="card">
+        <h5 class="card-header">Autonomous</h5>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="preload" class="required">What did the robot preload?</label>
+            <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option1" autocomplete="off"> None
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Hatch Panel
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Ball
+              </label>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="teleopCargoBallCount" class="required">Cargo Ball</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoBallCount')">-</button>
-              </div>
-              <input id="teleopCargoBallCount" type="number" class="form-control"
-                formControlName="teleopCargoBallCount">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoBallCount')">+</button>
-              </div>
+            <label for="habLevelStart" class="required">Starting HAB Level</label>
+            <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" name="habLevelStart">
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Level 1
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Level 2
+              </label>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="teleopRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketHatchPanelCount')">-</button>
-              </div>
-              <input id="teleopRocketHatchPanelCount" type="number" class="form-control"
-                formControlName="teleopRocketHatchPanelCount">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketHatchPanelCount')">+</button>
-              </div>
-            </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="crossHabitatLine" class="custom-control-input">
+            <label for="crossHabitatLine" class="custom-control-label">Did the Robot Cross the Habitat Line?</label>
           </div>
 
           <div class="form-group">
-            <label for="teleopRocketBallCount" class="required">Rocket Ball</label>
+            <label for="sandstormCargoHatchPanelCount" class="required">Cargo Hatch Panel</label>
             <div class="input-group">
               <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketBallCount')">-</button>
+                <button class="btn btn-primary" type="button" (click)="decrementField('sandstormCargoHatchPanelCount')">-</button>
               </div>
-              <input id="teleopRocketBallCount" type="number" class="form-control"
-                formControlName="teleopRocketBallCount">
+              <input id="sandstormCargoHatchPanelCount" type="number" class="form-control" formControlName="sandstormCargoHatchPanelCount">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketBallCount')">+</button>
+                <button class="btn btn-primary" type="button" (click)="incrementField('sandstormCargoHatchPanelCount')">+</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sandstormCargoBallCount" class="required">Cargo Ball</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('sandstormCargoBallCount')">-</button>
+                </div>
+                <input id="sandstormCargoBallCount" type="number" class="form-control" formControlName="sandstormCargoBallCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('sandstormCargoBallCount')">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sandstormRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('sandstormRocketHatchPanelCount')">-</button>
+                </div>
+                <input id="sandstormRocketHatchPanelCount" type="number" class="form-control" formControlName="sandstormRocketHatchPanelCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('sandstormRocketHatchPanelCount')">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sandstormRocketBallCount" class="required">Rocket Ball</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('sandstormRocketBallCount')">-</button>
+                </div>
+                <input id="sandstormRocketBallCount" type="number" class="form-control" formControlName="sandstormRocketBallCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('sandstormRocketBallCount')">+</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h5 class="card-header">Other</h5>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="score" class="required">Score</label>
-          <input id="score" type="number" class="form-control" formControlName="score">
+      <div class="card">
+        <h5 class="card-header">TeleOp</h5>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="teleopCargoHatchPanelCount" class="required">Cargo Hatch Panel</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoHatchPanelCount')">-</button>
+              </div>
+              <input id="teleopCargoHatchPanelCount" type="number" class="form-control" formControlName="teleopCargoHatchPanelCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoHatchPanelCount')">+</button>
+              </div>
+            </div>
 
-        </div>
-        <div class="form-group">
-          <label for="comment" class="required">Comments</label>
-          <textarea name="comment" id="comment" rows="3" formControlName="comment" class="form-control"></textarea>
+            <div class="form-group">
+              <label for="teleopCargoBallCount" class="required">Cargo Ball</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoBallCount')">-</button>
+                </div>
+                <input id="teleopCargoBallCount" type="number" class="form-control" formControlName="teleopCargoBallCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoBallCount')">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="teleopRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketHatchPanelCount')">-</button>
+                </div>
+                <input id="teleopRocketHatchPanelCount" type="number" class="form-control" formControlName="teleopRocketHatchPanelCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketHatchPanelCount')">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="teleopRocketBallCount" class="required">Rocket Ball</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketBallCount')">-</button>
+                </div>
+                <input id="teleopRocketBallCount" type="number" class="form-control" formControlName="teleopRocketBallCount">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketBallCount')">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="defense" formControlName="defense" class="custom-control-input">
+            <label for="defense" class="custom-control-label">Did this robot play defense?</label>
+          </div>
+          <div class="form-group">
+            <label for="habLevelClimb" class="required">HAB Level Climb</label>
+            <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option1" autocomplete="off">None
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Level 1
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Level 2
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Level 3
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="buddyClimb" formControlName="buddyClimb" class="custom-control-input">
+            <label for="buddyClimb" class="custom-control-label">Did this robot lift another robot or get lifted?</label>
+          </div>
+
+          <div *ngIf="form.controls['buddyClimb'].value" class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="lifted" formControlName="lifted" class="custom-control-input">
+            <label for="lifted" class="custom-control-label">Did this robot lift another robot?</label>
+          </div>
+
+          <div *ngIf="form.controls['buddyClimb'].value" class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="gotLifted" formControlName="gotLifted" class="custom-control-input">
+            <label for="gotLifted" class="custom-control-label">Did this robot get lifted?</label>
+          </div>
+
         </div>
       </div>
-      <div class="card-footer">
-        <button type="submit" (click)="onSubmit()" class="btn btn-primary btn-block"
-          [disabled]="form.invalid">Submit</button>
+
+      <div class="card">
+        <h5 class="card-header">Other</h5>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="score" class="required">Score</label>
+            <input id="score" type="number" class="form-control" formControlName="score">
+
+          </div>
+          <div class="form-group">
+            <label for="comment" class="required">Comments</label>
+            <textarea name="comment" id="comment" rows="3" formControlName="comment" class="form-control" placeholder="Add comments about the robots strategy, failures, human players, fouls, etc."></textarea>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" (click)="onSubmit()" class="btn btn-primary btn-block" [disabled]="form.invalid">Submit</button>
+        </div>
       </div>
     </div>
   </form>

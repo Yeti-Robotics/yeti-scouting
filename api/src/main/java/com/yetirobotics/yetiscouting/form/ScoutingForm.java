@@ -30,6 +30,9 @@ public class ScoutingForm {
     @Column(name = "cross_habitat_line", nullable = false)
     private Boolean crossHabitatLine;
 
+    @Column(name = "hab_level_start", nullable = false)
+    private Integer habLevelStart;
+
     @Column(name = "sandstorm_cargo_hatch_panel_count", nullable = false)
     private Integer sandstormCargoHatchPanelCount;
 
@@ -59,4 +62,22 @@ public class ScoutingForm {
 
     @Column(name = "score", nullable = false)
     private Integer score;
+
+    @Column(name = "hab_level_climb", nullable = false)
+    private Integer habLevelClimb;
+
+    @Column(name = "defense", nullable = false)
+    private Boolean defense;
+
+    @Column(name = "preload", nullable = false)
+    private Boolean preload;
+
+    @Column(name = "buddy_climb", nullable = false)
+    private Boolean buddyClimb;
+
+    @Column(name = "lifted", nullable = false)
+    private Boolean lifted;
+
+    @Column(name = "got_lifted", nullable = false)
+    private Boolean gotLifted;
 }
