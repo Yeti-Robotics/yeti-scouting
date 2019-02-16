@@ -17,3 +17,13 @@ To view the database visit:
 http://localhost:8080/h2
 - username: scouting
 - password: scouting
+```
+SELECT s.team_number AS "Team",
+ t.team_name AS "Team Name", 
+AVG(CAST (s.sandstorm_cargo_ball_count AS DOUBLE) + CAST (s.sandstorm_rocket_ball_count AS DOUBLE)) AS "Avg Ball", 
+COUNT(s.team_number) AS "Matches"
+FROM SCOUTING_FORM s
+LEFT JOIN team t ON t.team_number = s.team_number
+GROUP BY s.team_number
+ORDER BY "Matches" DESC
+```
