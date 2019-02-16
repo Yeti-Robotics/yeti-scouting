@@ -42,6 +42,15 @@ public class ScoutingForm {
     @Column(name = "sandstorm_rocket_ball_count", nullable = false)
     private Integer sandstormRocketBallCount;
 
+    @Column(name = "teleop_cargo_hatch_panel_count", nullable = false)
+    private Integer teleopCargoHatchPanelCount;
+
+    @Column(name = "teleop_cargo_ball_count", nullable = false)
+    private Integer teleopCargoBallCount;
     
-    
+    @Column(name = "teleop_rocket_hatch_panel_count", nullable = false)
+    private Integer teleopRocketHatchPanelCount;
+
+    @Column(name = "teleop_rocket_ball_count", nullable = false)
+    private Integer teleopRocketBallCount;
 }
