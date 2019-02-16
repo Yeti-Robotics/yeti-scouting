@@ -1,0 +1,87 @@
+{{form.value | json}}
+<div class="container-fluid">
+  <form [formGroup]="form">
+    <div class="card">
+      <h5 class="card-header">Match Info</h5>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="teamNumber">Team Number</label>
+          <input id="teamNumber" type="number" class="form-control" formControlName="teamNumber">
+        </div>
+        <div class="form-group">
+          <label for="matchNumber">Match Number</label>
+          <input id="matchNumber" type="number" class="form-control" formControlName="matchNumber">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h5 class="card-header">Sandstorm</h5>
+      <div class="card-body">
+        <div class="form-group custom-control custom-checkbox">
+          <input type="checkbox" id="crossHabitatLine" formControlName="crossHabitatLine" class="custom-control-input">
+          <label for="crossHabitatLine" class="custom-control-label">Did the Robot Cross the Habitat Line?</label>
+        </div>
+
+        <div class="form-group">
+          <label for="sandstormCargoHatchPanelCount">Cargo Hatch Panel</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-primary" type="button">-</button>
+            </div>
+            <input id="sandstormCargoHatchPanelCount" type="number" class="form-control"
+              formControlName="sandstormCargoHatchPanelCount">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">+</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sandstormCargoBallCount">Cargo Ball</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button">-</button>
+              </div>
+              <input id="sandstormCargoBallCount" type="number" class="form-control"
+                formControlName="sandstormCargoBallCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sandstormRocketHatchPanelCount">Rocket Hatch Panel</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button">-</button>
+              </div>
+              <input id="sandstormRocketHatchPanelCount" type="number" class="form-control"
+                formControlName="sandstormRocketHatchPanelCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sandstormRocketBallCount">Rocket Ball</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button">-</button>
+              </div>
+              <input id="sandstormRocketBallCount" type="number" class="form-control"
+                formControlName="sandstormRocketBallCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" (click)="onSubmit()" class="btn btn-success btn-block" [disabled]="form.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
