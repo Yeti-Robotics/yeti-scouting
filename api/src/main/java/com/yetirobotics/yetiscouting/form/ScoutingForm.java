@@ -70,7 +70,7 @@ public class ScoutingForm {
     private Boolean defense;
 
     @Column(name = "preload", nullable = true)
-    private Boolean preload;
+    private Integer preload;
 
     @Column(name = "buddy_climb", nullable = true)
     private Boolean buddyClimb;
@@ -82,5 +82,5 @@ public class ScoutingForm {
     private Boolean gotLifted;
     
     @Column(name = "dropped_game_pieces", nullable = true)
-    private Boolean droppedGamePieces;
+    private Integer droppedGamePieces;
 }
