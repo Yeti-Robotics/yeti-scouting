@@ -37,17 +37,19 @@
             <label for="habLevelStart" class="required">Starting HAB Level</label>
             <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" name="habLevelStart">
               <label class="btn btn-outline-primary">
-                <input type="radio" name="options" id="option2" autocomplete="off"> Level 1
+                <input type="radio" name="options" id="option2" autocomplete="off" (click)="form.controls['habLevelStart'].value=1">
+                Level 1
               </label>
               <label class="btn btn-outline-primary">
-                <input type="radio" name="options" id="option3" autocomplete="off"> Level 2
+                <input type="radio" name="options" id="option3" autocomplete="off" (click)="form.controls['habLevelStart'].value=1">
+                Level 2
               </label>
             </div>
           </div>
 
           <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="crossHabitatLine" class="custom-control-input">
-            <label for="crossHabitatLine" class="custom-control-label">Did the Robot Cross the Habitat Line?</label>
+            <label for="crossHabitatLine" class="custom-control-label">Did the robot cross the habitat line?</label>
           </div>
 
           <div class="form-group">
@@ -61,6 +63,7 @@
                 <button class="btn btn-primary" type="button" (click)="incrementField('sandstormCargoHatchPanelCount')">+</button>
               </div>
             </div>
+          </div>
 
             <div class="form-group">
               <label for="sandstormCargoBallCount" class="required">Cargo Ball</label>
@@ -100,7 +103,6 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
 
@@ -118,43 +120,43 @@
                 <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoHatchPanelCount')">+</button>
               </div>
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="teleopCargoBallCount" class="required">Cargo Ball</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoBallCount')">-</button>
-                </div>
-                <input id="teleopCargoBallCount" type="number" class="form-control" formControlName="teleopCargoBallCount">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoBallCount')">+</button>
-                </div>
+          <div class="form-group">
+            <label for="teleopCargoBallCount" class="required">Cargo Ball</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" (click)="decrementField('teleopCargoBallCount')">-</button>
+              </div>
+              <input id="teleopCargoBallCount" type="number" class="form-control" formControlName="teleopCargoBallCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="incrementField('teleopCargoBallCount')">+</button>
               </div>
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="teleopRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketHatchPanelCount')">-</button>
-                </div>
-                <input id="teleopRocketHatchPanelCount" type="number" class="form-control" formControlName="teleopRocketHatchPanelCount">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketHatchPanelCount')">+</button>
-                </div>
+          <div class="form-group">
+            <label for="teleopRocketHatchPanelCount" class="required">Rocket Hatch Panel</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketHatchPanelCount')">-</button>
+              </div>
+              <input id="teleopRocketHatchPanelCount" type="number" class="form-control" formControlName="teleopRocketHatchPanelCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketHatchPanelCount')">+</button>
               </div>
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="teleopRocketBallCount" class="required">Rocket Ball</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketBallCount')">-</button>
-                </div>
-                <input id="teleopRocketBallCount" type="number" class="form-control" formControlName="teleopRocketBallCount">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketBallCount')">+</button>
-                </div>
+          <div class="form-group">
+            <label for="teleopRocketBallCount" class="required">Rocket Ball</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" (click)="decrementField('teleopRocketBallCount')">-</button>
+              </div>
+              <input id="teleopRocketBallCount" type="number" class="form-control" formControlName="teleopRocketBallCount">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="incrementField('teleopRocketBallCount')">+</button>
               </div>
             </div>
           </div>
