@@ -66,18 +66,21 @@ public class ScoutingForm {
     @Column(name = "hab_level_climb", nullable = false)
     private Integer habLevelClimb;
 
-    @Column(name = "defense", nullable = false)
+    @Column(name = "defense", nullable = true)
     private Boolean defense;
 
-    @Column(name = "preload", nullable = false)
+    @Column(name = "preload", nullable = true)
     private Boolean preload;
 
-    @Column(name = "buddy_climb", nullable = false)
+    @Column(name = "buddy_climb", nullable = true)
     private Boolean buddyClimb;
 
-    @Column(name = "lifted", nullable = false)
+    @Column(name = "lifted", nullable = true)
     private Boolean lifted;
 
-    @Column(name = "got_lifted", nullable = false)
+    @Column(name = "got_lifted", nullable = true)
     private Boolean gotLifted;
+    
+    @Column(name = "dropped_game_pieces", nullable = true)
+    private Boolean droppedGamePieces;
 }

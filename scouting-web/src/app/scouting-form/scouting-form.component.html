@@ -19,8 +19,34 @@
         <h5 class="card-header">Autonomous</h5>
         <div class="card-body">
           <div class="form-group">
-            <label for="preload" class="required">What did the robot preload?</label>
-            <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+            <label for="preload" class="required">What did the robot preload?
+
+            </label>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </div>
+
+            <div class="btn-group  d-flex" data-toggle="buttons">
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="mergeType" id="radio1">None
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="mergeType" id="radio2">Hatch Panel
+              </label>
+              <label class="btn btn-outline-primary">
+                <input type="radio" name="mergeType" id="radio3">Ball
+              </label>
+            </div>
+
+            <!-- <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
               <label class="btn btn-outline-primary">
                 <input type="radio" name="options" id="option1" autocomplete="off"> None
               </label>
@@ -30,7 +56,7 @@
               <label class="btn btn-outline-primary">
                 <input type="radio" name="options" id="option3" autocomplete="off"> Ball
               </label>
-            </div>
+            </div> -->
           </div>
 
           <div class="form-group">
@@ -160,6 +186,20 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+              <label for="droppedGamePieces" class="required">Dropped Game Pieces</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" type="button" (click)="decrementField('droppedGamePieces')">-</button>
+                </div>
+                <input id="droppedGamePieces" type="number" class="form-control" formControlName="droppedGamePieces">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" (click)="incrementField('droppedGamePieces')">+</button>
+                </div>
+              </div>
+            </div>
+
           <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="defense" formControlName="defense" class="custom-control-input">
             <label for="defense" class="custom-control-label">Did this robot play defense?</label>
