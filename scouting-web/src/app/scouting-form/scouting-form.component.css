@@ -2,3 +2,10 @@
     column-count: 1;
 }
 
+label>.ng-invalid{
+  color: red;
+}
+
+.ng-invalid{
+  border-color: red;
+}

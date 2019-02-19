@@ -83,4 +83,7 @@ public class ScoutingForm {
     
     @Column(name = "dropped_game_pieces", nullable = true)
     private Integer droppedGamePieces;
+
+    @Column(name = "rocket_level", nullable = true)
+    private Integer rocketLevel;
 }

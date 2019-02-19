@@ -37,7 +37,8 @@ export class ScoutingFormComponent implements OnInit {
       lifted: [false, Validators.required],
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
-      droppedGamePieces: [{value: 0, disabled: true}, numberValidators]
+      droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
+      rocketLevel: [{value: 0}, numberValidators]
     });
   }
 
