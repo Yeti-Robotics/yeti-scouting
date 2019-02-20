@@ -6,6 +6,6 @@ label>.ng-invalid{
   color: red;
 }
 
-.ng-invalid{
+.ng-invalid.ng-dirty, .ng-invalid.ng-touched{
   border-color: red;
 }
