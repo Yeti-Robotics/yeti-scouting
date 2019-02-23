@@ -3,8 +3,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ScoutingFormComponent } from './scouting-form/scouting-form.component';
 import { TeamListComponent } from './team-list/team-list.component';
+import { PitFormComponent } from './pit-form/pit-form.component';
 
 const routes: Routes = [
+  {
+    path: "pit-scouting",
+    component: PitFormComponent
+  },
   {
     path: "team/:teamNumber",
     component: TeamComponent
