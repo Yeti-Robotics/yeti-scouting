@@ -1,3 +1,28 @@
-<div *ngFor = "let team of teams">
-  {{team.name}}
+<div class="container-fluid">
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Team Name</th>
+          <th>Avg Disks Scored</th>
+          <th>Avg Balls Scored</th>
+          <th>Game Pieces Dropped</th>
+          <th>Highest Level Climbed</th>
+          <th>Defensive Probability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{team.teamNumber}}</td>
+          <td>{{team.name}}</td>
+          <td>{{team.avgDisk}}</td>
+          <td>{{team.avgBall}}</td>
+          <td>{{team.droppedGamePieces}}</td>
+          <td>{{team.maxLevelClimbed}}</td>
+          <td>{{team.avgDefensePlays}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -11,7 +11,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
  public class TeamListRepositoryConfig implements RepositoryRestConfigurer{
 @Override
 public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-    config.exposeIdsFor(TeamList.class);
+    config.exposeIdsFor(TeamList.class, Team.class);
+    
 }
     
 }
