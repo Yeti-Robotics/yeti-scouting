@@ -11,3 +11,7 @@ label.error {
 .required, .error{
     border-color: red !important;
 }
+
+.table-responsive>table>thead>tr>th,.table-responsive>table>tbody>tr>td{
+  white-space: nowrap;
+}

@@ -9,13 +9,15 @@ import { TeamListComponent } from './team-list/team-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamComponent } from './team/team.component';
+import { PitFormComponent } from './pit-form/pit-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScoutingFormComponent,
     TeamListComponent,
-    TeamComponent
+    TeamComponent,
+    PitFormComponent
   ],
   imports: [
     BrowserModule,

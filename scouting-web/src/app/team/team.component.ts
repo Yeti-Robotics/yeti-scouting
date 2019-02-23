@@ -10,6 +10,7 @@ import { ActivatedRoute } from "@angular/router";
 export class TeamComponent implements OnInit {
   teamNumber: number;
   teamInfo: any;
+  scoutForms: any[];
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) {}
 
@@ -17,9 +18,17 @@ export class TeamComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.teamNumber = params['params']['teamNumber'];
     });
-    this.httpClient.get("/api/teams/" + this.teamNumber).subscribe(data => {
-      this.teamInfo['number'] = data['number'];
-      this.teamInfo['name'] = data['name'];
-    });
+    this.httpClient.get("/api/teams/" + this.teamNumber)
+    .subscribe(data => this.teamInfo = data,
+      error => {
+        if (error && error.status === 404){
+          this.teamInfo = {
+            number: this.teamNumber,
+            name: "unknown"
+          };
+        }
+      });
+    this.httpClient.get(`/api/scoutingForms/search/findByTeamNumber?teamNumber=${this.teamNumber}`)
+    .subscribe(data => this.scoutForms = data["_embedded"]["scoutingForms"]);
   }
 }

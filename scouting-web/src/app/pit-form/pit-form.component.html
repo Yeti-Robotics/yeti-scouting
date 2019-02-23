@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <form id="pitForm" enctype="multipart/form-data" (submit)="submit()">
+      <div class="card-columns">
+          <div class="card">
+              <h5 class="card-header">
+                  Info
+                  <br>
+                  <small class="text-muted">Scouting as</small>
+              </h5>
+              <div class="card-body">
+                  <label for="#teamnumber">Team #</label>
+                  <input ng-model="pitFormData.teamNumber" class="form-control" type='number' id='teamnumber' placeholder='Enter Team Number here'
+                      required>
+              </div>
+          </div>
+          <div class="card">
+              <h5 class="card-header">Pictures</h5>
+              <div class="card-body">
+                  <button class="btn btn-block" type="button" ng-click="addPicture()">Add Picture</button>
+                  <div class="card-columns">
+                      <div style="margin-top: 1rem;">
+                        <div class="card">
+                          <div class="card-body">
+                              <div class="form-group">
+                                  <img alt="Please Upload a File!" class='displayArea img-responsive'>
+                              </div>
+                              <div class="form-group">
+                                  <input type="file" class='robotimage' name="RobotPicture">
+                              </div>
+                              <button type="button" class="btn btn-block btn-danger" ng-click="removePicture()">Delete picture</button>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+              <h5 class="card-header">Comments</h5>
+              <div class="div card-body">
+                  <textarea ng-model="pitFormData.comment" class="form-control" id="comments" rows="3" cols="40" name='comments' placeholder='Enter comments about the team here'></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <button class="btn btn-block btn-primary" type="submit">Submit</button>
+      </div>
+  </form>
+</div>

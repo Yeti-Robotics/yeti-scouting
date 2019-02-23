@@ -1,1 +1,97 @@
-Team {{teamInfo.number}}, {{teamInfo.name}}
+<div class="container-fluid">
+  <h2>Team {{ teamInfo?.number }}, {{ teamInfo?.name }}</h2>
+  <div class="card">
+    <h3 class="card-header">Sandstorm Match Data</h3>
+    <div class="card-body table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Match #</th>
+            <th>Starting HAB Level</th>
+            <th>Crossed HAB Line</th>
+            <th>Cargoship Hatch Panels</th>
+            <th>Cargoship Balls</th>
+            <th>Rocket Hatch Panels</th>
+            <th>Rocket Balls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of scoutForms">
+            <td>{{ data.matchNumber }}</td>
+            <td>{{ data.habLevelStart }}</td>
+            <td>
+              <i
+                *ngIf="data.crossHabitatLine"
+                class="material-icons text-success"
+                >check</i
+              >
+              <i
+                *ngIf="!data.crossHabitatLine"
+                class="material-icons text-danger"
+                >clear</i
+              >
+            </td>
+            <td>{{ data.sandstormCargoHatchPanelCount }}</td>
+            <td>{{ data.sandstormCargoBallCount }}</td>
+            <td>{{ data.sandstormRocketHatchPanelCount }}</td>
+            <td>{{ data.sandstormRocketBallCount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-header">TeleOp Match Data</h3>
+    <div class="card-body table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Match #</th>
+            <th>Cargoship Hatch Panels</th>
+            <th>Cargoship Balls</th>
+            <th>Rocket Hatch Panels</th>
+            <th>Rocket Balls</th>
+            <th>Defense</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of scoutForms">
+            <td>{{ data.matchNumber }}</td>
+            <td>{{ data.teleopCargoHatchPanelCount }}</td>
+            <td>{{ data.teleopCargoBallCount }}</td>
+            <td>{{ data.teleopRocketHatchPanelCount }}</td>
+            <td>{{ data.teleopRocketBallCount }}</td>
+            <td>
+                <i
+                *ngIf="data.defense"
+                class="material-icons text-success"
+                >check</i
+              >
+              <i
+                *ngIf="!data.defense"
+                class="material-icons text-danger"
+                >clear</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-header">Comments</h3>
+    <div class="card-body table-responsive">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let data of scoutForms" class="list-group-item">
+          {{ data.comment }}
+          <span *ngIf="!data.comment">No Comment</span>
+          <footer class="blockquote-footer">
+            Name, match #{{ data.matchNumber }}
+          </footer>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

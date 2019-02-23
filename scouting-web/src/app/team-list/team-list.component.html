@@ -14,8 +14,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let team of teams">
-          <td>{{team.teamNumber}}</td>
-          <td>{{team.name}}</td>
+          <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamNumber}}</a></td>
+          <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamName}}</a></td>
           <td>{{team.avgDisk | number:'1.1-2'}}</td>
           <td>{{team.avgBall | number:'1.1-2'}}</td>
           <td>{{team.droppedGamePieces}}</td>
