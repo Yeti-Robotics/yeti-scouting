@@ -19,11 +19,16 @@ import lombok.Data;
 @Data
 @NamedNativeQuery(
     name = "Team.teamList",
-    query = "SELECT s.team_number as teamNumber, t.team_name as teamName, count(*) as count " +
-    "FROM scouting_form s " +
-    "LEFT JOIN team t ON t.team_number = s.team_number " +
-    "GROUP BY s.team_number " +
-    "ORDER BY count DESC",
+    query = "SELECT s.team_number AS teamNumber,"+
+   "t.team_name AS teamName,"+
+   "AVG(CAST (s.sandstorm_cargo_hatch_panel_count AS DOUBLE) + CAST (s.sandstorm_rocket_hatch_panel_count AS DOUBLE)) AS avgDisk,"+
+   "AVG(CAST (s.sandstorm_cargo_ball_count AS DOUBLE) + CAST (s.sandstorm_rocket_ball_count AS DOUBLE)) AS avgBall,"+
+   "SUM(S.DROPPED_GAME_PIECES) AS droppedGamePieces,"+
+   "MAX(s.HAB_LEVEL_CLIMB) AS maxLevelClimbed,"+
+   "AVG(CAST(s.DEFENSE AS DOUBLE)) AS avgDefensePlays "+
+   "FROM SCOUTING_FORM s "+
+   "LEFT JOIN team t ON t.team_number = s.team_number "+
+   "GROUP BY s.team_number",
     resultClass = TeamList.class,
     resultSetMapping = "teamList"
 )
@@ -34,7 +39,11 @@ import lombok.Data;
         columns = {
             @ColumnResult(name = "teamNumber", type = Integer.class),
             @ColumnResult(name = "teamName", type = String.class),
-            @ColumnResult(name = "count", type = Integer.class),
+            @ColumnResult(name = "avgDisk", type = Double.class),
+            @ColumnResult(name = "avgBall", type = Double.class),
+            @ColumnResult(name = "droppedGamePieces", type = Integer.class),
+            @ColumnResult(name = "maxLevelClimbed", type = Integer.class),
+            @ColumnResult(name = "avgDefensePlays", type = Double.class),
         })
     }
 )

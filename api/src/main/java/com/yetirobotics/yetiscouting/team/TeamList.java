@@ -17,5 +17,9 @@ public class TeamList {
     @Id
     private Integer teamNumber;
     private String teamName;    
-    private Integer count;
+    private Double avgDisk;
+    private Double avgBall;
+    private Integer droppedGamePieces;
+    private Integer maxLevelClimbed;
+    private Double avgDefensePlays;
 }
