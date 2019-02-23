@@ -16,11 +16,11 @@
         <tr *ngFor="let team of teams">
           <td>{{team.teamNumber}}</td>
           <td>{{team.name}}</td>
-          <td>{{team.avgDisk}}</td>
-          <td>{{team.avgBall}}</td>
+          <td>{{team.avgDisk | number:'1.1-2'}}</td>
+          <td>{{team.avgBall | number:'1.1-2'}}</td>
           <td>{{team.droppedGamePieces}}</td>
           <td>{{team.maxLevelClimbed}}</td>
-          <td>{{team.avgDefensePlays}}</td>
+          <td>{{team.avgDefensePlays | percent:'1.0-2'}}</td>
         </tr>
       </tbody>
     </table>
