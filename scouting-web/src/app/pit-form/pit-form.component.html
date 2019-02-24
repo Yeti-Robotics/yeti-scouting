@@ -1,0 +1,48 @@
+{{form.value | json}}
+<div class="container-fluid">
+  <form [formGroup]="form">
+      <div class="card-columns">
+          <div class="card">
+              <h5 class="card-header">
+                  Info
+                  <br>
+                  <small class="text-muted">Scouting as</small>
+              </h5>
+              <div class="card-body">
+                  <label for="#teamnumber">Team #</label>
+                  <input class="form-control" type='number' id='teamnumber' formControlName="teamNumber" placeholder='Enter Team Number here'>
+              </div>
+          </div>
+          <div class="card">
+              <h5 class="card-header">Pictures</h5>
+              <div class="card-body">
+                  <button class="btn btn-block" type="button">Add Picture</button>
+                  <div class="card-columns">
+                      <div style="margin-top: 1rem;">
+                        <div class="card">
+                          <div class="card-body">
+                              <div class="form-group">
+                                  <img alt="Please Upload a File!" class='displayArea img-responsive'>
+                              </div>
+                              <div class="form-group">
+                                  <input type="file" (change)="onFileSelected($event)" class='robotimage' name="RobotPicture" formControlName="file">
+                              </div>
+                              <button type="button" class="btn btn-block btn-danger">Delete picture</button>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+              <h5 class="card-header">Comments</h5>
+              <div class="div card-body">
+                  <textarea class="form-control" id="comments" rows="3" cols="40" name='comments' formControlName="comment" placeholder='Enter comments about the team here'></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <button class="btn btn-block btn-primary" type="submit" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+      </div>
+  </form>
+</div>

@@ -1,5 +1,7 @@
 package com.yetirobotics.yetiscouting.form;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -7,5 +9,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface ScoutingFormRepository extends PagingAndSortingRepository<ScoutingForm, Long> {
 
-    
+   List<ScoutingForm> findByTeamNumber(int teamNumber);
 }
