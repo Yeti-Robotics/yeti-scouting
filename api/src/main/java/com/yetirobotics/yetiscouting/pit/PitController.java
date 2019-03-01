@@ -31,22 +31,24 @@ public class PitController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity submitPitForm(@RequestParam(name = "file", required = false) MultipartFile file,
+    public ResponseEntity submitPitForm(@RequestParam(name = "files[]", required = false) MultipartFile[] files,
             @RequestParam(name = "comment", required = false) String comment,
             @RequestParam("teamNumber") Integer teamNumber) throws Exception {
-        if (file != null) {
-            int i = file.getOriginalFilename().lastIndexOf('.');
-            String extension = "";
-            if (i>=0) {
-                extension = file.getOriginalFilename().substring(i);
+        if (files != null) {
+            for (MultipartFile file : files){
+                int i = file.getOriginalFilename().lastIndexOf('.');
+                String extension = "";
+                if (i>=0) {
+                    extension = file.getOriginalFilename().substring(i);
+                }
+                String fileName = "pics/" + UUID.randomUUID() + extension;
+                Path path = Paths.get(fileName).toAbsolutePath().normalize();
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                PitPicture pitPicture = new PitPicture();
+                pitPicture.setTeamNumber(teamNumber);
+                pitPicture.setPicture(fileName);
+                pitPictureRepository.save(pitPicture);
             }
-            String fileName = "pics/" + UUID.randomUUID() + extension;
-            Path path = Paths.get(fileName).toAbsolutePath().normalize();
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            PitPicture pitPicture = new PitPicture();
-            pitPicture.setTeamNumber(teamNumber);
-            pitPicture.setPicture(fileName);
-            pitPictureRepository.save(pitPicture);
         }
         if (comment != null) {
             PitComment pitComment = new PitComment();
@@ -55,5 +57,6 @@ public class PitController {
             pitCommentRepository.save(pitComment);
         }
         return ResponseEntity.ok().build();
+        
     }
 }

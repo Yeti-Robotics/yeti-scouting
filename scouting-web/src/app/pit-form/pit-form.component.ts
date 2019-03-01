@@ -9,13 +9,14 @@ import { FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms"
 })
 export class PitFormComponent implements OnInit {
   form: FormGroup;
-  file: File;
+  pictures = [];
+  picCounter = [];
 
   constructor(private fb: FormBuilder, private httpClient: HttpClient) {
     this.form = this.fb.group(
       {
         teamNumber: ["", Validators.required],
-        file: "",
+        pictures: [],
         comment: ""
       },
       { validators: this.pitFormValidator() }
@@ -27,8 +28,8 @@ export class PitFormComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append("teamNumber", this.form.controls.teamNumber.value);
-    if (this.file) {
-      formData.append("file", this.file);
+    for (let picture of this.pictures) {
+      formData.append("files[]", picture);
     }
     if (this.form.controls.comment.value) {
       formData.append("comment", this.form.controls.comment.value);
@@ -37,21 +38,37 @@ export class PitFormComponent implements OnInit {
     this.httpClient
       .post("/api/pitForms", formData)
       .subscribe(() => this.form.reset(), error => console.error(error));
+    this.pictures = [];
+    this.picCounter = [];
   }
 
-  onFileSelected(event) {
+  onFileSelected(event, index) {
     console.log(event);
-    this.file = event.target.files[0];
+    if (this.pictures[index]) {
+      this.pictures[index] = event;
+    }else{
+      this.pictures.push(event);
+    }
   }
 
   pitFormValidator(): ValidatorFn {
     return (form: FormGroup) => {
       if (form) {
-        if (!form.controls.comment.value && !form.controls.file.value) {
+        if (!form.controls.comment.value && !form.controls.pictures.value) {
           return { error: true };
         }
         return null;
       }
     };
+  }
+
+  addPicture() {
+    this.picCounter.push(this.picCounter.length);
+  }
+
+  deletePicture(index) {
+    this.pictures.splice(index, 1);
+    this.picCounter.splice(index, 1);
+    console.log(index);
   }
 }

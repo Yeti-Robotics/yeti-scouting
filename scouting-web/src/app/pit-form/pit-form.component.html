@@ -16,10 +16,12 @@
           <div class="card">
               <h5 class="card-header">Pictures</h5>
               <div class="card-body">
-                  <button class="btn btn-block" type="button">Add Picture</button>
                   <div class="card-columns">
-                      <app-picture></app-picture>
+                      <div *ngFor="let picture of picCounter; index as i">
+                        <app-picture (fileOutput)="onFileSelected($event, i)" (deletePictureOutput)="deletePicture(i)"></app-picture>
+                      </div>
                   </div>
+                  <button class="btn btn-block" type="button" (click)="addPicture()">Add Picture</button>
               </div>
           </div>
           <div class="card">
