@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamComponent } from './team/team.component';
 import { PitFormComponent } from './pit-form/pit-form.component';
 import { CommonModule } from '@angular/common';
+import { PictureComponent } from './picture/picture.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CommonModule } from '@angular/common';
     ScoutingFormComponent,
     TeamListComponent,
     TeamComponent,
-    PitFormComponent
+    PitFormComponent,
+    PictureComponent
   ],
   imports: [
     BrowserModule,

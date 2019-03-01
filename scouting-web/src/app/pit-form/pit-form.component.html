@@ -18,19 +18,7 @@
               <div class="card-body">
                   <button class="btn btn-block" type="button">Add Picture</button>
                   <div class="card-columns">
-                      <div style="margin-top: 1rem;">
-                        <div class="card">
-                          <div class="card-body">
-                              <div class="form-group">
-                                  <img alt="Please Upload a File!" class='displayArea img-responsive'>
-                              </div>
-                              <div class="form-group">
-                                  <input type="file" (change)="onFileSelected($event)" class='robotimage' name="RobotPicture" formControlName="file">
-                              </div>
-                              <button type="button" class="btn btn-block btn-danger">Delete picture</button>
-                          </div>
-                      </div>
-                      </div>
+                      <app-picture></app-picture>
                   </div>
               </div>
           </div>
