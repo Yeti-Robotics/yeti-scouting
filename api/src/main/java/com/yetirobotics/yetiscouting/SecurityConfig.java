@@ -67,9 +67,12 @@ public class SecurityConfig {
                     .and()
                     .authorizeRequests().antMatchers(HttpMethod.GET, "/users", "/users/").authenticated()
                     .and()
-                    .authorizeRequests().anyRequest().anonymous()
+                    .authorizeRequests().antMatchers(HttpMethod.POST, "/scoutingForms*", "/pitForms*", "/pitPictures*", "/pitComments*").authenticated()
+                    .and()
+                    .authorizeRequests().anyRequest().permitAll()
                     .and()
                     .logout().logoutUrl("/logout");
+
         }
 
         @Override

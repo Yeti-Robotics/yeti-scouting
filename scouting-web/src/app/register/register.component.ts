@@ -1,9 +1,9 @@
 import { ValidatorFn } from "@angular/forms";
 import { Validators, FormGroup } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
+import { UserService } from '../user.service';
 
 @Component({
   selector: "app-register",
@@ -13,8 +13,8 @@ import { Router } from "@angular/router";
 export class RegisterComponent implements OnInit {
   form: FormGroup;
   constructor(private fb: FormBuilder,
-    private httpClient: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private userService: UserService) {
     this.form = this.fb.group(
       {
         username: ["", Validators.required],
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.httpClient.post("/api/users", this.form.getRawValue()).subscribe(
+    this.userService.createUser(this.form.getRawValue()).subscribe(
       data => {
         this.router.navigate(["login"]);
       },

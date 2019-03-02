@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ScoutingFormComponent } from './scouting-form/scouting-form.component';
 import { TeamListComponent } from './team-list/team-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -14,6 +14,19 @@ import { CommonModule } from '@angular/common';
 import { PictureComponent } from './picture/picture.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DefaultHeaderInterceptorService } from './default-header-interceptor.service';
+import { UserService } from './user.service';
+import { Observable, of } from 'rxjs';
+import { flatMap, catchError } from 'rxjs/operators';
+
+export function appInit(userService: UserService): Function {
+  return () =>
+    userService.checkAuth()
+      .pipe(
+        flatMap(() => of(true)),
+        catchError(() => of(true))
+      ).toPromise();
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +48,19 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DefaultHeaderInterceptorService,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInit,
+      multi: true,
+      deps: [UserService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
