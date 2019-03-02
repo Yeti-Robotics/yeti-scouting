@@ -12,6 +12,8 @@ import { TeamComponent } from './team/team.component';
 import { PitFormComponent } from './pit-form/pit-form.component';
 import { CommonModule } from '@angular/common';
 import { PictureComponent } from './picture/picture.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PictureComponent } from './picture/picture.component';
     TeamListComponent,
     TeamComponent,
     PitFormComponent,
-    PictureComponent
+    PictureComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

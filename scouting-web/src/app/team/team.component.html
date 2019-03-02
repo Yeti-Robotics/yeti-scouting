@@ -1,6 +1,66 @@
 <div class="container-fluid">
   <h2>Team {{ teamInfo?.number }}, {{ teamInfo?.name }}</h2>
   <div class="card">
+    <h3 class="card-header">Team Stats</h3>
+    <table class="table table-striped table-hover table-bordered">
+      <tbody>
+        <tr>
+          <th>Avg Sandstorm Cargoship Disks</th>
+          <td>{{teamStats?.avgSandCargoDisk}}</td>
+        </tr>
+        <tr>
+          <th>Avg Sandstorm Cargoship Balls</th>
+          <td>{{teamStats?.avgSandCargoBall}}</td>
+        </tr>
+        <tr>
+          <th>Avg Sandstorm Rocket Balls</th>
+          <td>{{teamStats?.avgSandRocketBall}}</td>
+        </tr>
+        <tr>
+          <th>Avg Sandstorm Rocket Disks</th>
+          <td>{{teamStats?.avgSandRocketDisk}}</td>
+        </tr>
+        <tr>
+          <th>Avg Teleop Cargoship Disks</th>
+          <td>{{teamStats?.avgTeleCargoDisk}}</td>
+        </tr>
+        <tr>
+          <th>Avg Teleop Cargoship Balls</th>
+          <td>{{teamStats?.avgTeleCargoBall}}</td>
+        </tr>
+        <tr>
+          <th>Avg Teleop Rocket Balls</th>
+          <td>{{teamStats?.avgTeleRocketBall}}</td>
+        </tr>
+        <tr>
+          <th>Avg Teleop Rocket Disks</th>
+          <td>{{teamStats?.avgTeleRocketDisk}}</td>
+        </tr>
+        <tr>
+          <th>Sandstorm Crossing HAB Line Percentage</th>
+          <td>
+            {{teamStats?.percentSandCrossLine}}%
+            <div class="progress">
+              <div class="progress bar bg-info" style="width: 50%"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Teleop Avg Dropped Game Peices</th>
+          <td>{{teamStats?.avgDroppedTeleGamePieces}}</td>
+        </tr>
+        <tr>
+          <th>Defense Percentage</th>
+          <td>{{teamStats?.avgTeleDefensePlays}}%</td>
+        </tr>
+        <tr>
+          <th>Most Common Starting HAB Level</th>
+          <td>{{teamStats?.mostCommonSandHabLevelStart}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
     <h3 class="card-header">Sandstorm Match Data</h3>
     <div class="card-body table-responsive">
       <table class="table table-striped table-hover table-bordered">

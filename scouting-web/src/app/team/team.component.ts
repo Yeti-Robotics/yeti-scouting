@@ -11,6 +11,7 @@ export class TeamComponent implements OnInit {
   teamNumber: number;
   teamInfo: any;
   scoutForms: any[];
+  teamStats: any;
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) {}
 
@@ -30,5 +31,7 @@ export class TeamComponent implements OnInit {
       });
     this.httpClient.get(`/api/scoutingForms/search/findByTeamNumber?teamNumber=${this.teamNumber}`)
     .subscribe(data => this.scoutForms = data["_embedded"]["scoutingForms"]);
+    this.httpClient.get(`/api/teams/search/teamStats?teamNumber=${this.teamNumber}`)
+    .subscribe(data => this.teamStats = data);
   }
 }
