@@ -1,5 +1,4 @@
 import { Validators, FormGroup } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';

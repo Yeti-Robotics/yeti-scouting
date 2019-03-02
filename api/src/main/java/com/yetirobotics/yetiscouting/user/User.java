@@ -34,8 +34,7 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean enabled = Boolean.TRUE;
 
-    @Column(name = "team_number", nullable = false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Column(name = "team_number", nullable = true)
     private Integer teamNumber;
     
 

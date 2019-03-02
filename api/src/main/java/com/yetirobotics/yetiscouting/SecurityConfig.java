@@ -65,6 +65,8 @@ public class SecurityConfig {
                     .and()
                     .authorizeRequests().antMatchers(HttpMethod.POST, "/users", "/users/").anonymous()
                     .and()
+                    .authorizeRequests().antMatchers(HttpMethod.GET, "/users", "/users/").authenticated()
+                    .and()
                     .authorizeRequests().anyRequest().anonymous()
                     .and()
                     .logout().logoutUrl("/logout");
