@@ -1,3 +1,4 @@
+import { PitComponent } from './pit/pit.component';
 import { AuthGuard } from './auth-guard.service';
 import { AnonymousGuard } from './anonymous-guard.service';
 import { RegisterComponent } from './register/register.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: "team/:teamNumber",
     component: TeamComponent
+  },
+  {
+    path: "pit/:teamNumber",
+    component: PitComponent
   },
   {
     path: "scouting",

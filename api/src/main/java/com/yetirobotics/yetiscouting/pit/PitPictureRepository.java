@@ -1,5 +1,7 @@
 package com.yetirobotics.yetiscouting.pit;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -7,5 +9,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface PitPictureRepository extends PagingAndSortingRepository<PitPicture, Long> {
 
-    
+    List<PitPicture> findByTeamNumber(int teamNumber);
 }

@@ -18,6 +18,7 @@ import { DefaultHeaderInterceptorService } from './default-header-interceptor.se
 import { UserService } from './user.service';
 import { Observable, of } from 'rxjs';
 import { flatMap, catchError } from 'rxjs/operators';
+import { PitComponent } from './pit/pit.component';
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -37,7 +38,8 @@ export function appInit(userService: UserService): Function {
     PitFormComponent,
     PictureComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PitComponent
   ],
   imports: [
     BrowserModule,
