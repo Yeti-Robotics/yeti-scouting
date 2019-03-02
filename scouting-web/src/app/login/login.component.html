@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <ngb-alert *ngIf="showInvalidLoginMessage" type="danger" (close)="showInvalidLoginMessage = false">Incorrect username or passsword</ngb-alert>
   <form [formGroup]="form">
       <div class="card-columns">
           <div class="card">
