@@ -57,6 +57,8 @@ public class SecurityConfig {
             source.registerCorsConfiguration("/**", config);
 
             http.csrf().disable()
+                    .headers().frameOptions().disable()
+                    .and()
                     .cors().configurationSource(source)
                     .and()
                     .httpBasic()
