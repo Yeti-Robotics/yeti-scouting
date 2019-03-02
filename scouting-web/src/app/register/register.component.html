@@ -9,14 +9,10 @@
       <div class="card">
           <h5 class="card-header">Register</h5>
           <div class="card-body">
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label class="required" for="#teamNumber">Team Number</label>
                   <input type="number" name="teamNumber" id="teamNumber" formControlName="teamNumber">
-              </div>
-              <div class="form-group">
-                  <label class="required" for="name">Name</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" formControlName="name" required>
-              </div>
+              </div> -->
               <div class="form-group">
                   <label class="required" for="username">Username</label>
                   <input type="text" name="username" class="form-control" id="username" placeholder="Enter a Username" formControlName='username'
@@ -32,7 +28,7 @@
                   <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm your new password"
                       formControlName="confirmPassword" required>
               </div>
-              <button type="submit" class="btn btn-block btn-primary">Register</button>
+              <button class="btn btn-block btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Register</button>
           </div>
       </div>
   </form>
