@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
         username: ["", Validators.required],
         password: ["", Validators.required],
         confirmPassword: ["", Validators.required],
-        teamNumber: ""
+        teamNumber: ["", Validators.required]
       },
       {
         validator: this.checkPasswords()
