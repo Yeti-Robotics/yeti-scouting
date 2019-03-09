@@ -2,6 +2,7 @@ package com.yetirobotics.yetiscouting;
 
 import javax.sql.DataSource;
 
+import com.yetirobotics.yetiscouting.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -38,12 +37,14 @@ public class SecurityConfig {
 
         private final DataSource dataSource;
         private final PasswordEncoder passwordEncoder;
+        private final UserService userService;
 
         @Autowired
         public WebSecurityConfig(@Qualifier("dataSource") DataSource dataSource,
-                                 PasswordEncoder passwordEncoder) {
+                                 PasswordEncoder passwordEncoder, UserService userService) {
             this.dataSource = dataSource;
             this.passwordEncoder = passwordEncoder;
+            this.userService = userService;
         }
 
         @Override
@@ -77,16 +78,16 @@ public class SecurityConfig {
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userDetailsManager())
+            auth.userDetailsService(userService)
                     .passwordEncoder(passwordEncoder);
         }
 
-        @Bean
-        public UserDetailsManager userDetailsManager() {
-            JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
-            userDetailsManager.setDataSource(dataSource);
-            return userDetailsManager;
-        }
+//        @Bean
+//        public UserDetailsManager userDetailsManager() {
+//            JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
+//            userDetailsManager.setDataSource(dataSource);
+//            return userDetailsManager;
+//        }
 
         @Bean
         public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
