@@ -1,13 +1,10 @@
 package com.yetirobotics.yetiscouting.form;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * ScoutingForm
@@ -15,6 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name = "scouting_form")
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class ScoutingForm {
 
     @Id
@@ -86,4 +84,8 @@ public class ScoutingForm {
 
     @Column(name = "rocket_level", nullable = true)
     private Integer rocketLevel;
+
+    @CreatedBy
+    @Column(name = "scouter", nullable = false)
+    private String scouter;
 }

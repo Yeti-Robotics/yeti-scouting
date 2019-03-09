@@ -30,15 +30,15 @@ export class ScoutingFormComponent implements OnInit {
       teleopRocketBallCount: [{value: 0, disabled: true}, numberValidators],
       comment: ["", Validators.required],
       score: ["", numberValidators],
-      habLevelClimb: [{value: 0}, numberValidators],
+      habLevelClimb: [0, numberValidators],
       defense: [false, Validators.required],
-      preload: [{value: 0}, numberValidators],
-      habLevelStart: [{value: 0}, numberValidators],
+      preload: [0, numberValidators],
+      habLevelStart: [0, numberValidators],
       lifted: [false, Validators.required],
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
       droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
-      rocketLevel: [{value: 0}, numberValidators]
+      rocketLevel: [0, numberValidators]
     });
   }
 
