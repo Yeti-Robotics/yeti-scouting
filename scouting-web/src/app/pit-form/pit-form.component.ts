@@ -1,6 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
+import { UserService } from "../user.service";
+import { BlueAllianceService } from "../blue-alliance.service";
 
 @Component({
   selector: "app-pit-form",
@@ -11,8 +18,15 @@ export class PitFormComponent implements OnInit {
   form: FormGroup;
   pictures = [];
   picCounter = [];
+  user: any;
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+    private userService: UserService
+  ) {
+    this.user = userService.getUserName();
+
     this.form = this.fb.group(
       {
         teamNumber: ["", Validators.required],
@@ -23,7 +37,8 @@ export class PitFormComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onSubmit() {
     const formData = new FormData();
@@ -46,7 +61,7 @@ export class PitFormComponent implements OnInit {
     console.log(event);
     if (this.pictures[index]) {
       this.pictures[index] = event;
-    }else{
+    } else {
       this.pictures.push(event);
     }
   }

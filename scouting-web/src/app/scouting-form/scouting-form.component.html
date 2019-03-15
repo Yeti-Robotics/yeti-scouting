@@ -2,7 +2,11 @@
   <form [formGroup]="form">
     <div class="card-columns">
       <div class="card">
-        <h5 class="card-header">Match Info</h5>
+        <h5 class="card-header">
+        Match Info
+        <br>
+        <small class="text-muted">Scouting as {{user.firstName}} {{user.lastName}}</small>
+        </h5>
         <div class="card-body">
           <div class="form-group">
             <label for="teamNumber" class="required">Team number</label>

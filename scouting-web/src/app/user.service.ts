@@ -21,6 +21,13 @@ export class UserService {
     }).pipe(tap(user => this.user = user, () => this.user = null));
   }
 
+  getUserName() {
+    return {
+      firstName: decodeURIComponent(this.user.principal.firstName),
+      lastName: decodeURIComponent(this.user.principal.lastName)
+    }
+  }
+
   checkAuth(): Observable<any> {
     return this.httpClient.get('/api/users')
       .pipe(tap(user => this.user = user, () => this.user = null));
@@ -32,6 +39,9 @@ export class UserService {
   }
 
   createUser(user: any): Observable<any> {
+    user.firstName = encodeURIComponent(user.firstName);
+    user.lastName = encodeURIComponent(user.lastName);
+    console.log(user);
     return this.httpClient.post('/api/users', user);
   }
 

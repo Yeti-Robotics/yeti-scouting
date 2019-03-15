@@ -1,6 +1,6 @@
-INSERT INTO users (username, password, enabled, team_number)
-VALUES ('admin', '$2a$10$9ALpT96a4IAOBZ1BVnorKupnhCE6GM5VF3WHhKxAv402PX5NX4Gw2', TRUE, 3506),
-  ('user', '$2a$10$t9Ebz8953gdqmB464K0RJ.vVe1.ZHu5P6l.k3W8oLDVx0me47qEg2', TRUE, 3506);
+INSERT INTO users (username, password, first_name, last_name, enabled, team_number)
+VALUES ('admin', '$2a$10$9ALpT96a4IAOBZ1BVnorKupnhCE6GM5VF3WHhKxAv402PX5NX4Gw2', 'Admin', 'McCoolpants', TRUE, 3506),
+  ('user', '$2a$10$t9Ebz8953gdqmB464K0RJ.vVe1.ZHu5P6l.k3W8oLDVx0me47qEg2', 'User', 'Userson', TRUE, 3506);
 
 INSERT INTO authorities (username, authority)
 VALUES ('admin', 'ROLE_ADMIN'),
