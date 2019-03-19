@@ -37,6 +37,10 @@
 - [ ] admin manipulation of data
 - [ ] alliance selection
 - [ ] time stamps
+- [ ] move from h2 to mySQL
+- [ ] make it so averages aren't skewed by dupe matches
+- [ ] longer comment char limit (and tell the limit)
+- [ ] brackets
 
 ## Setup
 - Install Java JDK
