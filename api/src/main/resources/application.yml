@@ -1,9 +1,19 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:13306/scouting
+    url: jdbc:mysql://localhost:3306/scouting
     username: scouting
     password: scouting
   servlet:
     multipart:
       max-request-size: 20MB
       max-file-size: 20MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

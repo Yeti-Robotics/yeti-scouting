@@ -4,12 +4,9 @@ services:
   scouting-db:
     image: mysql:5.7
     ports:
-      - "13306:3306"
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: scouting
       MYSQL_ROOT_PASSWORD: scouting
       MYSQL_PASSWORD: scouting
       MYSQL_USER: scouting
-    volumes:
-      - ./api/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - ./api/src/main/resources/test-data.sql:/docker-entrypoint-initdb.d/test-data.sql
