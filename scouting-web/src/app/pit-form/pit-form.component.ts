@@ -1,13 +1,13 @@
-import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
   ValidatorFn,
   Validators
 } from "@angular/forms";
-import { UserService } from "../user.service";
-import { BlueAllianceService } from "../blue-alliance.service";
+import {UserService} from "../user.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: "app-pit-form",
@@ -23,7 +23,8 @@ export class PitFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private imgResizer: Ng2ImgMaxService
   ) {
     this.user = userService.getUserName();
 
@@ -33,7 +34,7 @@ export class PitFormComponent implements OnInit {
         pictures: [],
         comment: ""
       },
-      { validators: this.pitFormValidator() }
+      {validators: this.pitFormValidator()}
     );
   }
 
@@ -51,7 +52,7 @@ export class PitFormComponent implements OnInit {
     }
 
     this.httpClient
-      .post("/api/pitForms", formData)
+      .post("/api/pit", formData)
       .subscribe(() => this.form.reset(), error => console.error(error));
     this.pictures = [];
     this.picCounter = [];
@@ -59,18 +60,26 @@ export class PitFormComponent implements OnInit {
 
   onFileSelected(event, index) {
     console.log(event);
-    if (this.pictures[index]) {
-      this.pictures[index] = event;
-    } else {
-      this.pictures.push(event);
-    }
+    this.imgResizer.resizeImage(event, 640, 640).subscribe(
+      result => {
+        event = new File([result], result.name);
+        if (this.pictures[index]) {
+          this.pictures[index] = event;
+        } else {
+          this.pictures.push(event);
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   pitFormValidator(): ValidatorFn {
     return (form: FormGroup) => {
       if (form) {
         if (!form.controls.comment.value && !form.controls.pictures.value) {
-          return { error: true };
+          return {error: true};
         }
         return null;
       }

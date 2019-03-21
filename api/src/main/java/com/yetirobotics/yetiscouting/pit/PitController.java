@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  * PitController
  */
 @RestController
-@RequestMapping("/pitForms")
+@RequestMapping("/pit")
 public class PitController {
 
     private PitPictureRepository pitPictureRepository;

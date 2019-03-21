@@ -21,6 +21,7 @@ import {catchError, flatMap} from 'rxjs/operators';
 import {PitComponent} from './pit/pit.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -58,7 +59,8 @@ export function appInit(userService: UserService): Function {
       positionClass: 'toast-top-center',
       preventDuplicates: true,
       resetTimeoutOnDuplicate: true
-    })
+    }),
+    Ng2ImgMaxModule
   ],
   providers: [
     {

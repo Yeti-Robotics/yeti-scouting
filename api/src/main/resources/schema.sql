@@ -59,8 +59,3 @@ CREATE TABLE IF NOT EXISTS users(
     password VARCHAR(500) NOT NULL,
     team_number INTEGER NOT NULL
 );
-
-INSERT INTO authorities(authority, username) VALUES
-('role_admin', 'admin'),
-('role_user', 'admin'),
-('role_user', 'user');
