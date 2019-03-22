@@ -1,3 +1,33 @@
 <div class="container-fluid">
-  
+  <h2>
+    Team {{teamNumber}}
+    <a class="btn btn-primary" style="float: right" routerLink="/team/{{teamNumber}}">Match data</a>
+  </h2>
+  <div class="container-fluid" *ngIf="pictures?.length > 0">
+    <ngb-carousel class="w-75 mx-auto">
+      <ng-template ngbSlide *ngFor="let picture of pictures; index as i">
+        <img class="d-block w-100" src="http://localhost:4200/api/pit/{{teamNumber}}/picture/{{i}}" alt="Picture missing">
+        <div class="carousel-caption">
+          Taken by {{picture.scouterFirstName}} {{picture.scouterLastName}}
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+  <div class="container-fluid" *ngIf="pictures?.length == 0">
+    <p class="lead text-danger">No pictures are available of this team's pit</p>
+  </div>
+  <br />
+  <fieldset>
+    <legend>Comments</legend>
+    <div class="container-fluid">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let comment of comments" class="list-group-item">
+          {{ comment.comment }}
+          <footer class="blockquote-footer">
+            {{comment.scouterFirstName}} {{comment.scouterLastName}}
+          </footer>
+        </li>
+      </ul>
+    </div>
+  </fieldset>
 </div>

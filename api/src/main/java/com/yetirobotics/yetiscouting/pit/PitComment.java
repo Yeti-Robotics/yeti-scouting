@@ -2,13 +2,7 @@ package com.yetirobotics.yetiscouting.pit;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -23,6 +17,28 @@ import lombok.Data;
 @Table(name = "pit_comment")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@NamedNativeQuery(
+    name = "PitComment.pitCommentsInfo",
+    query = "SELECT `comment`, users.first_name AS scouterFirstName, users.last_name AS scouterLastName, `timestamp`, users.team_number AS scouterTeamNumber\n" +
+        "FROM `pit_comment`\n" +
+        "LEFT JOIN users ON users.username = scouter\n" +
+        "WHERE pit_comment.team_number = :teamNumber",
+    resultClass = PitCommentInfo.class,
+    resultSetMapping = "pitCommentsInfo"
+)
+@SqlResultSetMapping(
+    name = "pitCommentsInfo",
+    classes = {
+        @ConstructorResult(targetClass = PitCommentInfo.class,
+            columns = {
+                @ColumnResult(name = "comment", type = String.class),
+                @ColumnResult(name = "scouterFirstName", type = String.class),
+                @ColumnResult(name = "scouterLastName", type = String.class),
+                @ColumnResult(name = "timestamp", type = String.class),
+                @ColumnResult(name = "scouterTeamNumber", type = Integer.class),
+            })
+    }
+)
 public class PitComment {
 
     @Id

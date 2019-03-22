@@ -21,8 +21,9 @@ export class UserService {
     }).pipe(tap(user => this.user = user, () => this.user = null));
   }
 
-  getUserName() {
+  getUserInfo() {
     return {
+      username: this.user.principal.username,
       firstName: decodeURIComponent(this.user.principal.firstName),
       lastName: decodeURIComponent(this.user.principal.lastName)
     }

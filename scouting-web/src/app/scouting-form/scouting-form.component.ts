@@ -17,7 +17,7 @@ export class ScoutingFormComponent implements OnInit {
     private httpClient: HttpClient,
     private userService: UserService
   ) {
-    this.user = userService.getUserName();
+    this.user = userService.getUserInfo();
 
     const numberValidators = Validators.compose([
       Validators.required,

@@ -26,7 +26,7 @@ export class PitFormComponent implements OnInit {
     private userService: UserService,
     private imgResizer: Ng2ImgMaxService
   ) {
-    this.user = userService.getUserName();
+    this.user = userService.getUserInfo();
 
     this.form = this.fb.group(
       {
@@ -44,6 +44,7 @@ export class PitFormComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append("teamNumber", this.form.controls.teamNumber.value);
+    formData.append("scouter", this.user.username);
     for (let picture of this.pictures) {
       formData.append("files[]", picture);
     }

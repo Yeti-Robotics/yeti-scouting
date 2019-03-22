@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <h2>Team {{ teamInfo?.number }}, {{ teamInfo?.name }}</h2>
+  <h2>
+    Team {{ teamInfo?.number }}, {{ teamInfo?.name }}
+    <a class="btn btn-primary" style="float: right" routerLink="/pit/{{teamNumber}}">Pit data</a>
+  </h2>
   <div class="card">
     <h3 class="card-header">Team Stats</h3>
     <table class="table table-striped table-hover table-bordered">

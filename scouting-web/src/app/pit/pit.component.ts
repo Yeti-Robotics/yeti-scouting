@@ -1,26 +1,33 @@
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-pit',
   templateUrl: './pit.component.html',
-  styleUrls: ['./pit.component.css']
+  styleUrls: ['./pit.component.css'],
+  providers: [NgbCarouselConfig]
 })
 export class PitComponent implements OnInit {
   teamNumber: number;
-  pitPictures: any;
-  pitComments: any;
+  pictures: any[];
+  comments: any[];
 
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private carouselConfig: NgbCarouselConfig) {
+    carouselConfig.interval = 0;
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.teamNumber = params["params"]["teamNumber"];
     });
-    this.httpClient.get(`/api/pitPictures/search/findByTeamNumber?teamNumber=${this.teamNumber}`)
-    .subscribe(data => this.pitPictures = data["_embedded"]["pitPictures"]);
+    this.httpClient.get(`/api/pit/${this.teamNumber}`)
+      .subscribe(data => {
+        this.pictures = data["pictures"];
+        this.comments = data["comments"];
+      });
   }
 
 }
