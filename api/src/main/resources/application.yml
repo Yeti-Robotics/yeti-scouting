@@ -1,13 +1,19 @@
 spring:
   datasource:
-    url: jdbc:h2:./build/database/scouting;AUTO_SERVER=TRUE
+    url: jdbc:mysql://localhost:3306/scouting
     username: scouting
     password: scouting
-  h2:
-    console:
-      enabled: true
-      path: /h2
-  http:
+  servlet:
     multipart:
       max-request-size: 20MB
       max-file-size: 20MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

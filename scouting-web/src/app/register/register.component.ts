@@ -1,9 +1,8 @@
-import { ValidatorFn } from "@angular/forms";
-import { Validators, FormGroup } from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
-import { Router } from "@angular/router";
-import { UserService } from '../user.service';
+import {FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {UserService} from '../user.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: "app-register",
@@ -14,13 +13,16 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   constructor(private fb: FormBuilder,
     private router: Router,
-    private userService: UserService) {
+    private userService: UserService,
+    private toastrService: ToastrService) {
     this.form = this.fb.group(
       {
-        username: ["", Validators.required],
-        password: ["", Validators.required],
-        confirmPassword: ["", Validators.required],
-        teamNumber: ""
+        firstName : ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+        lastName : ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+        username: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(50)])],
+        password: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
+        confirmPassword: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
+        teamNumber: ["", Validators.required]
       },
       {
         validator: this.checkPasswords()
@@ -37,6 +39,11 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         console.error(error);
+        if (error && error.status === 409) {
+          this.toastrService.warning('Username already registered');
+        } else {
+          this.toastrService.warning('Unable to register');
+        }
       }
     );
   }

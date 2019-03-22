@@ -1,6 +1,8 @@
 package com.yetirobotics.yetiscouting.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +22,12 @@ import java.io.Serializable;
 @Table(name = "authorities",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "authority"})})
 @IdClass(Authority.Key.class)
-public class Authority {
+public class Authority implements GrantedAuthority {
 
     @Id
     @ManyToOne
     @JoinColumn(name = "username", nullable = false)
+    @JsonIgnore
     private User user;
 
     @Id

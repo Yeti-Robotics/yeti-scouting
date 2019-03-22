@@ -1,24 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ScoutingFormComponent } from './scouting-form/scouting-form.component';
-import { TeamListComponent } from './team-list/team-list.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TeamComponent } from './team/team.component';
-import { PitFormComponent } from './pit-form/pit-form.component';
-import { CommonModule } from '@angular/common';
-import { PictureComponent } from './picture/picture.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DefaultHeaderInterceptorService } from './default-header-interceptor.service';
-import { UserService } from './user.service';
-import { Observable, of } from 'rxjs';
-import { flatMap, catchError } from 'rxjs/operators';
-import { PitComponent } from './pit/pit.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ScoutingFormComponent} from './scouting-form/scouting-form.component';
+import {TeamListComponent} from './team-list/team-list.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TeamComponent} from './team/team.component';
+import {PitFormComponent} from './pit-form/pit-form.component';
+import {CommonModule} from '@angular/common';
+import {PictureComponent} from './picture/picture.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {DefaultHeaderInterceptorService} from './default-header-interceptor.service';
+import {UserService} from './user.service';
+import {of} from 'rxjs';
+import {catchError, flatMap} from 'rxjs/operators';
+import {PitComponent} from './pit/pit.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -48,7 +51,16 @@ export function appInit(userService: UserService): Function {
     ReactiveFormsModule,
     NgbModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      autoDismiss: true,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+      resetTimeoutOnDuplicate: true
+    }),
+    Ng2ImgMaxModule
   ],
   providers: [
     {
@@ -65,4 +77,5 @@ export function appInit(userService: UserService): Function {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

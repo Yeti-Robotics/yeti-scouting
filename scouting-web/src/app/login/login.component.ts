@@ -1,9 +1,10 @@
-import { UserService } from './../user.service';
+import { UserService } from '../user.service';
 import { Validators } from "@angular/forms";
 import { FormGroup } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from '@angular/router';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: "app-login",
@@ -11,9 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
+
   form: FormGroup;
-  showInvalidLoginMessage = false;
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder,
+              private userService: UserService,
+              private router: Router,
+              private toastrService: ToastrService) {
     this.form = this.fb.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
@@ -30,8 +34,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate([""]);
       }, error => {
         this.userService.user = null;
-        this.showInvalidLoginMessage = true;
-        setTimeout(() => this.showInvalidLoginMessage = false, 5000);
+        this.toastrService.error('Incorrect username or password');
         this.form.controls.password.reset();
         console.error(error);
       });

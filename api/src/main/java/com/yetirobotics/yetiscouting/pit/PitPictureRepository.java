@@ -10,4 +10,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface PitPictureRepository extends PagingAndSortingRepository<PitPicture, Long> {
 
     List<PitPicture> findByTeamNumber(int teamNumber);
+    List<PitPicture> findByTeamNumberOrderByTimestampAsc(int teamNumber);
 }

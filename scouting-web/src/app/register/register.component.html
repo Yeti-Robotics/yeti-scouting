@@ -1,32 +1,37 @@
 <div class="container-fluid">
   <form [formGroup]="form">
-      <!-- <div ng-show="showRedirectMessage" role="alert" class="alert alert-danger alert-dismissible">
-          <button type="button" data-dismiss="alert" aria-label="Close" class="close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-          <strong>You must be logged in to scout or place a bet</strong>
-      </div> -->
       <div class="card">
           <h5 class="card-header">Register</h5>
           <div class="card-body">
-              <!-- <div class="form-group">
-                  <label class="required" for="#teamNumber">Team Number</label>
-                  <input type="number" name="teamNumber" id="teamNumber" formControlName="teamNumber">
-              </div> -->
+               <div class="form-group">
+                  <label class="required" for="teamNumber">Team Number</label>
+                  <input type="number" name="teamNumber" class="form-control" id="teamNumber" formControlName="teamNumber"
+                         placeholder="Enter your team number" autocomplete="off">
+              </div>
+              <div class="form-group">
+                  <label class="required" for="firstName">First Name</label>
+                  <input type="text" name="username" class="form-control" id="firstName" formControlName='firstName'
+                      required autocomplete="off">
+              </div>
+              <div class="form-group">
+                  <label class="required" for="lastName">Last Name</label>
+                  <input type="text" name="username" class="form-control" id="lastName" formControlName='lastName'
+                      required autocomplete="off">
+              </div>
               <div class="form-group">
                   <label class="required" for="username">Username</label>
-                  <input type="text" name="username" class="form-control" id="username" placeholder="Enter a Username" formControlName='username'
-                      required>
+                  <input type="text" name="username" class="form-control" id="username" pattern="[a-zA-Z0-9 ]*" placeholder="Enter a Username, at least 4 characters" formControlName='username'
+                      required autocomplete="off">
               </div>
               <div class="form-group">
                   <label class="required" for="password">Password</label>
-                  <input type="password" name="password" class="form-control" id="password" placeholder="Enter a new password" formControlName="password"
-                      required>
+                  <input type="password" name="password" class="form-control" id="password" placeholder="Enter a new password, at least 4 characters" formControlName="password"
+                      required autocomplete="off">
               </div>
               <div class="form-group">
                   <label class="required" for="confirmPassword">Confirm Password</label>
                   <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm your new password"
-                      formControlName="confirmPassword" required>
+                      formControlName="confirmPassword" required autocomplete="off">
               </div>
               <button class="btn btn-block btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Register</button>
           </div>

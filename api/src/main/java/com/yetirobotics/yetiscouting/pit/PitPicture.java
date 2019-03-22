@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -37,4 +38,8 @@ public class PitPicture {
     @Column(name = "timestamp", nullable = false)
     @LastModifiedDate
     private Date timestamp;
+
+    @CreatedBy
+    @Column(name = "scouter", nullable = false)
+    private String scouter;
 }

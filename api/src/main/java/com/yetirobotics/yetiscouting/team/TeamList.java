@@ -20,6 +20,11 @@ public class TeamList {
     private Double avgDisk;
     private Double avgBall;
     private Integer droppedGamePieces;
-    private Integer maxLevelClimbed;
     private Double avgDefensePlays;
+    private Integer totalDisks;
+    private Integer totalBalls;
+    private Double avgSandstormDisks;
+    private Double avgSandstormBalls;
+    private Double avgClimbLevel;
+    private Integer climbLevelMode;
 }
