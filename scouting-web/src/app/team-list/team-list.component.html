@@ -10,6 +10,8 @@
           <th>Game Pieces Dropped</th>
           <th>Highest Level Climbed</th>
           <th>Defensive Probability</th>
+          <th>Total Disks</th>
+          <th>Total Balls</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +23,8 @@
           <td>{{team.droppedGamePieces}}</td>
           <td>{{team.maxLevelClimbed}}</td>
           <td>{{team.avgDefensePlays | percent:'1.0-2'}}</td>
+          <td>{{team.totalDisks}}</td>
+          <td>{{team.totalBalls}}</td>
         </tr>
       </tbody>
     </table>

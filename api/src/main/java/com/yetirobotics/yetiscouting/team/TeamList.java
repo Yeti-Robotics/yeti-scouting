@@ -22,4 +22,6 @@ public class TeamList {
     private Integer droppedGamePieces;
     private Integer maxLevelClimbed;
     private Double avgDefensePlays;
+    private Integer totalDisks;
+    private Integer totalBalls;
 }
