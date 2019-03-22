@@ -6,12 +6,13 @@
           <th>Team</th>
           <th>Team Name</th>
           <th>Avg Disks Scored</th>
-          <th>Avg Balls Scored</th>
-          <th>Game Pieces Dropped</th>
-          <th>Highest Level Climbed</th>
-          <th>Defensive Probability</th>
           <th>Total Disks</th>
+          <th>Avg Balls Scored</th>
           <th>Total Balls</th>
+          <th>Average Level Climbed</th>
+          <th>Most Common Level Climbed</th>
+          <th>Game Pieces Dropped</th>
+          <th>Defensive Probability</th>
         </tr>
       </thead>
       <tbody>
@@ -19,12 +20,18 @@
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamNumber}}</a></td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamName}}</a></td>
           <td>{{team.avgDisk | number:'1.1-2'}}</td>
-          <td>{{team.avgBall | number:'1.1-2'}}</td>
-          <td>{{team.droppedGamePieces}}</td>
-          <td>{{team.maxLevelClimbed}}</td>
-          <td>{{team.avgDefensePlays | percent:'1.0-2'}}</td>
           <td>{{team.totalDisks}}</td>
+          <td>{{team.avgBall | number:'1.1-2'}}</td>
           <td>{{team.totalBalls}}</td>
+          <td>{{team.avgClimbLevel | number:'1.1-2'}}</td>
+          <td *ngIf="team.climbLevelMode > 0; else noClimb">
+            Level {{team.climbLevelMode}}
+          </td>
+          <ng-template #noClimb>
+            <td>No level</td>
+          </ng-template>
+          <td>{{team.droppedGamePieces}}</td>
+          <td>{{team.avgDefensePlays | percent:'1.0-2'}}</td>
         </tr>
       </tbody>
     </table>

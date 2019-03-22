@@ -11,6 +11,9 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+
+
+
 /**
  * Team
  */
@@ -21,15 +24,27 @@ import lombok.Data;
     name = "Team.teamList",
     query = "SELECT s.team_number AS teamNumber," +
         "t.team_name AS teamName," +
-        "AVG(s.sandstorm_cargo_hatch_panel_count + s.sandstorm_rocket_hatch_panel_count) AS avgDisk," +
-        "AVG(s.sandstorm_cargo_ball_count + s.sandstorm_rocket_ball_count) AS avgBall," +
+        "AVG(s.sandstorm_cargo_hatch_panel_count + s.sandstorm_rocket_hatch_panel_count) AS avgSandstormDisks," +
+        "AVG(s.sandstorm_cargo_hatch_panel_count + s.sandstorm_rocket_hatch_panel_count + s.teleop_cargo_hatch_panel_count + s.teleop_rocket_hatch_panel_count) AS avgDisk," +
+        "AVG(s.sandstorm_cargo_ball_count + s.sandstorm_rocket_ball_count) AS avgSandstormBalls," +
+        "AVG(s.sandstorm_cargo_ball_count + s.sandstorm_rocket_ball_count + s.teleop_cargo_ball_count + s.teleop_rocket_ball_count) AS avgBall," +
         "SUM(s.dropped_game_pieces) AS droppedGamePieces," +
-        "MAX(s.hab_level_climb) AS maxLevelClimbed," +
+        "AVG(s.hab_level_climb) AS avgClimbLevel, " +
+        "hab_mode.climb_level_mode AS climbLevelMode," +
         "AVG(s.defense) AS avgDefensePlays," +
         "SUM(s.sandstorm_cargo_ball_count + s.sandstorm_rocket_ball_count + s.teleop_cargo_ball_count + s.teleop_rocket_ball_count) AS totalBalls," +
         "SUM(s.sandstorm_cargo_hatch_panel_count + s.sandstorm_rocket_hatch_panel_count + s.teleop_cargo_hatch_panel_count + s.teleop_rocket_hatch_panel_count) AS totalDisks " +
         "FROM scouting_form s " +
         "LEFT JOIN team t ON t.team_number = s.team_number " +
+        "LEFT JOIN (SELECT c.team_number, c.hab_level_climb AS climb_level_mode " +
+        "FROM (SELECT team_number, hab_level_climb, COUNT(hab_level_climb) AS climb_count " +
+        "           FROM scouting_form " +
+        "           GROUP BY team_number, hab_level_climb) AS c " +
+        "INNER JOIN (SELECT team_number, MAX(c.climb_count) AS climb_mode " +
+        "FROM (SELECT team_number, hab_level_climb, COUNT(hab_level_climb) AS climb_count " +
+        "           FROM scouting_form " +
+        "           GROUP BY team_number, hab_level_climb) AS c " +
+        "GROUP BY team_number) AS m ON m.team_number = c.team_number AND m.climb_mode = c.climb_count) AS hab_mode ON s.team_number = hab_mode.team_number " +
         "GROUP BY s.team_number",
     resultClass = TeamList.class,
     resultSetMapping = "teamList"
@@ -75,10 +90,13 @@ import lombok.Data;
                 @ColumnResult(name = "avgDisk", type = Double.class),
                 @ColumnResult(name = "avgBall", type = Double.class),
                 @ColumnResult(name = "droppedGamePieces", type = Integer.class),
-                @ColumnResult(name = "maxLevelClimbed", type = Integer.class),
                 @ColumnResult(name = "avgDefensePlays", type = Double.class),
                 @ColumnResult(name = "totalBalls", type = Integer.class),
-                @ColumnResult(name = "totalDisks", type = Integer.class)
+                @ColumnResult(name = "totalDisks", type = Integer.class),
+                @ColumnResult(name = "avgSandstormDisks", type = Double.class),
+                @ColumnResult(name = "avgSandstormBalls", type = Double.class),
+                @ColumnResult(name = "avgClimbLevel", type = Double.class),
+                @ColumnResult(name = "climbLevelMode", type = Integer.class),
             })
     }
 )
@@ -116,8 +134,5 @@ public class Team {
     private String name;
 
 }
-
-
-
 
 
