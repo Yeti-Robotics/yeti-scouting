@@ -11,6 +11,7 @@ import { UserService } from '../user.service';
 export class ScoutingFormComponent implements OnInit {
   form: FormGroup;
   user: any;
+  submitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -53,10 +54,10 @@ export class ScoutingFormComponent implements OnInit {
       teleopRocketBallCount: [{ value: 0, disabled: true }, numberValidators],
       comment: ["", Validators.required],
       score: ["", numberValidators],
-      habLevelClimb: [0, numberValidators],
+      habLevelClimb: [0, Validators.required],
       defense: [false, Validators.required],
-      preload: [0, numberValidators],
-      habLevelStart: [0, numberValidators],
+      preload: [0, Validators.required],
+      habLevelStart: [0, Validators.required],
       lifted: [false, Validators.required],
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
@@ -89,17 +90,43 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitting = true;
     this.httpClient
       .post("/api/scoutingForms", this.form.getRawValue())
       .subscribe(
         data => {
           console.log(data);
           this.form.reset({
-            crossHabitatLine: false
+            teamNumber: "",
+            matchNumber: "",
+            crossHabitatLine: false,
+            sandstormCargoHatchPanelCount: 0,
+            sandstormCargoBallCount: 0,
+            sandstormRocketHatchPanelCount: 0,
+            sandstormRocketBallCount: 0,
+            teleopCargoHatchPanelCount: 0,
+            teleopCargoBallCount: 0,
+            teleopRocketHatchPanelCount: 0,
+            teleopRocketBallCount: 0,
+            comment: "",
+            score: "",
+            habLevelClimb: 0,
+            defense: false,
+            preload: 0,
+            habLevelStart: 0,
+            climbTime: 0,
+            lifted: false,
+            gotLifted: false,
+            buddyClimb: false,
+            droppedGamePieces: 0,
+            rocketLevel: 0
           });
         },
         error => {
           console.error(error);
+        },
+        () => {
+          this.submitting = false;
         }
       );
   }
