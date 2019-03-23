@@ -88,4 +88,8 @@ public class ScoutingForm {
     @CreatedBy
     @Column(name = "scouter", nullable = false)
     private String scouter;
+
+    @Column(name = "timestamp", nullable = false)
+    @LastModifiedDate
+    private Date timestamp;
 }
