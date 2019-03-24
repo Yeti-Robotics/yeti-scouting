@@ -1,0 +1,11 @@
+th[sortable].desc:before {
+  font-family: "Material Icons";
+  content: "arrow_drop_down";
+  vertical-align: middle;
+}
+
+th[sortable].asc:before {
+  font-family: "Material Icons";
+  content: "arrow_drop_up";
+  vertical-align: middle;
+}
