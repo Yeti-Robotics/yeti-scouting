@@ -39,8 +39,10 @@
 - [ ] time stamps
 - [ ] move from h2 to mySQL
 - [ ] make it so averages aren't skewed by dupe matches
-- [ ] longer comment char limit (and tell the limit)
+- [x] longer comment char limit (and tell the limit)
 - [ ] brackets
+- [ ] peaks
+- [ ] sort by columns
 
 ## Setup
 - Install Java JDK
