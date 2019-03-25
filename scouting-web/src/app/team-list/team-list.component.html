@@ -1,4 +1,9 @@
 <div class="container-fluid">
+  <form>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Filter by team number or name" [formControl]="filter">
+    </div>
+  </form>
   <div class="table-responsive">
     <table class="table table-hover table-striped table-bordered">
       <thead>
@@ -17,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let team of teams; index as i">
+        <tr *ngFor="let team of teams$ | async; index as i">
           <td scope="row">{{i + 1}}</td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamNumber}}</a></td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamName}}</a></td>

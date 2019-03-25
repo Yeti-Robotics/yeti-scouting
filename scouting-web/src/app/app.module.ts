@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ScoutingFormComponent} from './scouting-form/scouting-form.component';
-import {TeamListComponent} from './team-list/team-list.component';
+import {TableSortDirective, TeamListComponent} from './team-list/team-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TeamComponent} from './team/team.component';
@@ -22,7 +22,6 @@ import {PitComponent} from './pit/pit.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Ng2ImgMaxModule} from "ng2-img-max";
-import { TableSortDirective } from './table-sort.directive';
 
 export function appInit(userService: UserService): Function {
   return () =>
