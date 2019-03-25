@@ -16,15 +16,15 @@ public class TeamList {
 
     @Id
     private Integer teamNumber;
-    private String teamName;    
-    private Double avgDisk;
-    private Double avgBall;
-    private Integer droppedGamePieces;
-    private Double avgDefensePlays;
-    private Integer totalDisks;
-    private Integer totalBalls;
+    private String teamName;
     private Double avgSandstormDisks;
+    private Double avgDisk;
     private Double avgSandstormBalls;
+    private Double avgBall;
     private Double avgClimbLevel;
     private Integer climbLevelMode;
+    private Integer droppedGamePieces;
+    private Double avgDefensePlays;
+    private Integer totalBalls;
+    private Integer totalDisks;
 }
