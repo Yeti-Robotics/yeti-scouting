@@ -98,7 +98,6 @@ import lombok.Data;
     }
 )
 
-
 @SqlResultSetMapping(
     name = "teamStats",
     classes = {
@@ -121,6 +120,7 @@ import lombok.Data;
             })
     }
 )
+
 public class Team {
 
     @Id
@@ -131,8 +131,3 @@ public class Team {
     private String name;
 
 }
-
-
-
-
-
