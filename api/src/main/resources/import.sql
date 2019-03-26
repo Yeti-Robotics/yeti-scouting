@@ -22,6 +22,9 @@ SET time_zone = "+00:00";
 -- Database: `yetirobotics_org_scouting`
 --
 
+INSERT INTO users(username, enabled, first_name, last_name, password, team_number) VALUES ('admin', TRUE, 'Admin', 'McCoolpants', '$2a$10$9ALpT96a4IAOBZ1BVnorKupnhCE6GM5VF3WHhKxAv402PX5NX4Gw2', 3506);
+INSERT INTO users(username, enabled, first_name, last_name, password, team_number) VALUES ('user', TRUE, 'User', 'Userson', '$2a$10$t9Ebz8953gdqmB464K0RJ.vVe1.ZHu5P6l.k3W8oLDVx0me47qEg2', 3506);
+
 --
 -- Truncate table before insert `scouting_form`
 --
