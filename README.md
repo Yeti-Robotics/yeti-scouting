@@ -36,13 +36,13 @@
 - [ ] form submission notice
 - [ ] admin manipulation of data
 - [ ] alliance selection
-- [ ] time stamps
-- [ ] move from h2 to mySQL
-- [ ] make it so averages aren't skewed by dupe matches
+- [x] time stamps
+- [x] move from h2 to mySQL
+- [x] make it so averages aren't skewed by dupe matches
 - [x] longer comment char limit (and tell the limit)
 - [ ] brackets
 - [ ] peaks
-- [ ] sort by columns
+- [x] sort by columns
 
 ## Setup
 - Install Java JDK
