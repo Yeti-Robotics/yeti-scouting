@@ -74,7 +74,6 @@ export class TeamListComponent implements OnInit {
         startWith(''),
         map(text => this.search(text, this.pipe))
       );
-      this.teams$.subscribe(value => console.log(value));
     });
   }
 
@@ -98,13 +97,12 @@ export class TeamListComponent implements OnInit {
 
   search(text: string, pipe: PipeTransform) {
     this.teams$.pipe(source => {
-      console.log(source);
       return source;
     });
     return this.teams.filter(team => {
       const term = text.toLowerCase();
       return team.teamName.toLowerCase().includes(term)
-        || pipe.transform(team.teamNumber).includes(term);
+        || String(team.teamNumber).includes(term);
     });
   }
 }
