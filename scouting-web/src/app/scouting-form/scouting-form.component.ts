@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ValidatorFn, Validators} from "@angular/forms";
+import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
 import { UserService } from '../user.service';
+import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {BlueAllianceService} from "../blue-alliance.service";
 
 @Component({
   selector: "app-scouting-form",
@@ -12,11 +15,27 @@ export class ScoutingFormComponent implements OnInit {
   form: FormGroup;
   user: any;
   submitting = false;
+  matches = [];
+  showTeamChooser = true;
+  selectedScouterPos = new FormControl('', Validators.required);
+  teamSelected = false;
+
+  scouterPositions = [
+    "red 1",
+    "red 2",
+    "red 3",
+    "blue 1",
+    "blue 2",
+    "blue 3",
+  ];
 
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private toastrService: ToastrService,
+    private modal: NgbModal,
+    private blueAlliance: BlueAllianceService
   ) {
     this.user = userService.getUserInfo();
 
@@ -58,12 +77,21 @@ export class ScoutingFormComponent implements OnInit {
       defense: [false, Validators.required],
       preload: [0, Validators.required],
       habLevelStart: [0, Validators.required],
+      climbTime: [0, numberValidators],
       lifted: [false, Validators.required],
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
       droppedGamePieces: [{ value: 0, disabled: true }, numberValidators],
       rocketLevel: [0, numberValidators]
     });
+
+    this.blueAlliance.getFutureMatches().toPromise().catch(
+      error => {
+        this.showTeamChooser = false;
+        console.error(error);
+        this.toastrService.error("Error retrieving future matches. Please enter manually.");
+      }
+    );
   }
 
   ngOnInit() {
@@ -89,8 +117,25 @@ export class ScoutingFormComponent implements OnInit {
     this.form.controls[field].setValue(Math.max(0, value));
   }
 
+  selectTeam(matchNumber, teamNumber) {
+    this.form.controls.matchNumber.setValue(matchNumber);
+    this.form.controls.teamNumber.setValue(teamNumber);
+    this.teamSelected = true;
+    this.modal.dismissAll();
+  }
+
+  selectScouterPos() {
+    if (this.selectedScouterPos.valid){
+      this.matches = this.blueAlliance.selectRobotPos(this.selectedScouterPos.value);
+    }
+  }
+
   onSubmit() {
     this.submitting = true;
+
+    if (this.form.value.habLevelClimb == 0) {
+      this.form.value.habLevelClimb = null;
+    }
     this.httpClient
       .post("/api/scoutingForms", this.form.getRawValue())
       .subscribe(
@@ -121,9 +166,14 @@ export class ScoutingFormComponent implements OnInit {
             droppedGamePieces: 0,
             rocketLevel: 0
           });
+
+          this.toastrService.success("Success!");
+          this.matches = this.matches.slice(1);
+          this.teamSelected = false;
         },
         error => {
           console.error(error);
+          this.toastrService.error("Error during submission. Contact a programmer.");
         },
         () => {
           this.submitting = false;

@@ -1,3 +1,38 @@
+<!--Match chooser-->
+<ng-template #teamChooser let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Match Selector</h5>
+      <button class="close" type="button" (click)="modal.dismiss()" aria-label="close">
+        <span>&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="matches?.length > 0; else noMatches">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+              <th class="text-center">Match #</th>
+              <th class="text-center">Team</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let match of matches" (click)="selectTeam(match.number, match.team)">
+              <td class="text-center">{{match.number}}</td>
+              <td class="text-center" role="button">{{match.team}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ng-template #noMatches>
+        <h4>No matches to display at this time</h4>
+      </ng-template>
+    </div>
+</ng-template>
+
+
+<!--Form-->
 <div class="container-fluid">
   <form [formGroup]="form">
     <div class="card-columns">
@@ -8,16 +43,46 @@
         <small class="text-muted">Scouting as {{user.firstName}} {{user.lastName}}</small>
         </h5>
         <div class="card-body">
-          <div class="form-group">
-            <label for="teamNumber" class="required">Team number</label>
-            <input id="teamNumber" type="number" class="form-control" formControlName="teamNumber" min="0"
-                   autocomplete="off">
+          <div *ngIf="showTeamChooser; else manualInput">
+            <div class="form-group">
+              <label for="scouterPos" class="required">Select the position you're scouting for</label>
+              <select required id="scouterPos" class="form-control custom-select" [formControl]="selectedScouterPos" (change)="selectScouterPos()">
+                <option [value]="''">Select a robot position</option>
+                <option *ngFor="let scouterPos of scouterPositions" [value]="scouterPos">{{scouterPos | titlecase}}</option>
+              </select>
+            </div>
+
+            <button *ngIf="selectedScouterPos.valid" class="btn btn-block btn-primary" id="matchChooser" name="matchChooser" type="button" (click)="modal.open(teamChooser)">Choose a match</button>
+
+            <div *ngIf="teamSelected && selectedScouterPos.valid">
+              <table class="table table-bordered table-sm" style="margin-bottom: 0; margin-top: 1rem">
+                <thead>
+                <tr>
+                  <th class="text-center">Match Number</th>
+                  <th class="text-center">Team Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center">{{form.controls.matchNumber.value}}</td>
+                  <td class="text-center">{{form.controls.teamNumber.value}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="matchNumber" class="required">Match number</label>
-            <input id="matchNumber" type="number" class="form-control" formControlName="matchNumber" min="0"
-                   autocomplete="off">
-          </div>
+          <ng-template #manualInput>
+            <div class="form-group">
+              <label for="teamNumber" class="required">Team number</label>
+              <input id="teamNumber" type="number" class="form-control" formControlName="teamNumber" min="0"
+                     autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="matchNumber" class="required">Match number</label>
+              <input id="matchNumber" type="number" class="form-control" formControlName="matchNumber" min="0"
+                     autocomplete="off">
+            </div>
+          </ng-template>
         </div>
       </div>
 
@@ -194,6 +259,13 @@
             <input type="checkbox" id="defense" formControlName="defense" class="custom-control-input">
             <label for="defense" class="custom-control-label">Did this robot play defense?</label>
           </div>
+
+          <div class="form-group">
+            <label for="climbTime" class="required">Approximate climb time in seconds</label>
+            <input id="climbTime" type="number" class="form-control" formControlName="climbTime">
+            <small class="form-text text-muted">If the robot did not climb or did not attempt to climb, put zero.</small>
+          </div>
+
           <div class="form-group">
             <label for="habLevelClimb" class="required">HAB level climb</label>
             <div class="btn-group btn-group-toggle d-flex" id="habLevelClimb" ngbRadioGroup name="habLevelClimb" formControlName="habLevelClimb">
