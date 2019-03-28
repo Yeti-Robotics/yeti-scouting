@@ -11,9 +11,6 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
-
-
 /**
  * Team
  */
@@ -87,16 +84,16 @@ import lombok.Data;
             columns = {
                 @ColumnResult(name = "teamNumber", type = Integer.class),
                 @ColumnResult(name = "teamName", type = String.class),
+                @ColumnResult(name = "avgSandstormDisks", type = Double.class),
                 @ColumnResult(name = "avgDisk", type = Double.class),
+                @ColumnResult(name = "avgSandstormBalls", type = Double.class),
                 @ColumnResult(name = "avgBall", type = Double.class),
+                @ColumnResult(name = "avgClimbLevel", type = Double.class),
+                @ColumnResult(name = "climbLevelMode", type = Integer.class),
                 @ColumnResult(name = "droppedGamePieces", type = Integer.class),
                 @ColumnResult(name = "avgDefensePlays", type = Double.class),
                 @ColumnResult(name = "totalBalls", type = Integer.class),
                 @ColumnResult(name = "totalDisks", type = Integer.class),
-                @ColumnResult(name = "avgSandstormDisks", type = Double.class),
-                @ColumnResult(name = "avgSandstormBalls", type = Double.class),
-                @ColumnResult(name = "avgClimbLevel", type = Double.class),
-                @ColumnResult(name = "climbLevelMode", type = Integer.class),
             })
     }
 )
@@ -134,5 +131,8 @@ public class Team {
     private String name;
 
 }
+
+
+
 
 

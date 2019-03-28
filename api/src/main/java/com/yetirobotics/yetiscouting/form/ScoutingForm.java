@@ -4,7 +4,10 @@ import javax.persistence.*;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.Date;
 
 /**
  * ScoutingForm
@@ -88,4 +91,8 @@ public class ScoutingForm {
     @CreatedBy
     @Column(name = "scouter", nullable = false)
     private String scouter;
+
+    @Column(name = "timestamp", nullable = false)
+    @LastModifiedDate
+    private Date timestamp;
 }

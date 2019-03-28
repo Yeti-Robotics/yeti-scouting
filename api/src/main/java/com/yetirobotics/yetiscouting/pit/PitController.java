@@ -1,19 +1,12 @@
 package com.yetirobotics.yetiscouting.pit;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.UUID;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.yetirobotics.yetiscouting.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * PitController
@@ -33,12 +34,15 @@ public class PitController {
     private PitPictureRepository pitPictureRepository;
     private PitCommentRepository pitCommentRepository;
     private UserRepository userRepository;
+    private final String picturePath;
 
     @Autowired
-    public PitController(PitPictureRepository pitPictureRepository, PitCommentRepository pitCommentRepository, UserRepository userRepository) {
+    public PitController(PitPictureRepository pitPictureRepository, PitCommentRepository pitCommentRepository,
+                         UserRepository userRepository, @Value("${yeti.picture-path:pics}") String picturePath) {
         this.pitPictureRepository = pitPictureRepository;
         this.pitCommentRepository = pitCommentRepository;
         this.userRepository = userRepository;
+        this.picturePath = picturePath;
     }
 
     @RequestMapping(value = "/{teamNumber}", method = RequestMethod.GET)
@@ -108,19 +112,18 @@ public class PitController {
     }
 
 
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity submitPitForm(@RequestParam(name = "files[]", required = false) MultipartFile[] files,
-            @RequestParam(name = "comment", required = false) String comment,
-            @RequestParam("teamNumber") Integer teamNumber) throws Exception {
+                                        @RequestParam(name = "comment", required = false) String comment,
+                                        @RequestParam("teamNumber") Integer teamNumber) throws Exception {
         if (files != null) {
-            for (MultipartFile file : files){
+            for (MultipartFile file : files) {
                 int i = file.getOriginalFilename().lastIndexOf('.');
                 String extension = "";
                 if (i >= 0) {
                     extension = file.getOriginalFilename().substring(i);
                 }
-                String fileName = "pics/" + UUID.randomUUID() + extension;
+                String fileName = picturePath + "/" + UUID.randomUUID() + extension;
                 Path path = Paths.get(fileName).toAbsolutePath().normalize();
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 PitPicture pitPicture = new PitPicture();
@@ -136,7 +139,7 @@ public class PitController {
             pitCommentRepository.save(pitComment);
         }
         return ResponseEntity.ok().build();
-        
+
     }
 
 
