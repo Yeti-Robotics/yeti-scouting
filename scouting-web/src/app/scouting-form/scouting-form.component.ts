@@ -5,6 +5,8 @@ import { UserService } from '../user.service';
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {BlueAllianceService} from "../blue-alliance.service";
+import {Observable} from "rxjs";
+import {map, startWith, tap} from "rxjs/operators";
 
 @Component({
   selector: "app-scouting-form",
@@ -16,6 +18,7 @@ export class ScoutingFormComponent implements OnInit {
   user: any;
   submitting = false;
   matches = [];
+  filteredMatches$: Observable<any[]>;
   showTeamChooser = true;
   selectedScouterPos = new FormControl('', Validators.required);
   teamSelected = false;
@@ -85,12 +88,18 @@ export class ScoutingFormComponent implements OnInit {
       rocketLevel: [0, numberValidators]
     });
 
-    this.blueAlliance.getFutureMatches().toPromise().catch(
+    this.blueAlliance.getFutureMatches().subscribe(
+      (matches: any) => this.matches = matches,
       error => {
         this.showTeamChooser = false;
         console.error(error);
         this.toastrService.error("Error retrieving future matches. Please enter manually.");
       }
+    );
+
+    this.filteredMatches$ = this.selectedScouterPos.valueChanges.pipe(
+      startWith(this.matches),
+      map(() => this.selectScouterPos())
     );
   }
 
@@ -125,8 +134,16 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   selectScouterPos() {
-    if (this.selectedScouterPos.valid){
-      this.matches = this.blueAlliance.selectRobotPos(this.selectedScouterPos.value);
+    if (this.selectedScouterPos.valid) {
+      let filteredMatches = [];
+      let [alliance, position] = this.selectedScouterPos.value.split(' ');
+      for (let match of this.matches) {
+          filteredMatches.push({
+            team: match['alliances'][alliance]['team_keys'][parseInt(position) - 1],
+            number: match.match_number
+        });
+      }
+      return filteredMatches;
     }
   }
 
