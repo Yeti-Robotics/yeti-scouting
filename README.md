@@ -61,6 +61,3 @@ To view the database visit:
 http://localhost:8080/h2
 - username: scouting
 - password: scouting
-```
-
-```
