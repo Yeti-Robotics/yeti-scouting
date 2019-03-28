@@ -116,6 +116,7 @@
             <th>Rocket Hatch Panels</th>
             <th>Rocket Balls</th>
             <th>Defense</th>
+            <th>HAB Climb Level</th>
           </tr>
         </thead>
         <tbody>
@@ -137,6 +138,7 @@
                 >clear</i
               >
             </td>
+            <td>{{ data.habLevelClimb }}</td>
           </tr>
         </tbody>
       </table>
@@ -144,7 +146,7 @@
   </div>
 
   <div class="card">
-    <h3 class="card-header">Comments</h3>
+    <h3 class="card-header">Comments!</h3>
     <div class="card-body table-responsive">
       <ul class="list-group list-group-flush">
         <li *ngFor="let data of scoutForms" class="list-group-item">
