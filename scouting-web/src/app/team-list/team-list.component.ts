@@ -101,8 +101,12 @@ export class TeamListComponent implements OnInit {
     });
     return this.teams.filter(team => {
       const term = text.toLowerCase();
-      return team.teamName.toLowerCase().includes(term)
-        || String(team.teamNumber).includes(term);
+      if (team.teamName != null) {
+        return team.teamName.toLowerCase().includes(term)
+          || String(team.teamNumber).includes(term);
+      } else {
+        return String(team.teamNumber).includes(term);
+      }
     });
   }
 }
