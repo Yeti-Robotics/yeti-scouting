@@ -8,7 +8,6 @@ import {tap} from "rxjs/operators";
 export class BlueAllianceService {
 
   futureMatches: any;
-  futureRobotPositions: any;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -18,18 +17,5 @@ export class BlueAllianceService {
         matches => this.futureMatches = matches,
         () => this.futureMatches = null
       ));
-  }
-
-  selectRobotPos(robotPos: string) {
-    this.futureRobotPositions = [];
-    let [alliance, position] = robotPos.split(' ');
-    for (let match of this.futureMatches) {
-      this.futureRobotPositions.push({
-        team: match['alliances'][alliance]['team_keys'][parseInt(position) - 1],
-        number: match.match_number
-      });
-    }
-
-    return this.futureRobotPositions;
   }
 }
