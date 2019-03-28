@@ -20,6 +20,7 @@ export class ScoutingFormComponent implements OnInit {
   matches = [];
   filteredMatches$: Observable<any[]>;
   showTeamChooser = true;
+  noMatches = false;
   selectedScouterPos = new FormControl('', Validators.required);
   teamSelected = false;
 
@@ -89,7 +90,12 @@ export class ScoutingFormComponent implements OnInit {
     });
 
     this.blueAlliance.getFutureMatches().subscribe(
-      (matches: any) => this.matches = matches,
+      (matches: any) => {
+        this.matches = matches;
+        if (this.matches.length == 0) {
+          this.noMatches = true;
+        }
+      },
       error => {
         this.showTeamChooser = false;
         console.error(error);
