@@ -1,40 +1,40 @@
 <!--Match chooser-->
 <ng-template #teamChooser let-modal>
-    <div class="modal-header">
-      <h5 class="modal-title">Match Selector</h5>
-      <button class="close" type="button" (click)="modal.dismiss()" aria-label="close">
-        <span>&times;</span>
-      </button>
+  <div class="modal-header">
+    <h5 class="modal-title">Match Selector</h5>
+    <button class="close" type="button" (click)="modal.dismiss()" aria-label="close">
+      <span>&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center" *ngIf="matches.length == 0 && !noMatches; else showMatches">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading matches...
     </div>
-    <div class="modal-body">
-      <div class="text-center" *ngIf="matches?.length == 0; else showMatches">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Loading matches...
-      </div>
-      <ng-template #showMatches>
-        <div *ngIf="showTeamChooser; else noMatches">
-          <div class="table-responsive">
-            <table class="table table-hover table-bordered table-striped">
-              <thead>
-              <tr>
-                <th class="text-center">Match #</th>
-                <th class="text-center">Team</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let match of filteredMatches$ | async" (click)="selectTeam(match.number, match.team)">
-                <td class="text-center">{{match.number}}</td>
-                <td class="text-center" role="button">{{match.team}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+    <ng-template #showMatches>
+      <ng-container *ngIf="matches.length > 0 && !noMatches; else doneScouting">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+            <tr>
+              <th class="text-center">Match #</th>
+              <th class="text-center">Team</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let match of filteredMatches$ | async" (click)="selectTeam(match.number, match.team)">
+              <td class="text-center">{{match.number}}</td>
+              <td class="text-center" role="button">{{match.team}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
+      </ng-container>
+      <ng-template #doneScouting>
+        <div class="text-center">No matches to display at this time</div>
       </ng-template>
-      <ng-template #noMatches>
-        <h4>No matches to display at this time</h4>
-      </ng-template>
-    </div>
+    </ng-template>
+  </div>
 </ng-template>
 
 
