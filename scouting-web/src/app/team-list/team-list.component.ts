@@ -1,17 +1,7 @@
-import {
-  Component,
-  Directive,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  PipeTransform,
-  QueryList,
-  ViewChildren
-} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {DecimalPipe} from "@angular/common";
-import {Observable, pipe} from "rxjs";
+import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 
@@ -62,7 +52,7 @@ export class TeamListComponent implements OnInit {
   filter = new FormControl('');
 
 
-  constructor(private httpClient: HttpClient, private pipe: DecimalPipe) {
+  constructor(private httpClient: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -72,7 +62,7 @@ export class TeamListComponent implements OnInit {
 
       this.teams$ = this.filter.valueChanges.pipe(
         startWith(''),
-        map(text => this.search(text, this.pipe))
+        map(text => this.search(text))
       );
     });
   }
@@ -92,16 +82,16 @@ export class TeamListComponent implements OnInit {
         return direction === 'asc' ? res : -res;
       });
     }
-    this.teams$ = this.teams$.pipe(map(teams => this.search(this.filter.value, this.pipe)));
+    this.teams$ = this.teams$.pipe(map(teams => this.search(this.filter.value)));
   }
 
-  search(text: string, pipe: PipeTransform) {
+  search(text: string) {
     this.teams$.pipe(source => {
       return source;
     });
     return this.teams.filter(team => {
       const term = text.toLowerCase();
-      if (team.teamName != null) {
+      if (team.teamName) {
         return team.teamName.toLowerCase().includes(term)
           || String(team.teamNumber).includes(term);
       } else {
