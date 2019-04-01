@@ -22,6 +22,7 @@ import {PitComponent} from './pit/pit.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Ng2ImgMaxModule} from "ng2-img-max";
+import { AdminComponent } from './admin/admin.component';
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -43,7 +44,8 @@ export function appInit(userService: UserService): Function {
     LoginComponent,
     RegisterComponent,
     PitComponent,
-    TableSortDirective
+    TableSortDirective,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

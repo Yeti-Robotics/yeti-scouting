@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="card-columns">
+    <div class="card">
+      <h5 class="card-header">Event Information</h5>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="number" class="form-control" [formControl]="teamNumber" placeholder="Team Number" min="0"/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-dark" type="button">Reset Team Info</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-outline-dark btn-block" type="button" ng-click="adminAction('flush_schedule')">Update Match Schedule</button>
+      </div>
+    </div>
+    <div class="card">
+      <h5 class="card-header">Team Validation</h5>
+      <div class="card-body">
+        <label>Current setting: {{prefs?.teamValidation === "true" ? "Enabled" : "Disabled"}}</label>
+        <button type="button" class="btn btn-success btn-block" (click)="updatePreference(AdminPreference.TeamValidation, 'true')">Enable team validation</button>
+        <button type="button" class="btn btn-danger btn-block" (click)="updatePreference(AdminPreference.TeamValidation, 'false')">Disable team validation</button>
+      </div>
+    </div>
+  </div>
+</div>
