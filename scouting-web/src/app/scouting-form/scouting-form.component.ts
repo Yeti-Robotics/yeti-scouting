@@ -7,6 +7,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {BlueAllianceService} from "../blue-alliance.service";
 import {Observable} from "rxjs";
 import {map, startWith, tap} from "rxjs/operators";
+import {AdminPreference, PreferenceService} from "../preference.service";
 
 @Component({
   selector: "app-scouting-form",
@@ -39,9 +40,18 @@ export class ScoutingFormComponent implements OnInit {
     private userService: UserService,
     private toastrService: ToastrService,
     private modal: NgbModal,
-    private blueAlliance: BlueAllianceService
+    private blueAlliance: BlueAllianceService,
+    private preferenceService: PreferenceService
   ) {
     this.user = userService.getUserInfo();
+    this.preferenceService.getPreferences().subscribe(
+      prefs => this.showTeamChooser = prefs[AdminPreference.TeamValidation] === "true",
+      error => {
+        this.showTeamChooser = false;
+        console.error(error);
+        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`, "Error retrieving application preferences");
+      }
+    );
 
     const numberValidators = Validators.compose([
       Validators.required,
