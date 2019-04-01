@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 
 export enum AdminPreference {
   TeamValidation = "teamValidation",
-  CompetitionKey = "competitionKey"
+  EventKey = "eventKey"
 }
 
 @Injectable({

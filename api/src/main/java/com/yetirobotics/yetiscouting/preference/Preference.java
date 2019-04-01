@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "preference")
 @Data
 public class Preference {
+    public static final String EVENT_KEY = "eventKey";
+    public static final String TEAM_VALIDATION = "teamValidation";
+
     @Id
     @Column(name = "preference_name")
     private String preferenceName;
