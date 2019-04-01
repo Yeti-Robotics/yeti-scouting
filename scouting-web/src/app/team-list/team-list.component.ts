@@ -92,7 +92,7 @@ export class TeamListComponent implements OnInit {
         return direction === 'asc' ? res : -res;
       });
     }
-    this.teams$ = this.teams$.pipe(map(teams => this.search(this.filter.value, this.pipe)));
+    this.teams$ = this.teams$.pipe(map(() => this.search(this.filter.value, this.pipe)));
   }
 
   search(text: string, pipe: PipeTransform) {

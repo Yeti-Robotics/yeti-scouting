@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="card-columns">
+    <div class="card">
+      <h5 class="card-header">Event Information</h5>
+      <div class="card-body">
+        <form [formGroup]="eventInfo" (ngSubmit)="eventInfo.reset()">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="number" class="form-control" formControlName="teamNumber" placeholder="Team Number" min="0"/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-dark" type="submit" (click)="resetTeam()" [disabled]="eventInfo.controls.teamNumber.invalid">Reset team Info</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="eventKey" placeholder="Competition key"/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-dark" type="submit" [disabled]="eventInfo.controls.eventKey.invalid"
+                        (click)="updatePreference(AdminPreference.EventKey, eventInfo.controls.eventKey.value)">Set competition key
+                </button>
+              </div>
+            </div>
+            <small class="form-text text-muted">Current value: {{prefs?.eventKey}}</small>
+          </div>
+          <button class="btn btn-outline-dark btn-block" type="button" (click)="updateSchedule()">Update Match
+            Schedule
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <h5 class="card-header">Team Validation</h5>
+      <div class="card-body">
+        <label>Current setting: {{prefs?.teamValidation === "true" ? "Enabled" : "Disabled"}}</label>
+        <button type="button" class="btn btn-success btn-block" (click)="updatePreference(AdminPreference.TeamValidation, 'true')">Enable team validation</button>
+        <button type="button" class="btn btn-danger btn-block" (click)="updatePreference(AdminPreference.TeamValidation, 'false')">Disable team validation</button>
+      </div>
+    </div>
+  </div>
+</div>

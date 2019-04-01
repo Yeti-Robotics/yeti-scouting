@@ -9,9 +9,16 @@ import { ScoutingFormComponent } from './scouting-form/scouting-form.component';
 import { TeamListComponent } from './team-list/team-list.component';
 import { PitFormComponent } from './pit-form/pit-form.component';
 import { LoginComponent } from './login/login.component';
+import {AdminGuard} from "./admin-guard.service";
+import {AdminComponent} from "./admin/admin.component";
 
 
 const routes: Routes = [
+  {
+    path: "admin",
+    canActivate: [AdminGuard],
+    component: AdminComponent
+  },
   {
     path: "login",
     canActivate: [AnonymousGuard],
