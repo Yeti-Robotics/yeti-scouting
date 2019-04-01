@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AdminActionService } from './admin-action.service';
+import { PreferenceService } from './preference.service';
 
-describe('AdminActionService', () => {
+describe('PreferenceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AdminActionService = TestBed.get(AdminActionService);
+    const service: PreferenceService = TestBed.get(PreferenceService);
     expect(service).toBeTruthy();
   });
 });

@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/preference")
@@ -22,8 +19,8 @@ public class PreferenceController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity updatePreference(@RequestParam String name, @RequestParam String value) {
-        preferenceRepository.updatePreference(name, value);
+    public ResponseEntity updatePreference(@RequestBody Preference preference) {
+        preferenceRepository.updatePreference(preference.getPreferenceName(), preference.getPreferenceValue());
         return respondFormattedPrefs();
     }
 

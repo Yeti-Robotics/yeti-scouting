@@ -9,13 +9,15 @@ export enum AdminPreference {
 @Injectable({
   providedIn: 'root'
 })
-export class AdminActionService {
+export class PreferenceService {
 
   constructor(private httpClient: HttpClient) { }
 
   setPreference(pref: AdminPreference, value: string) {
-    const params = new HttpParams().append("name", pref).append("value", value);
-    return this.httpClient.put("/api/preference", {}, {params: params})
+    return this.httpClient.put("/api/preference", {
+      preferenceName: pref,
+      preferenceValue: value
+    });
   }
 
   getPreferences() {

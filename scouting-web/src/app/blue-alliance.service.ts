@@ -18,4 +18,8 @@ export class BlueAllianceService {
         () => this.futureMatches = null
       ));
   }
+
+  resetTeam(teamNumber: number) {
+    return this.httpClient.patch("/api/tba/resetTeam/" + teamNumber, null);
+  }
 }
