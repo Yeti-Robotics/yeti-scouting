@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yetirobotics.yetiscouting.form.ScoutingFormRepository;
+import com.yetirobotics.yetiscouting.preference.Preference;
+import com.yetirobotics.yetiscouting.preference.PreferenceRepository;
 import com.yetirobotics.yetiscouting.tba.match.Match;
 
 import com.yetirobotics.yetiscouting.team.Team;
@@ -29,12 +31,14 @@ import org.springframework.web.client.RestTemplate;
 public class BlueAllianceController {
     private ScoutingFormRepository scoutingFormRepository;
     private TeamRepository teamRepository;
+    private PreferenceRepository preferenceRepository;
     private List<Match> schedule = new ArrayList<>();
 
     @Autowired
-    public BlueAllianceController(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository) {
+    public BlueAllianceController(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository, PreferenceRepository preferenceRepository) {
         this.scoutingFormRepository = scoutingFormRepository;
         this.teamRepository = teamRepository;
+        this.preferenceRepository = preferenceRepository;
     }
 
     @RequestMapping(value = "/getFutureMatches", method = RequestMethod.GET)
@@ -42,12 +46,10 @@ public class BlueAllianceController {
         int lastMatch = scoutingFormRepository.findTopByOrderByMatchNumberDesc().getMatchNumber();
 
         List<Match> matches, futureMatches;
-        try {
-            matches = !schedule.isEmpty() ? schedule : new ObjectMapper().readValue(updateMatchSchedule().getBody(), new TypeReference<List<Match>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
+        if (schedule.isEmpty()) {
+            updateMatchSchedule();
         }
+        matches = schedule;
 
         futureMatches = new ArrayList<>();
         for (Match match : matches) {
@@ -61,24 +63,24 @@ public class BlueAllianceController {
         return ResponseEntity.ok(futureMatches);
     }
 
-    @RequestMapping(value = "/updateSchedule", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
     public ResponseEntity<String> updateMatchSchedule() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-TBA-Auth-Key", "ChjNxHnTP0XQSHsn7xqjc7iTmWHqInOmxNwGfXaWFTA2c3vptfQUQYAORb5dpsNY");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-        ResponseEntity<String> result = new RestTemplate().exchange(
-            "https://www.thebluealliance.com/api/v3/event/2019ncgui/matches", HttpMethod.GET, entity, String.class);
+        try {
+            String eventKey = preferenceRepository.findById(Preference.EVENT_KEY).orElseThrow(Exception::new).getPreferenceValue();
+            ResponseEntity<String> result = tbaRequest("event/" + eventKey + "/matches");
 
-        return ResponseEntity.ok(result.getBody());
+            schedule = new ObjectMapper().readValue(updateMatchSchedule().getBody(), new TypeReference<List<Match>>() {});
+            return ResponseEntity.ok(result.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            preferenceRepository.updatePreference(Preference.TEAM_VALIDATION, "false");
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @RequestMapping(value = "/resetTeam/{teamNumber}", method = RequestMethod.PATCH)
     public ResponseEntity resetTeam(@PathVariable int teamNumber) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-TBA-Auth-Key", "ChjNxHnTP0XQSHsn7xqjc7iTmWHqInOmxNwGfXaWFTA2c3vptfQUQYAORb5dpsNY");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-        ResponseEntity<String> result = new RestTemplate().exchange(
-            "https://www.thebluealliance.com/api/v3/team/frc" + teamNumber + "/simple", HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> result = tbaRequest("team/frc" + teamNumber + "/simple");
 
         JsonNode teamNode = new ObjectMapper().readTree(result.getBody());
         String teamName = teamNode.get("nickname").asText();
@@ -91,6 +93,14 @@ public class BlueAllianceController {
         teamRepository.save(updatedTeam);
 
         return ResponseEntity.ok().build();
+    }
+
+    private ResponseEntity<String> tbaRequest(String uri) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-TBA-Auth-Key", "ChjNxHnTP0XQSHsn7xqjc7iTmWHqInOmxNwGfXaWFTA2c3vptfQUQYAORb5dpsNY");
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        return new RestTemplate().exchange(
+            "https://www.thebluealliance.com/api/v3/" + uri, HttpMethod.GET, entity, String.class);
     }
 
 }

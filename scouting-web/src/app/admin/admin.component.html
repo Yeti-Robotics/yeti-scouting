@@ -3,15 +3,30 @@
     <div class="card">
       <h5 class="card-header">Event Information</h5>
       <div class="card-body">
-        <div class="form-group">
-          <div class="input-group">
-            <input type="number" class="form-control" [formControl]="teamNumber" placeholder="Team Number" min="0"/>
-            <div class="input-group-append">
-              <button class="btn btn-outline-dark" type="button" (click)="resetTeam()">Reset Team Info</button>
+        <form [formGroup]="eventInfo" (ngSubmit)="eventInfo.reset()">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="number" class="form-control" formControlName="teamNumber" placeholder="Team Number" min="0"/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-dark" type="submit" (click)="resetTeam()" [disabled]="eventInfo.controls.teamNumber.invalid">Reset team Info</button>
+              </div>
             </div>
           </div>
-        </div>
-        <button class="btn btn-outline-dark btn-block" type="button" ng-click="adminAction('flush_schedule')">Update Match Schedule</button>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="eventKey" placeholder="Competition key"/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-dark" type="submit" [disabled]="eventInfo.controls.eventKey.invalid"
+                        (click)="updatePreference(AdminPreference.EventKey, eventInfo.controls.eventKey.value)">Set competition key
+                </button>
+              </div>
+            </div>
+            <small class="form-text text-muted">Current value: {{prefs?.eventKey}}</small>
+          </div>
+          <button class="btn btn-outline-dark btn-block" type="button" (click)="updateSchedule()">Update Match
+            Schedule
+          </button>
+        </form>
       </div>
     </div>
     <div class="card">

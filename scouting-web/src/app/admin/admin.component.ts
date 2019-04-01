@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {PreferenceService, AdminPreference} from "../preference.service";
+import {AdminPreference, PreferenceService} from "../preference.service";
 import {ToastrService} from "ngx-toastr";
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BlueAllianceService} from "../blue-alliance.service";
 
 
@@ -14,19 +14,28 @@ export class AdminComponent implements OnInit {
 
   AdminPreference = AdminPreference;
   prefs: any;
-  teamNumber = new FormControl();
+  eventInfo: FormGroup;
 
-  constructor(private preferenceService: PreferenceService, private toastrService: ToastrService, private blueAllianceService: BlueAllianceService) {
-    preferenceService.getPreferences().subscribe(
+  constructor(private preferenceService: PreferenceService,
+              private toastrService: ToastrService,
+              private blueAllianceService: BlueAllianceService,
+              private fb: FormBuilder) {
+
+  }
+
+  ngOnInit() {
+    this.eventInfo = this.fb.group({
+      teamNumber: ["", [Validators.min(1), Validators.required]],
+      eventKey: ["", [Validators.pattern("20[0-9]{2}[a-z]{3,5}"), Validators.required]]
+    });
+
+    this.preferenceService.getPreferences().subscribe(
       prefs => this.prefs = prefs,
       error => {
         console.error(error);
         this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
       }
-    )
-  }
-
-  ngOnInit() {
+    );
   }
 
   updatePreference(pref: AdminPreference, value: string) {
@@ -40,12 +49,21 @@ export class AdminComponent implements OnInit {
   }
 
   resetTeam() {
-    this.blueAllianceService.resetTeam(this.teamNumber.value).toPromise().catch(
+    this.blueAllianceService.resetTeam(this.eventInfo.controls.teamNumber.value).toPromise().catch(
       error => {
         console.error(error);
         this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
       }
-    )
+    );
+  }
+
+  updateSchedule() {
+    this.blueAllianceService.updateSchedule().toPromise().catch(
+      error => {
+        console.error(error);
+        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
+      }
+    );
   }
 
 }
