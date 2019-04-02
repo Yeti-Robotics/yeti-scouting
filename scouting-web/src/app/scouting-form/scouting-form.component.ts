@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ValidatorFn, Validators} from "@angular/forms";
-import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
-import { UserService } from '../user.service';
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
+import {UserService} from '../user.service';
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {BlueAllianceService} from "../blue-alliance.service";
 import {Observable} from "rxjs";
-import {map, startWith, tap} from "rxjs/operators";
+import {finalize, map, startWith, timeout} from "rxjs/operators";
 import {AdminPreference, PreferenceService} from "../preference.service";
 
 @Component({
@@ -37,7 +37,6 @@ export class ScoutingFormComponent implements OnInit {
   timeout = 5;
 
   constructor(
-    private toastrService: ToastrService,
     private fb: FormBuilder,
     private httpClient: HttpClient,
     private userService: UserService,
@@ -52,7 +51,7 @@ export class ScoutingFormComponent implements OnInit {
       error => {
         this.showTeamChooser = false;
         console.error(error);
-        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`, "Error retrieving application preferences");
+        this.toastrService.error(`Error ${error.status}: ${error.statusText}`, "Error retrieving application preferences");
       }
     );
 
@@ -66,28 +65,28 @@ export class ScoutingFormComponent implements OnInit {
       matchNumber: ["", numberValidators],
       crossHabitatLine: [false, Validators.required],
       sandstormCargoHatchPanelCount: [
-        { value: 0, disabled: true },
+        {value: 0, disabled: true},
         numberValidators
       ],
-      sandstormCargoBallCount: [{ value: 0, disabled: true }, numberValidators],
+      sandstormCargoBallCount: [{value: 0, disabled: true}, numberValidators],
       sandstormRocketHatchPanelCount: [
-        { value: 0, disabled: true },
+        {value: 0, disabled: true},
         numberValidators
       ],
       sandstormRocketBallCount: [
-        { value: 0, disabled: true },
+        {value: 0, disabled: true},
         numberValidators
       ],
       teleopCargoHatchPanelCount: [
-        { value: 0, disabled: true },
+        {value: 0, disabled: true},
         numberValidators
       ],
-      teleopCargoBallCount: [{ value: 0, disabled: true }, numberValidators],
+      teleopCargoBallCount: [{value: 0, disabled: true}, numberValidators],
       teleopRocketHatchPanelCount: [
-        { value: 0, disabled: true },
+        {value: 0, disabled: true},
         numberValidators
       ],
-      teleopRocketBallCount: [{ value: 0, disabled: true }, numberValidators],
+      teleopRocketBallCount: [{value: 0, disabled: true}, numberValidators],
       comment: ["", Validators.required],
       score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
@@ -98,7 +97,7 @@ export class ScoutingFormComponent implements OnInit {
       lifted: [false, Validators.required],
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
-      droppedGamePieces: [{ value: 0, disabled: true }, numberValidators],
+      droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
       rocketLevel: [0, numberValidators]
     });
 
@@ -157,9 +156,9 @@ export class ScoutingFormComponent implements OnInit {
       let filteredMatches = [];
       let [alliance, position] = this.selectedScouterPos.value.split(' ');
       for (let match of this.matches) {
-          filteredMatches.push({
-            team: match['alliances'][alliance]['team_keys'][parseInt(position) - 1],
-            number: match.match_number
+        filteredMatches.push({
+          team: match['alliances'][alliance]['team_keys'][parseInt(position) - 1],
+          number: match.match_number
         });
       }
       return filteredMatches;
@@ -194,7 +193,7 @@ export class ScoutingFormComponent implements OnInit {
               "form. However, using recent advancements in technology and our big brain energy, we are storing (caching) your form. Sincerely, " +
               "Yeti Programmers ", "Cashed (and moneyed)", {timeOut: 9000});
           }
-          this.toastrService.error("Uh oh! Error: " + error.error.status + ". " + error.error.message);
+          this.toastrService.error("Uh oh! Error: " + error.status + ". " + error.statusText);
         }
       );
   }

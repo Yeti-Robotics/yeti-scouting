@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
       prefs => this.prefs = prefs,
       error => {
         console.error(error);
-        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
+        this.toastrService.error(`Error ${error.status}: ${error.statusText}`);
       }
     );
   }
@@ -43,7 +43,7 @@ export class AdminComponent implements OnInit {
       prefs => this.prefs = prefs,
       error => {
         console.error(error);
-        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
+        this.toastrService.error(`Error ${error.status}: ${error.statusText}`);
       }
     );
   }
@@ -52,7 +52,7 @@ export class AdminComponent implements OnInit {
     this.blueAllianceService.resetTeam(this.eventInfo.controls.teamNumber.value).toPromise().catch(
       error => {
         console.error(error);
-        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
+        this.toastrService.error(`Error ${error.status}: ${error.statusText}`);
       }
     );
   }
@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
     this.blueAllianceService.updateSchedule().toPromise().catch(
       error => {
         console.error(error);
-        this.toastrService.error(`Error ${error.error.status}: ${error.error.message}`);
+        this.toastrService.error(`Error ${error.status}: ${error.statusText}`);
       }
     );
   }

@@ -16,6 +16,7 @@ import com.yetirobotics.yetiscouting.tba.match.Match;
 import com.yetirobotics.yetiscouting.team.Team;
 import com.yetirobotics.yetiscouting.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class BlueAllianceController {
     private TeamRepository teamRepository;
     private PreferenceRepository preferenceRepository;
     private List<Match> schedule = new ArrayList<>();
+    @Value("${yeti.tba-api:fakeKey}") String apiKey;
 
     @Autowired
     public BlueAllianceController(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository, PreferenceRepository preferenceRepository) {
@@ -68,8 +70,11 @@ public class BlueAllianceController {
         try {
             String eventKey = preferenceRepository.findById(Preference.EVENT_KEY).orElseThrow(Exception::new).getPreferenceValue();
             ResponseEntity<String> result = tbaRequest("event/" + eventKey + "/matches");
+            if (result.getStatusCodeValue() != 200) {
+                return result;
+            }
 
-            schedule = new ObjectMapper().readValue(updateMatchSchedule().getBody(), new TypeReference<List<Match>>() {});
+            schedule = new ObjectMapper().readValue(result.getBody(), new TypeReference<List<Match>>() {});
             return ResponseEntity.ok(result.getBody());
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +102,7 @@ public class BlueAllianceController {
 
     private ResponseEntity<String> tbaRequest(String uri) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-TBA-Auth-Key", "ChjNxHnTP0XQSHsn7xqjc7iTmWHqInOmxNwGfXaWFTA2c3vptfQUQYAORb5dpsNY");
+        headers.add("X-TBA-Auth-Key", apiKey);
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
         return new RestTemplate().exchange(
             "https://www.thebluealliance.com/api/v3/" + uri, HttpMethod.GET, entity, String.class);
