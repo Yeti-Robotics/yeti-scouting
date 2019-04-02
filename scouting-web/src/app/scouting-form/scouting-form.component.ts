@@ -34,7 +34,6 @@ export class ScoutingFormComponent implements OnInit {
     "blue 2",
     "blue 3",
   ];
-  timeout = 5;
 
   constructor(
     private fb: FormBuilder,
@@ -175,7 +174,7 @@ export class ScoutingFormComponent implements OnInit {
     this.httpClient
       .post("/api/scoutingForm", this.cachedForms)
       .pipe(
-        timeout(this.timeout),
+        timeout(3000),
         finalize(() => this.submitting = false)
       )
       .subscribe(
@@ -192,13 +191,16 @@ export class ScoutingFormComponent implements OnInit {
             this.toastrService.warning("Dear Scouter, due to a lack of internet, we regret to inform you we could not submit your " +
               "form. However, using recent advancements in technology and our big brain energy, we are storing (caching) your form. Sincerely, " +
               "Yeti Programmers ", "Cashed (and moneyed)", {timeOut: 9000});
+          } else {
+            this.toastrService.error("Uh oh! Error: " + error.status + ". " + error.statusText);
           }
-          this.toastrService.error("Uh oh! Error: " + error.status + ". " + error.statusText);
         }
       );
   }
 
   private resetForm() {
+    window.scroll(0, 0);
+    this.teamSelected = false;
     this.form.reset({
       teamNumber: "",
       matchNumber: "",

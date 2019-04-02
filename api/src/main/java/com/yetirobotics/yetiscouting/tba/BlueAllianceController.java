@@ -84,10 +84,16 @@ public class BlueAllianceController {
     }
 
     @RequestMapping(value = "/resetTeam/{teamNumber}", method = RequestMethod.PATCH)
-    public ResponseEntity resetTeam(@PathVariable int teamNumber) throws IOException {
+    public ResponseEntity resetTeam(@PathVariable int teamNumber) {
         ResponseEntity<String> result = tbaRequest("team/frc" + teamNumber + "/simple");
 
-        JsonNode teamNode = new ObjectMapper().readTree(result.getBody());
+        JsonNode teamNode;
+        try {
+            teamNode = new ObjectMapper().readTree(result.getBody());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
         String teamName = teamNode.get("nickname").asText();
         Team updatedTeam = teamRepository.findById(teamNumber).orElseGet(() -> {
             Team newTeam = new Team();
