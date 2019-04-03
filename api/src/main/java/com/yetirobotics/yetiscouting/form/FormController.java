@@ -1,7 +1,6 @@
 package com.yetirobotics.yetiscouting.form;
 
-import com.yetirobotics.yetiscouting.tba.BlueAllianceController;
-import com.yetirobotics.yetiscouting.team.TeamRepository;
+import com.yetirobotics.yetiscouting.tba.BlueAllianceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,23 +14,19 @@ import java.util.List;
 @RequestMapping("/scoutingForm")
 public class FormController {
     private ScoutingFormRepository scoutingFormRepository;
-    private TeamRepository teamRepository;
-    @Autowired
-    private BlueAllianceController blueAllianceController;
+    private BlueAllianceService blueAllianceService;
 
     @Autowired
-    public FormController(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository) {
+    public FormController(ScoutingFormRepository scoutingFormRepository, BlueAllianceService blueAllianceService) {
         this.scoutingFormRepository = scoutingFormRepository;
-        this.teamRepository = teamRepository;
+        this.blueAllianceService = blueAllianceService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity submittingForm(@RequestBody List<ScoutingForm> forms) {
         for (ScoutingForm scoutingForm : forms) {
-            if (scoutingFormRepository.findByTeamNumberAndMatchNumber(scoutingForm.getTeamNumber(), scoutingForm.getMatchNumber()) == null) {
-                if (!teamRepository.findById(scoutingForm.getTeamNumber()).isPresent()) {
-                    blueAllianceController.resetTeam(scoutingForm.getTeamNumber());
-                }
+            blueAllianceService.cacheTeamInfo(scoutingForm.getTeamNumber());
+            if (!scoutingFormRepository.findByTeamNumberAndMatchNumber(scoutingForm.getTeamNumber(), scoutingForm.getMatchNumber()).isPresent()) {
                 scoutingFormRepository.save(scoutingForm);
             }
         }

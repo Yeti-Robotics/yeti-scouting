@@ -199,6 +199,7 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   private resetForm() {
+    this.matches.splice(0, 1);
     window.scroll(0, 0);
     this.teamSelected = false;
     this.form.reset({

@@ -31,7 +31,7 @@ INSERT INTO authorities(authority, username) VALUES ('role_user', 'user');
 
 
 
-INSERT INTO preference(preference_name, preference_value) VALUES ('competitionKey', '2019ncash');
+INSERT INTO preference(preference_name, preference_value) VALUES ('eventKey', '2019ncash');
 INSERT INTO preference(preference_name, preference_value) VALUES ('teamValidation', 'true');
 
 --

@@ -1,28 +1,14 @@
 package com.yetirobotics.yetiscouting.tba;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yetirobotics.yetiscouting.form.ScoutingFormRepository;
-import com.yetirobotics.yetiscouting.preference.Preference;
-import com.yetirobotics.yetiscouting.preference.PreferenceRepository;
 import com.yetirobotics.yetiscouting.tba.match.Match;
-
-import com.yetirobotics.yetiscouting.team.Team;
-import com.yetirobotics.yetiscouting.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * TeamController
@@ -30,88 +16,35 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/tba")
 public class BlueAllianceController {
-    private ScoutingFormRepository scoutingFormRepository;
-    private TeamRepository teamRepository;
-    private PreferenceRepository preferenceRepository;
-    private List<Match> schedule = new ArrayList<>();
-    @Value("${yeti.tba-api:fakeKey}") String apiKey;
+    private BlueAllianceService blueAllianceService;
 
     @Autowired
-    public BlueAllianceController(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository, PreferenceRepository preferenceRepository) {
-        this.scoutingFormRepository = scoutingFormRepository;
-        this.teamRepository = teamRepository;
-        this.preferenceRepository = preferenceRepository;
+    public BlueAllianceController(BlueAllianceService blueAllianceService) {
+        this.blueAllianceService = blueAllianceService;
     }
 
     @RequestMapping(value = "/getFutureMatches", method = RequestMethod.GET)
     public ResponseEntity getFutureMatches() {
-        int lastMatch = scoutingFormRepository.findTopByOrderByMatchNumberDesc().getMatchNumber();
-
-        List<Match> matches, futureMatches;
-        if (schedule.isEmpty()) {
-            updateMatchSchedule();
-        }
-        matches = schedule;
-
-        futureMatches = new ArrayList<>();
-        for (Match match : matches) {
-            if (match.isQual() && match.getMatchNumber() > lastMatch) {
-                futureMatches.add(match);
-            }
-        }
-
-        futureMatches.sort(Comparator.comparing(Match::getMatchNumber));
-
-        return ResponseEntity.ok(futureMatches);
+        return ResponseEntity.ok(blueAllianceService.getFutureMatches());
     }
 
     @RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
-    public ResponseEntity<String> updateMatchSchedule() {
-        try {
-            String eventKey = preferenceRepository.findById(Preference.EVENT_KEY).orElseThrow(Exception::new).getPreferenceValue();
-            ResponseEntity<String> result = tbaRequest("event/" + eventKey + "/matches");
-            if (result.getStatusCodeValue() != 200) {
-                return result;
-            }
+    public ResponseEntity<List<Match>> updateMatchSchedule() {
+        List<Match> schedule = blueAllianceService.updateMatchSchedule();
 
-            schedule = new ObjectMapper().readValue(result.getBody(), new TypeReference<List<Match>>() {});
-            return ResponseEntity.ok(result.getBody());
-        } catch (Exception e) {
-            e.printStackTrace();
-            preferenceRepository.updatePreference(Preference.TEAM_VALIDATION, "false");
+        if (schedule.isEmpty()) {
             return ResponseEntity.status(500).build();
+        } else {
+            return ResponseEntity.ok(schedule);
         }
     }
 
     @RequestMapping(value = "/resetTeam/{teamNumber}", method = RequestMethod.PATCH)
     public ResponseEntity resetTeam(@PathVariable int teamNumber) {
-        ResponseEntity<String> result = tbaRequest("team/frc" + teamNumber + "/simple");
-
-        JsonNode teamNode;
-        try {
-            teamNode = new ObjectMapper().readTree(result.getBody());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (blueAllianceService.resetTeam(teamNumber)) {
+            return ResponseEntity.ok().build();
+        } else {
             return ResponseEntity.status(500).build();
         }
-        String teamName = teamNode.get("nickname").asText();
-        Team updatedTeam = teamRepository.findById(teamNumber).orElseGet(() -> {
-            Team newTeam = new Team();
-            newTeam.setNumber(teamNumber);
-            return newTeam;
-        });
-        updatedTeam.setName(teamName);
-        teamRepository.save(updatedTeam);
-
-        return ResponseEntity.ok().build();
     }
-
-    private ResponseEntity<String> tbaRequest(String uri) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-TBA-Auth-Key", apiKey);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        return new RestTemplate().exchange(
-            "https://www.thebluealliance.com/api/v3/" + uri, HttpMethod.GET, entity, String.class);
-    }
-
 }
