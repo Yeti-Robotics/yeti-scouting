@@ -43,6 +43,7 @@
 - [ ] brackets
 - [ ] peaks
 - [x] sort by columns
+- [ ] add climbs to match data
 
 ## Setup
 - Install Java JDK
