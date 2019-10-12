@@ -1,8 +1,6 @@
 package com.yetirobotics.yetiscouting.tba;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yetirobotics.yetiscouting.form.ScoutingFormRepository;
 import com.yetirobotics.yetiscouting.preference.Preference;
 import com.yetirobotics.yetiscouting.preference.PreferenceRepository;
@@ -11,14 +9,12 @@ import com.yetirobotics.yetiscouting.team.Team;
 import com.yetirobotics.yetiscouting.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -30,14 +26,23 @@ public class BlueAllianceService {
     private TeamRepository teamRepository;
     private PreferenceRepository preferenceRepository;
     private List<Match> schedule = new ArrayList<>();
-    @Value("${yeti.tba-api:fakeKey}")
-    String apiKey;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public BlueAllianceService(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository, PreferenceRepository preferenceRepository) {
+    public BlueAllianceService(ScoutingFormRepository scoutingFormRepository, TeamRepository teamRepository,
+                               PreferenceRepository preferenceRepository,
+                               RestTemplateBuilder restTemplateBuilder,
+                               @Value("${yeti.tba-api-url:fakePath}") String apiUrl,
+                               @Value("${yeti.tba-api:fakeKey}") String apiKey) {
         this.scoutingFormRepository = scoutingFormRepository;
         this.teamRepository = teamRepository;
         this.preferenceRepository = preferenceRepository;
+        this.restTemplate = restTemplateBuilder.rootUri(apiUrl)
+                .additionalInterceptors((request, body, execution) -> {
+                    request.getHeaders().add("X-TBA-Auth-Key", apiKey);
+                    return execution.execute(request, body);
+                })
+                .build();
     }
 
     public List<Match> getFutureMatches() {
@@ -64,12 +69,12 @@ public class BlueAllianceService {
     public List<Match> updateMatchSchedule() {
         try {
             String eventKey = preferenceRepository.findById(Preference.EVENT_KEY).orElseThrow(Exception::new).getPreferenceValue();
-            ResponseEntity<String> result = tbaRequest("event/" + eventKey + "/matches");
-            if (result.getStatusCodeValue() != 200) {
-                return new ArrayList<>();
-            }
+            schedule = restTemplate.exchange("/event/" + eventKey + "/matches",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Match>>() {
+                    }).getBody();
 
-            schedule = new ObjectMapper().readValue(result.getBody(), new TypeReference<List<Match>>() {});
             return schedule;
         } catch (Exception e) {
             preferenceRepository.updatePreference(Preference.TEAM_VALIDATION, "false");
@@ -79,12 +84,10 @@ public class BlueAllianceService {
     }
 
     public boolean resetTeam(int teamNumber) {
-        ResponseEntity<String> result = tbaRequest("team/frc" + teamNumber + "/simple");
-
         JsonNode teamNode;
         try {
-            teamNode = new ObjectMapper().readTree(result.getBody());
-        } catch (IOException e) {
+            teamNode = restTemplate.getForObject("/team/frc" + teamNumber + "/simple", JsonNode.class);
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -104,13 +107,5 @@ public class BlueAllianceService {
         if (!teamRepository.findById(teamNumber).isPresent()) {
             resetTeam(teamNumber);
         }
-    }
-
-    private ResponseEntity<String> tbaRequest(String uri) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-TBA-Auth-Key", apiKey);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        return new RestTemplate().exchange(
-            "https://www.thebluealliance.com/api/v3/" + uri, HttpMethod.GET, entity, String.class);
     }
 }
