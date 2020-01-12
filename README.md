@@ -16,6 +16,7 @@
 - [ ] Make iced Java team
 - [x] Limit score to positive numbers
 - [ ] Add a loading spinner
+- [ ] Add images of game pieces
 - [ ] Deploy
 - [ ] Disable keyboard input for apple users
 - [ ] Show position once match is chosen
