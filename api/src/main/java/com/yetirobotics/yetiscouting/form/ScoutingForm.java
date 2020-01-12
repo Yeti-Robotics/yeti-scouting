@@ -91,6 +91,9 @@ public class ScoutingForm {
     @Column(name = "rocket_level", nullable = true)
     private Integer rocketLevel;
 
+    @Column(name = "rotation_control", nullable = true)
+    private Boolean rotationControl;
+
     @CreatedBy
     @Column(name = "scouter", nullable = false)
     private String scouter;

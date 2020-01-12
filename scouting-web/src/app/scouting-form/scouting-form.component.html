@@ -187,6 +187,12 @@
         <h5 class="card-header">TeleOp</h5>
         <div class="card-body">
           <div class="form-group">
+
+            <div class="form-group custom-control custom-checkbox">
+              <input type="checkbox" id="rotationControl" formControlName="rotationControl" class="custom-control-input">
+              <label for="rotationControl" class="custom-control-label">Rotation Control achieved</label>
+            </div>
+
             <label for="teleopCargoHatchPanelCount" class="required">Hatch panels scored on cargo ship</label>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -265,6 +271,7 @@
             <input type="checkbox" id="defense" formControlName="defense" class="custom-control-input">
             <label for="defense" class="custom-control-label">Did this robot play defense?</label>
           </div>
+
 
           <div class="form-group">
             <label for="climbTime" class="required">Approximate climb time in seconds</label>

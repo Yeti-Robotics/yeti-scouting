@@ -97,7 +97,8 @@ export class ScoutingFormComponent implements OnInit {
       gotLifted: [false, Validators.required],
       buddyClimb: [false, Validators.required],
       droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
-      rocketLevel: [0, numberValidators]
+      rocketLevel: [0, numberValidators],
+      rotationControl: [false, Validators.required]
     });
 
     this.blueAlliance.getFutureMatches().subscribe(
@@ -210,6 +211,7 @@ export class ScoutingFormComponent implements OnInit {
       sandstormCargoBallCount: 0,
       sandstormRocketHatchPanelCount: 0,
       sandstormRocketBallCount: 0,
+      rotationControl: false,
       teleopCargoHatchPanelCount: 0,
       teleopCargoBallCount: 0,
       teleopRocketHatchPanelCount: 0,
