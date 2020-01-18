@@ -22,6 +22,18 @@ SET time_zone = "+00:00";
 -- Database: `yetirobotics_org_scouting`
 --
 
+INSERT INTO users(username, enabled, first_name, last_name, password, team_number) VALUES ('admin', TRUE, 'Admin', 'McCoolpants', '$2a$10$9ALpT96a4IAOBZ1BVnorKupnhCE6GM5VF3WHhKxAv402PX5NX4Gw2', 3506);
+INSERT INTO users(username, enabled, first_name, last_name, password, team_number) VALUES ('user', TRUE, 'User', 'Userson', '$2a$10$t9Ebz8953gdqmB464K0RJ.vVe1.ZHu5P6l.k3W8oLDVx0me47qEg2', 3506);
+
+INSERT INTO authorities(authority, username) VALUES ('role_admin', 'admin');
+INSERT INTO authorities(authority, username) VALUES ('role_user', 'admin');
+INSERT INTO authorities(authority, username) VALUES ('role_user', 'user');
+
+
+
+INSERT INTO preference(preference_name, preference_value) VALUES ('eventKey', '2019nccmp');
+INSERT INTO preference(preference_name, preference_value) VALUES ('teamValidation', 'true');
+
 --
 -- Truncate table before insert `scouting_form`
 --

@@ -10,11 +10,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    properties:
-      hibernate:
-        hbm2ddl:
-#          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
-
+yeti:
+  tba-api-url: https://www.thebluealliance.com/api/v3
 ---
 spring:
   profiles: prod

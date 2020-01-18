@@ -73,6 +73,9 @@ public class ScoutingForm {
     @Column(name = "preload", nullable = true)
     private Integer preload;
 
+    @Column(name = "climb_time", nullable = true)
+    private Double climbTime;
+
     @Column(name = "buddy_climb", nullable = true)
     private Boolean buddyClimb;
 

@@ -31,7 +31,11 @@ export class LoginComponent implements OnInit {
     const password = this.form.controls.password.value;
     return this.userService.login(username, password).subscribe(user => {
         this.userService.user = user;
-        this.router.navigate([""]);
+        if (this.userService.isAdmin()) {
+          this.router.navigate(["/admin"]);
+        } else {
+          this.router.navigate([""]);
+        }
       }, error => {
         this.userService.user = null;
         this.toastrService.error('Incorrect username or password');

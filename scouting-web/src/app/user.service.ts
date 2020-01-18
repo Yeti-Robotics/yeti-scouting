@@ -46,4 +46,8 @@ export class UserService {
     return this.httpClient.post('/api/users', user);
   }
 
+  isAdmin() {
+    return !!(this.user && this.user.authorities || []).find(auth => auth.authority == "role_admin");
+  }
+
 }

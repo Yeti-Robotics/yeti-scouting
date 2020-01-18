@@ -1,6 +1,10 @@
 package com.yetirobotics.yetiscouting.user;
 
-import java.util.Collection;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,19 +14,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.springframework.security.core.CredentialsContainer;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import lombok.Data;
+import java.util.Collection;
 
 /**
  *
  */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements UserDetails, CredentialsContainer {
 

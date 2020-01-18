@@ -1,9 +1,9 @@
 # Yeti Scouting
 
 ## Stuff to Add
-- [ ] Submit timeout stores form data to be submitted later or generate json to give to admin
+- [x] Submit timeout stores form data to be submitted later or generate json to give to admin
 - [ ] Just remove the score field, there's no hope
-- [ ] make admin page
+- [x] make admin page
 - [ ] Ability to add matches to list in case of replays
 - [ ] Add option for user to type in team and match number if internet is slow
 - [ ] Fix match list
@@ -19,11 +19,11 @@
 - [ ] Add images of game pieces
 - [ ] Deploy
 - [ ] Disable keyboard input for apple users
-- [ ] Show position once match is chosen
+- [x] Show position once match is chosen
 - [ ] Add selector for position then automatically determine robot based on last match (but probably add a verification)
 - [ ] Form validation
-- [ ] Admin page: set tba event key
-- [ ] Team validation
+- [x] Admin page: set tba event key
+- [x] Team validation
 - [ ] Admin page: download scouting data and delete
 - [x] Comment help text
 - [ ] Admin trigger reload
@@ -34,7 +34,7 @@
 - [ ] Add x for x for percentages
 - [ ] Freeze columns and rows?
 - [ ] total projected rp
-- [ ] form submission notice
+- [x] form submission notice
 - [ ] admin manipulation of data
 - [ ] alliance selection
 - [x] time stamps
