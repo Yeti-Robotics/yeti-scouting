@@ -35,6 +35,7 @@
 - [ ] Freeze columns and rows?
 - [ ] total projected rp
 - [x] form submission notice
+- [ ] link data to a google sheet
 - [ ] admin manipulation of data
 - [ ] alliance selection
 - [x] time stamps
