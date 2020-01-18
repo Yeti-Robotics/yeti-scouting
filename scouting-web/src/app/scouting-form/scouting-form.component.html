@@ -93,42 +93,31 @@
       </div>
 
       <div class="card">
-        <h5 class="card-header">Autonomous</h5>
+        <h4 class="card-header">Autonomous</h4>
         <div class="card-body">
           <div class="form-group">
-            <label class="required">What did the robot preload?</label>
+            <label class="required">How many balls did the robot preload?</label>
             <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="preload" formControlName="preload">
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0"> Nothing
+                <input type="radio" ngbButton [value]="0"> 0
               </label>
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1"> Hatch Panel
+                <input type="radio" ngbButton [value]="1"> 1
               </label>
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="2"> Ball
+                <input type="radio" ngbButton [value]="2"> 2
               </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="habLevelStart" class="required">Starting HAB level</label>
-            <div class="btn-group btn-group-toggle d-flex" id="habLevelStart" ngbRadioGroup name="habLevelStart" formControlName="habLevelStart">
-              <label class="btn btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0">
-                Level 1
-              </label>
-              <label class="btn btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1">
-                Level 2
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="3"> 3
               </label>
             </div>
           </div>
 
           <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="crossHabitatLine" class="custom-control-input" formControlName="crossHabitatLine">
-            <label for="crossHabitatLine" class="custom-control-label">Did the robot cross the habitat line?</label>
+            <label for="crossHabitatLine" class="custom-control-label">Did the robot cross the initiation line?</label>
           </div>
-
+          
           <div class="form-group">
             <label for="sandstormCargoHatchPanelCount" class="required">Hatch panels scored on cargo ship</label>
             <div class="input-group">
@@ -184,7 +173,7 @@
       </div>
 
       <div class="card">
-        <h5 class="card-header">TeleOp</h5>
+        <h4 class="card-header">TeleOp</h4>
         <div class="card-body">
           <div class="form-group">
             <label for="teleopCargoHatchPanelCount" class="required">Hatch panels scored on cargo ship</label>
