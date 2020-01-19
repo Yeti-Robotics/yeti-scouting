@@ -5,6 +5,7 @@
 - [ ] Just remove the score field, there's no hope
 - [x] make admin page
 - [ ] Ability to add matches to list in case of replays
+- [ ] Dark mode
 - [ ] Add option for user to type in team and match number if internet is slow
 - [ ] Fix match list
 - [ ] Match page: add a not scouted check
