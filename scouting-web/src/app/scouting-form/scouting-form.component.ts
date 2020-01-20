@@ -168,7 +168,7 @@ export class ScoutingFormComponent implements OnInit {
       var newString = this.evaluateNewString(event.target.value, event);
       //Backspace
       if (event.keyCode == 8) {
-        if (!this.isValidTime(newString)) {
+        if (!this.isValidTime(newString) && !this.isPartialTime(newString)) {
           this.validTime = false;
         }
         return true;
@@ -182,7 +182,7 @@ export class ScoutingFormComponent implements OnInit {
         return true;
       }
       else if (this.isPartialTime(newString)) {
-        this.validTime = false;
+        this.validTime = true;
         return true;
       }
       else {

@@ -312,7 +312,7 @@
         <h4 class="card-header">Climb Timer</h4>
         <div class="card-body">
           <div id="alert" class="hide-alert alert alert-danger" role="alert" [class.hide-alert]="validTime" [class.show-alert]="!validTime">
-            Time must have one significant figure
+            Missing valid time
           </div>
           <div id="display" class="form-group">
             <input type="text" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" (keydown) = "timerInputKeyDown($event)" class="display-2" id="timeInput" [readonly]="timerToggled">
