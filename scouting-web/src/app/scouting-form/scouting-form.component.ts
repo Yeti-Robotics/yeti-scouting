@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ElementRef, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from '../user.service';
@@ -25,6 +25,18 @@ export class ScoutingFormComponent implements OnInit {
   noMatches = false;
   selectedScouterPos = new FormControl('', Validators.required);
   teamSelected = false;
+
+  //Timer variables
+  timerToggled: boolean = false;
+  timerButtonText: string = "Start";
+  tick: int = 0;
+  time: string = "0.0";
+  timerInterval;
+  validTime: boolean = true;
+
+  @ViewChild('timerButton') timerButton: ElementRef;
+  @ViewChild('alert') alert: ElementRef;
+  @ViewChild('timeInput') timeInput: ElementRef;
 
   scouterPositions = [
     "red 1",
@@ -121,6 +133,96 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  //User Input Sanity
+  isValidTime(str: string) {
+    const regex = RegExp("^[0-9][0-9]*\\.[0-9]$");
+    return regex.test(str);
+  }
+  isPartialTime(str: string) {
+    const noPoint = RegExp("^[0-9][0-9]*$");
+    const withPoint = RegExp("^[0-9][0-9]*\\.$");
+    return noPoint.test(str) || withPoint.test(str);
+  }
+  //Recreate the new user input
+  evaluateNewString(str, event) {
+    var selectionLength = window.getSelection().toString().length;
+    if (event.keyCode == 8) {
+      // If there is a selected region, backspace will remove selected regions
+      if (selectionLength > 0) {
+        return str.substring(0, event.target.selectionStart) + str.substring(event.target.selectionStart + selectionLength);
+      }
+      // Else backspace will remove character behind cursor
+      else {
+        return str.substring(0, event.target.selectionStart - 1) + str.substring(event.target.selectionStart);
+      }
+    }
+    else {
+      return str.substring(0, event.target.selectionStart) + event.key + str.substring(event.target.selectionStart + selectionLength);
+    }
+  }
+  timerInputKeyDown(event){
+    if (!this.timerToggled) {
+      var newString = this.evaluateNewString(event.target.value, event);
+      //Backspace
+      if (event.keyCode == 8) {
+        if (!this.isValidTime(newString)) {
+          this.validTime = false;
+        }
+        return true;
+      }
+      //Left and right arrow keys
+      if ([37, 39].includes(event.keyCode)) {
+        return true;
+      }
+      if (this.isValidTime(newString)) {
+        this.validTime = true;
+        return true;
+      }
+      else if (this.isPartialTime(newString)) {
+        this.validTime = false;
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+  //Timer Functions
+  resetTimer() {
+    console.log("Reset");
+
+    this.stopTimer();
+
+    this.timerToggled = false;
+    this.timerButtonText = "Start";
+    this.tick = 0;
+    this.time = "0.0";
+    this.validTime = true;
+  }
+  stopTimer() {
+    clearInterval(this.timerInterval);
+  }
+  startTimer() {
+    this.tick = parseInt(parseFloat(this.time)*10);
+    this.timerInterval = setInterval(() => {
+      this.tick += 1;
+      this.time = (this.tick/10.0).toFixed(1);
+    },100)
+  }
+  toggleTimer() {
+    console.log("Toggled");
+    this.timerToggled = !this.timerToggled;
+    if (this.timerToggled) {
+      this.timerButtonText = "Stop";
+      this.startTimer();
+    }
+    else {
+      this.timerButtonText = "Start";
+      this.stopTimer();
+    }
   }
 
   incrementField(field: string) {

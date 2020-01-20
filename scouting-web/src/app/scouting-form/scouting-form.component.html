@@ -309,6 +309,28 @@
       </div>
 
       <div class="card">
+        <h4 class="card-header">Climb Timer</h4>
+        <div class="card-body">
+          <div id="alert" class="hide-alert alert alert-danger" role="alert" [class.hide-alert]="validTime" [class.show-alert]="!validTime">
+            Time must have one significant figure
+          </div>
+          <div id="display" class="form-group">
+            <input type="text" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" (keydown) = "timerInputKeyDown($event)" class="display-2" id="timeInput" [readonly]="timerToggled">
+          </div>
+          <div id="controls" class="form-group">
+            <div class="row">
+              <div class="col">
+                <button id="timerButton" (click)="toggleTimer()" class="btn btn-success btn-lg btn-block" [class.btn-success]="!timerToggled" [class.btn-danger]="timerToggled" [disabled]="!validTime">{{timerButtonText}}</button>
+              </div>
+              <div class="col">
+                <button (click)="resetTimer()" class="btn btn-primary btn-lg btn-block">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
         <h5 class="card-header">Other</h5>
         <div class="card-body">
           <div class="form-group">

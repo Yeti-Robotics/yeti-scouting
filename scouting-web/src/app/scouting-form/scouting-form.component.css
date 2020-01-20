@@ -7,3 +7,27 @@ label>.ng-invalid{
 .ng-invalid.ng-dirty, .ng-invalid.ng-touched{
   border-color: red;
 }
+
+#timeInput {
+  width: 100%;
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
+}
+
+.hide-alert {
+  display: none;
+}
+
+.show-alert {
+  animation: showAlert 1s;
+  display: block;
+}
+@keyframes showAlert {
+  from {
+    width: 30%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
