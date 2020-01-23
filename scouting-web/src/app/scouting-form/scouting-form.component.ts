@@ -29,7 +29,7 @@ export class ScoutingFormComponent implements OnInit {
   //Timer variables
   timerToggled: boolean = false;
   timerButtonText: string = "Start";
-  tick: int = 0;
+  tick: number = 0;
   time: string = "0.0";
   timerInterval;
   validTime: boolean = true;
@@ -206,7 +206,7 @@ export class ScoutingFormComponent implements OnInit {
     clearInterval(this.timerInterval);
   }
   startTimer() {
-    this.tick = parseInt(parseFloat(this.time)*10);
+    this.tick = parseFloat(this.time)*10;
     this.timerInterval = setInterval(() => {
       this.tick += 1;
       this.time = (this.tick/10.0).toFixed(1);
