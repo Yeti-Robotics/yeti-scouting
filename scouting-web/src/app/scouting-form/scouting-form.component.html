@@ -234,38 +234,28 @@
           </div>
 
           <div class="form-group custom-control custom-checkbox">
-            <input type="checkbox" id="park" class="custom-control-input" formControlName="park">
-            <label for="park" class="custom-control-label">Did they do rotation control?</label>
-          </div>
-
-          <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="positionControl" class="custom-control-input" formControlName="positionControl">
             <label for="positionControl" class="custom-control-label">Did they do position control?</label>
           </div>
 
-          <div class="form-group">
-            <label class="required">Climb</label>
-            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="preload" formControlName="preload">
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0"> Solo not level
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1"> Solo level
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="2"> Buddy climb lifted
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="3"> Buddy climb got lifted
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="4"> Parked
-              </label>
-            </div>
-          </div>
-
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Climb</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem>Solo Not Level</button>
+                  <button ngbDropdownItem>Solo Level</button>
+                  <button ngbDropdownItem>Buddy Climb Lifted</button>
+                  <button ngbDropdownItem>Buddy Climb Got Lifted</button>
+                  <button ngbDropdownItem>Parked</button>
+                  <button ngbDropdownItem>Nothing</button>
+                </div>
+              </div>
+            </div>             
         </div>
       </div>
+    </div>
+    
 
       <div class="card">
         <h5 class="card-header">Other</h5>

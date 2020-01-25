@@ -62,42 +62,52 @@ export class ScoutingFormComponent implements OnInit {
     this.form = this.fb.group({
       teamNumber: ["", numberValidators],
       matchNumber: ["", numberValidators],
-      crossHabitatLine: [false, Validators.required],
-      sandstormCargoHatchPanelCount: [
+      crossInitiationLine: [false, Validators.required],
+      autoUpperScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      sandstormCargoBallCount: [{value: 0, disabled: true}, numberValidators],
+      autoUpperMissedBalls: [{value: 0, disabled: true}, numberValidators],
       sandstormRocketHatchPanelCount: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      sandstormRocketBallCount: [
+      autoLowScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopCargoHatchPanelCount: [
+      autoLowMissedBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopCargoBallCount: [{value: 0, disabled: true}, numberValidators],
-      teleopRocketHatchPanelCount: [
+
+      spillBalls: [false, Validators.required],
+      
+      teleopUpperMissedBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopRocketBallCount: [{value: 0, disabled: true}, numberValidators],
+      teleopUpperScoredBalls: [
+        {value: 0, disabled: true},
+        numberValidators
+      ],
+      teleopLowScoredBalls: [
+        {value: 0, disabled: true},
+        numberValidators
+      ],
+      teleopLowMissedBalls: [
+        {value: 0, disabled: true}, 
+        numberValidators
+      ],
+      
       comment: ["", Validators.required],
       score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
-      defense: [false, Validators.required],
       preload: [0, Validators.required],
-      habLevelStart: [0, Validators.required],
-      climbTime: [0, numberValidators],
-      lifted: [false, Validators.required],
-      gotLifted: [false, Validators.required],
-      buddyClimb: [false, Validators.required],
-      droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
-      rocketLevel: [0, numberValidators]
+      positionControl: [false, Validators.required],
+      rotationControl: [false, Validators.required],
+      
+      climb: ["Nothing", Validators.required],
     });
 
     this.blueAlliance.getFutureMatches().subscribe(
