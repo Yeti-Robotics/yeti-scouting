@@ -107,7 +107,7 @@ export class ScoutingFormComponent implements OnInit {
       positionControl: [false, Validators.required],
       rotationControl: [false, Validators.required],
       
-      climb: ["Nothing", Validators.required],
+      endPosition: [0, Validators.required],
     });
 
     this.blueAlliance.getFutureMatches().subscribe(
