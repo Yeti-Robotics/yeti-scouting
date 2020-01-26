@@ -28,35 +28,35 @@ public class ScoutingForm {
     @Column(name = "team_number", nullable = false)
     private Integer teamNumber;
 
-    @Column(name = "cross_habitat_line", nullable = false)
-    private Boolean crossHabitatLine;
+    @Column(name = "cross_initiation_line", nullable = false)
+    private Boolean crossInitiationLine;
 
-    @Column(name = "hab_level_start", nullable = false)
-    private Integer habLevelStart;
+    @Column(name = "auto_upper_scored_balls", nullable = false)
+    private Integer autoUpperScoredBalls;
 
-    @Column(name = "sandstorm_cargo_hatch_panel_count", nullable = false)
-    private Integer sandstormCargoHatchPanelCount;
+    @Column(name = "auto_upper_missed_balls", nullable = false)
+    private Integer autoUpperMissedBalls;
 
-    @Column(name = "sandstorm_cargo_ball_count", nullable = false)
-    private Integer sandstormCargoBallCount;
+    @Column(name = "auto_lower_scored_balls", nullable = false)
+    private Integer autoLowerScoredBalls;
 
-    @Column(name = "sandstorm_rocket_hatch_panel_count", nullable = false)
-    private Integer sandstormRocketHatchPanelCount;
+    @Column(name = "auto_lower_missed_balls", nullable = false)
+    private Integer autoLowerMissedBalls;
 
-    @Column(name = "sandstorm_rocket_ball_count", nullable = false)
-    private Integer sandstormRocketBallCount;
+    @Column(name = "spill_balls", nullable = false)
+    private Boolean spillBalls;
 
-    @Column(name = "teleop_cargo_hatch_panel_count", nullable = false)
-    private Integer teleopCargoHatchPanelCount;
+    @Column(name = "teleop_upper_missed_balls", nullable = false)
+    private Integer teleopUpperMissedBalls;
 
-    @Column(name = "teleop_cargo_ball_count", nullable = false)
-    private Integer teleopCargoBallCount;
+    @Column(name = "teleop_upper_scored_balls", nullable = false)
+    private Integer teleopUpperScoredBalls;
     
-    @Column(name = "teleop_rocket_hatch_panel_count", nullable = false)
-    private Integer teleopRocketHatchPanelCount;
+    @Column(name = "teleop_low_scored_balls", nullable = false)
+    private Integer teleopLowScoredBalls;
 
-    @Column(name = "teleop_rocket_ball_count", nullable = false)
-    private Integer teleopRocketBallCount;
+    @Column(name = "teleop_low_missed_balls", nullable = false)
+    private Integer teleopLowMIssedBalls;
 
     @Column(name = "comment", nullable = false)
     private String comment;
@@ -64,32 +64,17 @@ public class ScoutingForm {
     @Column(name = "score", nullable = false)
     private Integer score;
 
-    @Column(name = "hab_level_climb", nullable = false)
-    private Integer habLevelClimb;
-
-    @Column(name = "defense", nullable = true)
-    private Boolean defense;
-
-    @Column(name = "preload", nullable = true)
+    @Column(name = "preload", nullable = false)
     private Integer preload;
 
-    @Column(name = "climb_time", nullable = true)
-    private Double climbTime;
+    @Column(name = "position_control", nullable = true)
+    private Boolean positionControl;
 
-    @Column(name = "buddy_climb", nullable = true)
-    private Boolean buddyClimb;
+    @Column(name = "rotation_control", nullable = true)
+    private Boolean rotationControl;
 
-    @Column(name = "lifted", nullable = true)
-    private Boolean lifted;
-
-    @Column(name = "got_lifted", nullable = true)
-    private Boolean gotLifted;
-    
-    @Column(name = "dropped_game_pieces", nullable = true)
-    private Integer droppedGamePieces;
-
-    @Column(name = "rocket_level", nullable = true)
-    private Integer rocketLevel;
+    @Column(name = "end_position", nullable = true)
+    private Integer endPosition;
 
     @CreatedBy
     @Column(name = "scouter", nullable = false)
