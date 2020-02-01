@@ -37,11 +37,11 @@ public class ScoutingForm {
     @Column(name = "auto_upper_missed_balls", nullable = false)
     private Integer autoUpperMissedBalls;
 
-    @Column(name = "auto_lower_scored_balls", nullable = false)
-    private Integer autoLowerScoredBalls;
+    @Column(name = "auto_low_scored_balls", nullable = false)
+    private Integer autoLowScoredBalls;
 
-    @Column(name = "auto_lower_missed_balls", nullable = false)
-    private Integer autoLowerMissedBalls;
+    @Column(name = "auto_low_missed_balls", nullable = false)
+    private Integer autoLowMissedBalls;
 
     @Column(name = "spill_balls", nullable = false)
     private Boolean spillBalls;
@@ -56,7 +56,7 @@ public class ScoutingForm {
     private Integer teleopLowScoredBalls;
 
     @Column(name = "teleop_low_missed_balls", nullable = false)
-    private Integer teleopLowMIssedBalls;
+    private Integer teleopLowMissedBalls;
 
     @Column(name = "comment", nullable = false)
     private String comment;

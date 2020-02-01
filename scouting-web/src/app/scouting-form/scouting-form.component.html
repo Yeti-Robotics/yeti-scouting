@@ -237,6 +237,12 @@
             <input type="checkbox" id="positionControl" class="custom-control-input" formControlName="positionControl">
             <label for="positionControl" class="custom-control-label">Did they do position control?</label>
           </div>
+
+          <div *ngIf="form.controls['positionControl'].value" class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="rotationControl" formControlName="rotationControl" class="custom-control-input">
+            <label for="rotationControl" class="custom-control-label">Did they do rotation control?</label>
+          </div>
+
           <div class="form-group">
             <label for="endPosition">End Position</label>
             <select name="endPosition" id="endPosition" class="custom-select" formControlName="endPosition">
