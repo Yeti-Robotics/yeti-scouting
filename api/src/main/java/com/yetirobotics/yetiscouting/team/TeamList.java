@@ -19,8 +19,8 @@ public class TeamList {
     private String teamName;
     private Double percentInitiationLine;
     private Double avgScoredAuto;
-    // private Double avgUpperAuto;
-    // private Double avgLowerAuto;
+    private Double avgUpperAuto;
+    private Double avgLowerAuto;
     // private Double percentFeeding;
     // private Double avgUpperTeleop;
     // private Double avgLowerTeleop;

@@ -23,7 +23,9 @@ import lombok.Data;
     "s.team_number AS teamNumber, " +
     "t.team_name AS teamName, " +
     "AVG(s.auto_low_scored_balls + s.auto_upper_scored_balls) AS avgScoredAuto, " +
-    "AVG(s.cross_initiation_line) AS percentInitiationLine " + 
+    "AVG(s.cross_initiation_line) AS percentInitiationLine, " + 
+    "AVG(s.auto_upper_scored_balls) AS avgUpperAuto, " + 
+    "AVG(s.auto_low_scored_balls) AS avgLowerAuto " + 
     "FROM scouting_form s " +
     "LEFT JOIN team t ON t.team_number = s.team_number " +
     "GROUP BY s.team_number",
@@ -51,7 +53,9 @@ import lombok.Data;
                 @ColumnResult(name = "teamNumber", type = Integer.class),
                 @ColumnResult(name = "teamName", type = String.class),
                 @ColumnResult(name = "percentInitiationLine", type = Double.class),
-                @ColumnResult(name = "avgScoredAuto", type = Double.class)
+                @ColumnResult(name = "avgScoredAuto", type = Double.class),
+                @ColumnResult(name = "avgUpperAuto", type = Double.class),
+                @ColumnResult(name = "avgLowerAuto", type = Double.class)
             })
     }
 )
