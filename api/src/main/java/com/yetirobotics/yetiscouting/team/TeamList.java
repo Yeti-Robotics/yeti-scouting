@@ -24,8 +24,8 @@ public class TeamList {
     private Double percentFeeding;
     private Double avgUpperTeleop;
     private Double avgLowerTeleop;
-    // private Double teleopAccuracy;
-    // private Double rotationControl;
-    // private Double positionControl;
+    private Double teleopAccuracy;
+    private Double rotationControl;
+    private Double positionControl;
     // private Integer mostCommonEndPosition;
 }

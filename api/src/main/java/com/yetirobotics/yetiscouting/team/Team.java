@@ -28,7 +28,10 @@ import lombok.Data;
     "AVG(s.auto_low_scored_balls) AS avgLowerAuto, " + 
     "AVG(s.spill_balls) AS percentFeeding, " + 
     "AVG(s.teleop_upper_scored_balls) AS avgUpperTeleop, " + 
-    "AVG(s.teleop_low_scored_balls) AS avgLowerTeleop " + 
+    "AVG(s.teleop_low_scored_balls) AS avgLowerTeleop, " + 
+    "SUM(s.teleop_low_scored_balls + s.teleop_upper_scored_balls) / SUM(s.teleop_low_missed_balls + s.teleop_low_scored_balls + s.teleop_upper_missed_balls + s.teleop_upper_scored_balls) AS teleopAccuracy, " +
+    "AVG(s.position_control) AS positionControl, " + 
+    "AVG(s.rotation_control) AS rotationControl " +
     "FROM scouting_form s " +
     "LEFT JOIN team t ON t.team_number = s.team_number " +
     "GROUP BY s.team_number",
@@ -61,7 +64,10 @@ import lombok.Data;
                 @ColumnResult(name = "avgLowerAuto", type = Double.class),
                 @ColumnResult(name = "percentFeeding", type = Double.class),
                 @ColumnResult(name = "avgUpperTeleop", type = Double.class),
-                @ColumnResult(name = "avgLowerTeleop", type = Double.class)
+                @ColumnResult(name = "avgLowerTeleop", type = Double.class),
+                @ColumnResult(name = "teleopAccuracy", type = Double.class),
+                @ColumnResult(name = "positionControl", type = Double.class),
+                @ColumnResult(name = "rotationControl", type = Double.class)
             })
     }
 )
