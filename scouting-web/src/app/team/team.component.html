@@ -57,6 +57,7 @@
         <thead>
           <tr>
             <th>Match #</th>
+            <th>Scouter</th>
             <th>Preloaded Balls</th>
             <th>Crossed Initiation Line</th>
             <th>Upper Scored Balls</th>
@@ -68,20 +69,19 @@
         <tbody>
           <tr *ngFor="let data of scoutForms">
             <td>{{ data.matchNumber }}</td>
-            <td>{{ data.habLevelStart }}</td>
+            <td>{{ data.scouter }}</td>
+            <td>{{ data.preload }}</td>
             <td>
               <i
-                *ngIf="data.crossHabitatLine"
+                *ngIf="data.crossInitiationLine"
                 class="material-icons text-success"
-                >check</i
-              >
+                >check</i>
               <i
-                *ngIf="!data.crossHabitatLine"
+                *ngIf="!data.crossInitiationLine"
                 class="material-icons text-danger"
-                >clear</i
-              >
+                >clear</i>
             </td>
-            <td>{{ data.sandstormCargoHatchPanelCount }}</td>
+            <td>{{ data.autoUpperScoredBalls }}</td>
             <td>{{ data.sandstormCargoBallCount }}</td>
             <td>{{ data.sandstormRocketHatchPanelCount }}</td>
             <td>{{ data.sandstormRocketBallCount }}</td>
@@ -113,8 +113,8 @@
         <tbody>
           <tr *ngFor="let data of scoutForms">
             <td>{{ data.matchNumber }}</td>
-            <td>{{ data.teleopCargoHatchPanelCount }}</td>
-            <td>{{ data.teleopCargoBallCount }}</td>
+            <td>{{ data.scouter }}</td>
+            <td>{{ data.fg }}</td>
             <td>{{ data.teleopRocketHatchPanelCount }}</td>
             <td>{{ data.teleopRocketBallCount }}</td>
             <td>
