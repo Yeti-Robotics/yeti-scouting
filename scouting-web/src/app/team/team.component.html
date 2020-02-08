@@ -82,9 +82,9 @@
                 >clear</i>
             </td>
             <td>{{ data.autoUpperScoredBalls }}</td>
-            <td>{{ data.sandstormCargoBallCount }}</td>
-            <td>{{ data.sandstormRocketHatchPanelCount }}</td>
-            <td>{{ data.sandstormRocketBallCount }}</td>
+            <td>{{ data.autoUpperMissedBalls }}</td>
+            <td>{{ data.autoLowScoredBalls }}</td>
+            <td>{{ data.autoLowMissedBalls }}</td>
           </tr>
         </tbody>
       </table>
@@ -114,22 +114,48 @@
           <tr *ngFor="let data of scoutForms">
             <td>{{ data.matchNumber }}</td>
             <td>{{ data.scouter }}</td>
-            <td>{{ data.fg }}</td>
-            <td>{{ data.teleopRocketHatchPanelCount }}</td>
-            <td>{{ data.teleopRocketBallCount }}</td>
+            <td>{{ data.score }}</td>
+            <td>{{ data.teleopUpperScoredBalls }}</td>
+            <td>{{ data.teleopUpperMissedBalls }}</td>
+            <td>{{ data.teleopLowerScoredBalls}}</td>
+            <td>{{ data.teleopLowerMissedBalls}}</td>
             <td>
-                <i
-                *ngIf="data.defense"
+            <i
+              *ngIf="data.spillBalls"
+              class="material-icons text-success"
+            >check</i
+            >
+            <i
+              *ngIf="!data.spillBalls"
+              class="material-icons text-danger"
+            >clear</i
+            >
+          </td>
+            <td>
+              <i
+                *ngIf="data.positionControl"
                 class="material-icons text-success"
-                >check</i
+              >check</i
               >
               <i
-                *ngIf="!data.defense"
+                *ngIf="!data.positionControl"
                 class="material-icons text-danger"
-                >clear</i
+              >clear</i
               >
             </td>
-            <td>{{ data.habLevelClimb }}</td>
+            <td>
+              <i
+                *ngIf="data.rotationControl"
+                class="material-icons text-success"
+              >check</i
+              >
+              <i
+                *ngIf="!data.rotationControl"
+                class="material-icons text-danger"
+              >clear</i
+              >
+            </td>
+            <td>{{ data.endPosition }}</td>
           </tr>
         </tbody>
       </table>
