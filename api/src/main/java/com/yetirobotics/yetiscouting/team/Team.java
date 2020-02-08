@@ -19,11 +19,14 @@ import lombok.Data;
 @Data
 @NamedNativeQuery(
     name = "Team.teamList",
-    query = "SELECT s.team_number AS teamNumber," +
-        "t.team_name AS teamName " +
-        "FROM scouting_form s " +
-        "LEFT JOIN team t ON t.team_number = s.team_number " +
-        "GROUP BY s.team_number",
+    query = "SELECT " +
+    "s.team_number AS teamNumber, " +
+    "t.team_name AS teamName, " +
+    "AVG(s.auto_low_scored_balls + s.auto_upper_scored_balls) AS avgScoredAuto, " +
+    "AVG(s.cross_initiation_line) AS percentInitiationLine " + 
+    "FROM scouting_form s " +
+    "LEFT JOIN team t ON t.team_number = s.team_number " +
+    "GROUP BY s.team_number",
     resultClass = TeamList.class,
     resultSetMapping = "teamList"
 )
@@ -46,7 +49,9 @@ import lombok.Data;
         @ConstructorResult(targetClass = TeamList.class,
             columns = {
                 @ColumnResult(name = "teamNumber", type = Integer.class),
-                @ColumnResult(name = "teamName", type = String.class)
+                @ColumnResult(name = "teamName", type = String.class),
+                @ColumnResult(name = "percentInitiationLine", type = Double.class),
+                @ColumnResult(name = "avgScoredAuto", type = Double.class)
             })
     }
 )

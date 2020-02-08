@@ -11,12 +11,13 @@
           <th scope="col">#</th>
           <th scope="col" sortable="teamNumber" (sort)="onSort($event)">Team</th>
           <th scope="col" sortable="teamName" (sort)="onSort($event)">Team Name</th>
-          <th scope="col" sortable="totalScoredAuto" (sort)="onSort($event)">Total Scored Auto</th>
-          <th scope="col" sortable="totalUpperAuto" (sort)="onSort($event)">Total Upper Auto</th>
-          <th scope="col" sortable="totalLowerAuto" (sort)="onSort($event)">Total Lower Auto</th>
+          <th scope="col" sortable="percentInitiationLine" (sort)="onSort($event)">% Initiation Line</th>
+          <th scope="col" sortable="avgScoredAuto" (sort)="onSort($event)">Avg. Scored Auto</th>
+          <th scope="col" sortable="avgUpperAuto" (sort)="onSort($event)">Avg. Upper Auto</th>
+          <th scope="col" sortable="avgLowerAuto" (sort)="onSort($event)">Avg. Lower Auto</th>
           <th scope="col" sortable="percentFeeding" (sort)="onSort($event)">% of Times Feeding</th>
-          <th scope="col" sortable="totalUpperTeleop" (sort)="onSort($event)">Total Upper Teleop</th>
-          <th scope="col" sortable="totalLowerTeleop" (sort)="onSort($event)">Total Lower Teleop</th>
+          <th scope="col" sortable="avgUpperTeleop" (sort)="onSort($event)">Avg. Upper Teleop</th>
+          <th scope="col" sortable="avgLowerTeleop" (sort)="onSort($event)">Avg. Lower Teleop</th>
           <th scope="col" sortable="teleopAccuracy" (sort)="onSort($event)">Teleop Accuracy</th>
           <th scope="col" sortable="rotationControl" (sort)="onSort($event)">Rotation Control</th>
           <th scope="col" sortable="positionControl" (sort)="onSort($event)">Position Control</th>
@@ -28,15 +29,16 @@
           <td scope="row">{{i + 1}}</td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamNumber}}</a></td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamName}}</a></td>
-          <td>{{team.totalScoredAuto}}</td>
-          <td>{{team.totalUpperAuto}}</td>
-          <td>{{team.totalLowerAuto}}</td>
-          <td>{{team.percentFeeding | number:'1.1-2'}}</td>
-          <td>{{team.totalUpperTeleop}}</td>
-          <td>{{team.totalLowerTeleop}}</td>
-          <td>{{team.teleopAccuracy | number:'1.1-2'}}</td>
-          <td>{{team.rotationControl | number:'1.1-2'}}</td>
-          <td>{{team.positionControl | number:'1.1-2'}}</td>
+          <td>{{team.percentInitiationLine | percent}}</td>
+          <td>{{team.avgScoredAuto | number:'1.2-2'}}</td>
+          <td>{{team.avgUpperAuto | number:'1.2-2'}}</td>
+          <td>{{team.avgLowerAuto | number:'1.2-2'}}</td>
+          <td>{{team.percentFeeding | percent}}</td>
+          <td>{{team.avgUpperTeleop | number:'1.2-2'}}</td>
+          <td>{{team.avgLowerTeleop | number:'1.2-2'}}</td>
+          <td>{{team.teleopAccuracy | number:'1.2-2'}}</td>
+          <td>{{team.rotationControl | number:'1.2-2'}}</td>
+          <td>{{team.positionControl | number:'1.2-2'}}</td>
           <td>{{team.mostCommonEndPosition}}</td>
         </tr>
       </tbody>
