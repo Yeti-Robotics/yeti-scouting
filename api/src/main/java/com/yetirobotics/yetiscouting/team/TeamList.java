@@ -21,9 +21,9 @@ public class TeamList {
     private Double avgScoredAuto;
     private Double avgUpperAuto;
     private Double avgLowerAuto;
-    // private Double percentFeeding;
-    // private Double avgUpperTeleop;
-    // private Double avgLowerTeleop;
+    private Double percentFeeding;
+    private Double avgUpperTeleop;
+    private Double avgLowerTeleop;
     // private Double teleopAccuracy;
     // private Double rotationControl;
     // private Double positionControl;
