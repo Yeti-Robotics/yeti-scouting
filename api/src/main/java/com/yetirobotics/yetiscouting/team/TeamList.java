@@ -17,14 +17,14 @@ public class TeamList {
     @Id
     private Integer teamNumber;
     private String teamName;
-    private Integer totalScoredAUto;
-    private Integer totalUpperAuto;
-    private Integer totalLowerAuto;
-    private Double percentFeeding;
-    private Integer totalUpperTeleop;
-    private Integer totalLowerTeleop;
-    private Double teleopAccuracy;
-    private Double rotationControl;
-    private Double positionControl;
-    private Integer mostCommonEndPosition;
+    // private Integer totalScoredAUto;
+    // private Integer totalUpperAuto;
+    // private Integer totalLowerAuto;
+    // private Double percentFeeding;
+    // private Integer totalUpperTeleop;
+    // private Integer totalLowerTeleop;
+    // private Double teleopAccuracy;
+    // private Double rotationControl;
+    // private Double positionControl;
+    // private Integer mostCommonEndPosition;
 }
