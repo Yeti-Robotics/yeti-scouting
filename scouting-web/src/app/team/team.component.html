@@ -13,39 +13,43 @@
         </tr>
         <tr>
           <th>Avg. Scored Auto</th>
-          <td>{{teamStats?.avgSandCargoDisk}}</td>
+          <td>{{teamStats?.avgScoredAuto}}</td>
         </tr>
         <tr>
           <th>Avg. Upper Auto</th>
-          <td>{{teamStats?.avgSandCargoBall}}</td>
+          <td>{{teamStats?.avgUpperAuto}}</td>
         </tr>
         <tr>
           <th>Avg. Lower Auto</th>
-          <td>{{teamStats?.avgSandRocketBall}}</td>
+          <td>{{teamStats?.avgLowerAuto}}</td>
         </tr>
         <tr>
           <th>% of Times Feeding</th>
-          <td>{{teamStats?.avgSandRocketDisk}}</td>
+          <td>{{teamStats?.percentFeeding}}</td>
         </tr>
         <tr>
           <th>Avg. Upper Teleop</th>
-          <td>{{teamStats?.avgTeleCargoDisk}}</td>
+          <td>{{teamStats?.avgUpperTeleop}}</td>
         </tr>
         <tr>
           <th>Avg. Lower Teleop</th>
-          <td>{{teamStats?.avgTeleCargoBall}}</td>
+          <td>{{teamStats?.avgLowerTeleop}}</td>
         </tr>
         <tr>
           <th>Teleop Accuracy</th>
-          <td>{{teamStats?.avgTeleRocketBall}}</td>
+          <td>{{teamStats?.teleopAccuracy}}</td>
         </tr>
         <tr>
           <th>Rotation Control</th>
-          <td>{{teamStats?.avgTeleRocketDisk}}</td>
+          <td>{{teamStats?.rotationControl}}</td>
+        </tr>
+        <tr>
+          <th>Position Control</th>
+          <td>{{teamStats?.positionControl}}</td>
         </tr>
         <tr>
           <th>Most Common End Position</th>
-          <td> </td>
+          <td>{{teamStats?.mostCommonEndPosition}}</td>
         </tr>
       </tbody>
     </table>
@@ -117,8 +121,8 @@
             <td>{{ data.score }}</td>
             <td>{{ data.teleopUpperScoredBalls }}</td>
             <td>{{ data.teleopUpperMissedBalls }}</td>
-            <td>{{ data.teleopLowerScoredBalls}}</td>
-            <td>{{ data.teleopLowerMissedBalls}}</td>
+            <td>{{ data.teleopLowScoredBalls }}</td>
+            <td>{{ data.teleopLowMissedBalls }}</td>
             <td>
             <i
               *ngIf="data.spillBalls"
