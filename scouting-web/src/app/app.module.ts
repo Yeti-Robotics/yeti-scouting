@@ -23,6 +23,7 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import { AdminComponent } from './admin/admin.component';
+import { EndPositionPipe } from './end-position.pipe';
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -45,7 +46,8 @@ export function appInit(userService: UserService): Function {
     RegisterComponent,
     PitComponent,
     TableSortDirective,
-    AdminComponent
+    AdminComponent,
+    EndPositionPipe
   ],
   imports: [
     BrowserModule,

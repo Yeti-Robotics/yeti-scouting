@@ -27,5 +27,5 @@ public class TeamList {
     private Double teleopAccuracy;
     private Double rotationControl;
     private Double positionControl;
-    // private Integer mostCommonEndPosition;
+    private Integer mostCommonEndPosition;
 }
