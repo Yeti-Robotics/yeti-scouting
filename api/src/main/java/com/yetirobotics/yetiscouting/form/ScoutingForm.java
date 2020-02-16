@@ -44,7 +44,7 @@ public class ScoutingForm {
     private Integer autoLowMissedBalls;
 
     @Column(name = "spill_balls", nullable = false)
-    private Boolean spillBalls;
+    private Integer spillBalls;
 
     @Column(name = "teleop_upper_missed_balls", nullable = false)
     private Integer teleopUpperMissedBalls;
