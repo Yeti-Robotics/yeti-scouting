@@ -170,9 +170,19 @@
               </div>
             </div>
 
-            <div class="form-group custom-control custom-checkbox">
-              <input type="checkbox" id="spillBalls" class="custom-control-input" formControlName="spillBalls">
-              <label for="spillBalls" class="custom-control-label">Did they spill balls?</label>
+            <div class="form-group">
+              <label class="required">Ball Spilled?</label>
+              <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="spillBalls" formControlName="spillBalls">
+                <label class="btn-outline-primary" ngbButtonLabel>
+                  <input type="radio" ngbButton [value]="0"> Didn't Spill Balls
+                </label>
+                <label class="btn-outline-primary" ngbButtonLabel>
+                  <input type="radio" ngbButton [value]="1"> Spilled Balls Onto the Ground
+                </label>
+                <label class="btn-outline-primary" ngbButtonLabel>
+                  <input type="radio" ngbButton [value]="2"> Spilled Balls Into Another Robot
+                </label>
+              </div>
             </div>
         </div>
       </div>
