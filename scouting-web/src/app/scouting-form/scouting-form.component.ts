@@ -78,7 +78,7 @@ export class ScoutingFormComponent implements OnInit {
         numberValidators
       ],
 
-      spillBalls: [false, Validators.required],
+      spillBalls: [0, Validators.required],
       
       teleopUpperMissedBalls: [
         {value: 0, disabled: true},
