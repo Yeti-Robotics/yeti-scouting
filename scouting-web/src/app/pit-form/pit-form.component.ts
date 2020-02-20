@@ -32,6 +32,10 @@ export class PitFormComponent implements OnInit {
       {
         teamNumber: ["", Validators.required],
         pictures: [],
+        height: [],
+        climb: [],
+        shoot: [],
+        wheelOfFortune: [],
         comment: ""
       },
       {validators: this.pitFormValidator()}
