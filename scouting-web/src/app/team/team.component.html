@@ -9,7 +9,7 @@
       <tbody>
         <tr>
           <th>% Initiation Line</th>
-          <td>{{teamStats?.percentInitationLine}}</td>
+          <td>{{teamStats?.percentInitiationLine | percent}}</td>
         </tr>
         <tr>
           <th>Avg. Scored Auto</th>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
           <th>% of Times Feeding</th>
-          <td>{{teamStats?.percentFeeding}}</td>
+          <td>{{teamStats?.percentFeeding | percent}}</td>
         </tr>
         <tr>
           <th>Avg. Upper Teleop</th>
@@ -37,15 +37,15 @@
         </tr>
         <tr>
           <th>Teleop Accuracy</th>
-          <td>{{teamStats?.teleopAccuracy}}</td>
+          <td>{{teamStats?.teleopAccuracy | percent}}</td>
         </tr>
         <tr>
           <th>Rotation Control</th>
-          <td>{{teamStats?.rotationControl}}</td>
+          <td>{{teamStats?.rotationControl | percent}}</td>
         </tr>
         <tr>
           <th>Position Control</th>
-          <td>{{teamStats?.positionControl}}</td>
+          <td>{{teamStats?.positionControl | percent}}</td>
         </tr>
         <tr>
           <th>Most Common End Position</th>

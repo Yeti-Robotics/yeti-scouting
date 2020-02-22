@@ -48,12 +48,30 @@ import lombok.Data;
 
 @NamedNativeQuery(
     name = "Team.teamStats",
-    query = "   SELECT s.team_number AS teamNumber,  " +
-        "   t.team_name AS teamName  " +
-        "   FROM scouting_form s  " +
-        "   LEFT JOIN team t ON t.team_number = s.team_number  " +
-        "   WHERE s.team_number = :teamNumber  " +
-        "   GROUP BY s.team_number  ",
+    query = "SELECT "+ 
+    "s.team_number AS teamNumber, "+ 
+    "t.team_name AS teamName, "+
+    "AVG(s.auto_low_scored_balls + s.auto_upper_scored_balls) AS avgScoredAuto, "+ 
+    "AVG(s.cross_initiation_line) AS percentInitiationLine, "+ 
+    "AVG(s.auto_upper_scored_balls) AS avgUpperAuto, "+ 
+    "AVG(s.auto_low_scored_balls) AS avgLowerAuto, "+ 
+    "AVG(s.spill_balls) AS percentFeeding, "+ 
+    "AVG(s.teleop_upper_scored_balls) AS avgUpperTeleop, "+
+    "AVG(s.teleop_low_scored_balls) AS avgLowerTeleop, "+
+    "SUM(s.teleop_low_scored_balls + s.teleop_upper_scored_balls) / SUM(s.teleop_low_missed_balls + s.teleop_low_scored_balls + s.teleop_upper_missed_balls + s.teleop_upper_scored_balls) AS teleopAccuracy, "+
+    "AVG(s.position_control) AS positionControl, "+ 
+    "AVG(s.rotation_control) AS rotationControl, "+
+    "x.mostCommonEndPosition "+
+    "FROM scouting_form s "+
+    "LEFT JOIN team t ON t.team_number = s.team_number "+
+    "LEFT JOIN (SELECT team_number, end_position AS mostCommonEndPosition, MAX(endPositionCount) "+
+        "FROM (SELECT team_number, end_position, COUNT(*) AS endPositionCount "+
+            "FROM scouting_form "+
+            "GROUP BY team_number, end_position "+
+            "ORDER BY team_number, endPositionCount DESC) t "+
+        "GROUP BY team_number) x ON x.team_number = s.team_number "+
+    "WHERE s.team_number = :teamNumber "+
+    "GROUP BY s.team_number ",
     resultClass = TeamStats.class,
     resultSetMapping = "teamStats"
 )
@@ -86,7 +104,18 @@ import lombok.Data;
         @ConstructorResult(targetClass = TeamStats.class,
             columns = {
                 @ColumnResult(name = "teamNumber", type = Integer.class),
-                @ColumnResult(name = "teamName", type = String.class)
+                @ColumnResult(name = "teamName", type = String.class),
+                @ColumnResult(name = "percentInitiationLine", type = Double.class),
+                @ColumnResult(name = "avgScoredAuto", type = Double.class),
+                @ColumnResult(name = "avgUpperAuto", type = Double.class),
+                @ColumnResult(name = "avgLowerAuto", type = Double.class),
+                @ColumnResult(name = "percentFeeding", type = Double.class),
+                @ColumnResult(name = "avgUpperTeleop", type = Double.class),
+                @ColumnResult(name = "avgLowerTeleop", type = Double.class),
+                @ColumnResult(name = "teleopAccuracy", type = Double.class),
+                @ColumnResult(name = "positionControl", type = Double.class),
+                @ColumnResult(name = "rotationControl", type = Double.class),
+                @ColumnResult(name = "mostCommonEndPosition", type = Integer.class)
             })
     }
 )

@@ -18,7 +18,7 @@ import lombok.Data;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @NamedNativeQuery(
-    name = "PitComment.pitCommentsInfo",
+    name = "PitData.pitCommentsInfo",
     query = "SELECT `comment`, users.first_name AS scouterFirstName, users.last_name AS scouterLastName, `timestamp`, users.team_number AS scouterTeamNumber\n" +
         "FROM `pit_comment`\n" +
         "LEFT JOIN users ON users.username = scouter\n" +
