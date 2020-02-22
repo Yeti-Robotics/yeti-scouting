@@ -45,42 +45,6 @@ public class PitController {
         this.picturePath = picturePath;
     }
 
-    /*
-    root -> {
-        "comments": [
-            {
-            "comment": "fnkawndfka",
-            "scouterFirstName": "Sam",
-            ...
-            },
-            {
-            "comment": "fnkawndfka",
-            "scouterFirstName": "Sam",
-            ...
-            }
-        ]
-    }
-
-    
-    commentsArray -> [
-        {
-        "comment": "fnkawndfka",
-        "scouterFirstName": "Sam",
-        ...
-        },
-        {
-        "comment": "fnkawndfka",
-        "scouterFirstName": "Sam",
-        ...
-        }
-    ]
-    commentNode -> {
-        "comment": "fnkawndfka",
-        "scouterFirstName": "Sam",
-        ...
-    }
-    */
-
     @RequestMapping(value = "/{teamNumber}", method = RequestMethod.GET)
     public ResponseEntity getPit(@PathVariable int teamNumber) {
         ObjectMapper mapper = new ObjectMapper();
@@ -151,6 +115,11 @@ public class PitController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity submitPitForm(@RequestParam(name = "files[]", required = false) MultipartFile[] files,
                                         @RequestParam(name = "comment", required = false) String comment,
+                                        @RequestParam(name = "height", required = false) int height,
+                                        @RequestParam(name = "shooting", required = false) int shooting,
+                                        @RequestParam(name = "climbing", required = false) int climbing,
+                                        @RequestParam(name = "rotationControl", required = false) boolean rotationControl,
+                                        @RequestParam(name = "positionControl", required = false) boolean positionControl,
                                         @RequestParam("teamNumber") Integer teamNumber) throws Exception {
         if (files != null) {
             for (MultipartFile file : files) {
@@ -169,10 +138,15 @@ public class PitController {
             }
         }
         if (comment != null) {
-            PitData pitComment = new PitData();
-            pitComment.setComment(comment);
-            pitComment.setTeamNumber(teamNumber);
-            pitCommentRepository.save(pitComment);
+            PitData pitData = new PitData();
+            pitData.setComment(comment);
+            pitData.setTeamNumber(teamNumber);
+            pitData.setHeight(height);
+            pitData.setClimbing(climbing);
+            pitData.setShooting(shooting);
+            pitData.setRotationControl(rotationControl);
+            pitData.setPositionControl(positionControl);
+            pitCommentRepository.save(pitData);
         }
         return ResponseEntity.ok().build();
 
