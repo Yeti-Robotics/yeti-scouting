@@ -65,6 +65,7 @@ import lombok.Data;
             columns = {
                 @ColumnResult(name = "teamNumber", type = Integer.class),
                 @ColumnResult(name = "teamName", type = String.class),
+                @ColumnResult(name = "percentInitiationLine", type = Double.class),
                 @ColumnResult(name = "avgScoredAuto", type = Double.class),
                 @ColumnResult(name = "avgUpperAuto", type = Double.class),
                 @ColumnResult(name = "avgLowerAuto", type = Double.class),
