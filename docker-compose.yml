@@ -10,3 +10,13 @@ services:
       MYSQL_ROOT_PASSWORD: scouting
       MYSQL_PASSWORD: scouting
       MYSQL_USER: scouting
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8000:80"
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: scouting
+    external_links:
+      - scouting-db:db
+
