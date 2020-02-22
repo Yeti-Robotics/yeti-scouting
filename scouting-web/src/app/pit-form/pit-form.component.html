@@ -35,22 +35,22 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="required">Wheel of Fortune</label>
-            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="wheelOfFortune" formControlName="wheelOfFortune">
+            <label class="required">How do they climb?</label>
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="climb" formControlName="climb">
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0"> Cannot Do Wheel
+                <input type="radio" ngbButton [value]="0"> Cannot Climb
               </label>
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1"> Can Do Rotation Control
+                <input type="radio" ngbButton [value]="1"> Can Climb, not Level
               </label>
               <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="2"> Can Do Position Control
+                <input type="radio" ngbButton [value]="2"> Can Climb, Level
               </label>
-            </div>  
+            </div>
           </div>
           <div class="form-group">
             <label class="required">Where do they shoot?</label>
-            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="whereDoTheyShoot" formControlName="whereDoTheyShoot">
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="shoot" formControlName="shoot">
               <label class="btn-outline-primary" ngbButtonLabel>
                 <input type="radio" ngbButton [value]="0"> None
               </label>
@@ -65,19 +65,13 @@
               </label>
             </div>
           </div>
-          <div class="form-group">
-            <label class="required">How do they climb?</label>
-            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="howDoTheyClimb" formControlName="howDoTheyClimb">
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0"> Cannot Climb
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1"> Can Climb, not Level
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="2"> Can Climb, Level
-              </label>
-            </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="crossInitiationLine" class="custom-control-input" formControlName="crossInitiationLine">
+            <label for="crossInitiationLine" class="custom-control-label">Rotation Control?</label>
+          </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="crossInitiationLine" class="custom-control-input" formControlName="crossInitiationLine">
+            <label for="crossInitiationLine" class="custom-control-label">Position Control?</label>
           </div>
           <div class="card">
               <h5 class="card-header">Comments</h5>

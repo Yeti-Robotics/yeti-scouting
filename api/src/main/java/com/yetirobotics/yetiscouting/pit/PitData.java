@@ -39,7 +39,7 @@ import lombok.Data;
             })
     }
 )
-public class PitComment {
+public class PitData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,11 +51,27 @@ public class PitComment {
     @Column(name = "comment", nullable = false, length = 2000)
     private String comment;
 
+    @CreatedBy
+    @Column(name = "scouter", nullable = false)
+    private String scouter;
+
+    @Column(name = "height", nullable = false)
+    private Integer height;
+
+    @Column(name = "shooting", nullable = false)
+    private Integer shooting;
+
+    @Column(name = "climbing", nullable = false)
+    private Integer climbing;
+
+    @Column(name = "rotation_control", nullable = false)
+    private Boolean rotationControl;
+
+    @Column(name = "position_control", nullable = false)
+    private Boolean positionControl;
+
     @Column(name = "timestamp", nullable = false)
     @LastModifiedDate
     private Date timestamp;
 
-    @CreatedBy
-    @Column(name = "scouter", nullable = false)
-    private String scouter;
 }

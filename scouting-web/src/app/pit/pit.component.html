@@ -18,25 +18,39 @@
   </div>
   <br />
   
-  <fieldset>
-    <legend>Height</legend>
-    <div class="container-fluid">
-      <ul class="list-group list-group-flush">
-        <li *ngFor="let response of responses" class="list-group-item">
-          {{height.heights}}
-          <footer class="blockquote-footer">
-            {{comment.scouterFirstName}} {{comment.scouterLastName}}
-          </footer>
-        </li>
-      </ul>
+  <div class="card">
+    <h3 class="card-header">Pit Scouting Data</h3>
+    <div class="card-body table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Scouter</th>
+            <th>Height</th>
+            <th>Shooting</th>
+            <th>Climbing</th>
+            <th>Rotation Control</th>
+            <th>Position Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of pitData">
+            <td>{{ data.scouter }}</td>
+            <td>{{ data.height }}</td>
+            <td>{{ data.preload }}</td>
+            <td>{{ data.rotationControl }}</td>
+            <td>{{ data.positionControl }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </fieldset>
+  </div>
+
   <fieldset>
     <legend>Comments</legend>
     <div class="container-fluid">
       <ul class="list-group list-group-flush">
         <li *ngFor="let comment of comments" class="list-group-item">
-          {{comment.comment }}
+          {{comment.comment}}
           <footer class="blockquote-footer">
             {{comment.scouterFirstName}} {{comment.scouterLastName}}
           </footer>

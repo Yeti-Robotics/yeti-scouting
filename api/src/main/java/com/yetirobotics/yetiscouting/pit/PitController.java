@@ -45,6 +45,42 @@ public class PitController {
         this.picturePath = picturePath;
     }
 
+    /*
+    root -> {
+        "comments": [
+            {
+            "comment": "fnkawndfka",
+            "scouterFirstName": "Sam",
+            ...
+            },
+            {
+            "comment": "fnkawndfka",
+            "scouterFirstName": "Sam",
+            ...
+            }
+        ]
+    }
+
+    
+    commentsArray -> [
+        {
+        "comment": "fnkawndfka",
+        "scouterFirstName": "Sam",
+        ...
+        },
+        {
+        "comment": "fnkawndfka",
+        "scouterFirstName": "Sam",
+        ...
+        }
+    ]
+    commentNode -> {
+        "comment": "fnkawndfka",
+        "scouterFirstName": "Sam",
+        ...
+    }
+    */
+
     @RequestMapping(value = "/{teamNumber}", method = RequestMethod.GET)
     public ResponseEntity getPit(@PathVariable int teamNumber) {
         ObjectMapper mapper = new ObjectMapper();
@@ -52,8 +88,8 @@ public class PitController {
         ArrayNode commentsArrayNode = mapper.createArrayNode();
         String commentsJson;
 
-        List<PitComment> comments = pitCommentRepository.findByTeamNumber(teamNumber);
-        for (PitComment comment : comments) {
+        List<PitData> comments = pitCommentRepository.findByTeamNumber(teamNumber);
+        for (PitData comment : comments) {
             ObjectNode commentNode = mapper.createObjectNode();
             commentNode.put("comment", comment.getComment());
             commentNode.put("scouterFirstName", userRepository.findById(comment.getScouter()).get().getFirstName());
@@ -133,7 +169,7 @@ public class PitController {
             }
         }
         if (comment != null) {
-            PitComment pitComment = new PitComment();
+            PitData pitComment = new PitData();
             pitComment.setComment(comment);
             pitComment.setTeamNumber(teamNumber);
             pitCommentRepository.save(pitComment);

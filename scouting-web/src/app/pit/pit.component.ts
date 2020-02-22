@@ -12,6 +12,7 @@ import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 export class PitComponent implements OnInit {
   teamNumber: number;
   pictures: any[];
+  pitData: any[];
   comments: any[];
 
 
