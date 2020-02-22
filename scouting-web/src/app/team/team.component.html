@@ -62,19 +62,31 @@
           <tr>
             <th>Match #</th>
             <th>Scouter</th>
+            <th>Spilled Balls</th>
             <th>Preloaded Balls</th>
             <th>Crossed Initiation Line</th>
             <th>Upper Scored Balls</th>
             <th>Upper Missed Balls</th>
             <th>Lower Scored Balls</th>
             <th>Lower Missed Balls</th>
-            <th>Spilled Balls</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of scoutForms">
             <td>{{ data.matchNumber }}</td>
             <td>{{ data.scouter }}</td>
+            <td>
+              <i
+                *ngIf="data.spillBalls"
+                class="material-icons text-success"
+              >check</i
+              >
+              <i
+                *ngIf="!data.spillBalls"
+                class="material-icons text-danger"
+              >clear</i
+              >
+            </td>
             <td>{{ data.preload }}</td>
             <td>
               <i
@@ -90,18 +102,6 @@
             <td>{{ data.autoUpperMissedBalls }}</td>
             <td>{{ data.autoLowScoredBalls }}</td>
             <td>{{ data.autoLowMissedBalls }}</td>
-            <td>
-              <i
-                *ngIf="data.spillBalls"
-                class="material-icons text-success"
-              >check</i
-              >
-              <i
-                *ngIf="!data.spillBalls"
-                class="material-icons text-danger"
-              >clear</i
-              >
-            </td>
           </tr>
         </tbody>
       </table>
