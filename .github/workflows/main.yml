@@ -6,16 +6,17 @@ on:
       # TODO: Change to master
       - test*
 
+env:
+  PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+  APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
+  CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: build
     steps:
-      env:
-        PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-        APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
-        CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
       - uses: actions/checkout@master
       - uses: actions/cache@v1
         with:
