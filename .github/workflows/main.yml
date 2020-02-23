@@ -18,7 +18,7 @@ jobs:
           java-version: 11
       - run: ./gradlew build
       - uses: actions-hub/gcloud@master
-      - name: GCP deploy
+        name: GCP deploy
         env:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
