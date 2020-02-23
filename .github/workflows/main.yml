@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     name: build
     steps:
+      env:
+        PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+        APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
+        CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
       - uses: actions/checkout@master
       - uses: actions/cache@v1
         with:
@@ -25,43 +30,25 @@ jobs:
       - run: ./gradlew build --no-daemon
       - uses: actions-hub/gcloud@master
         name: GCP list instances
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute instances list
       - uses: actions-hub/gcloud@master
         name: GCP copy api jar
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
       - uses: actions-hub/gcloud@master
         name: GCP angular zip
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
       - uses: actions-hub/gcloud@master
         name: GCP unzip angular zip
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
       - uses: actions-hub/gcloud@master
         name: GCP restart nginx
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute ssh scouting-test --command "sudo systemctl restart nginx"
       - uses: actions-hub/gcloud@master
         name: GCP restart api
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: compute ssh scouting-test --command "sudo systemctl restart api"
