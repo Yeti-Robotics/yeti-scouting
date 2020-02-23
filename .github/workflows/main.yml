@@ -24,9 +24,9 @@ jobs:
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
           args: |
-            compute instances list
-            compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
-            compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
-            compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
-            compute ssh scouting-test --command "sudo systemctl restart nginx"
+            compute instances list && \
+            compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar && \
+            compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip && \
+            compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/" && \
+            compute ssh scouting-test --command "sudo systemctl restart nginx" && \
             compute ssh scouting-test --command "sudo systemctl restart api"
