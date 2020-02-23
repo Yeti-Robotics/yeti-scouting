@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - run: ./gradlew build
+      - run: ./gradlew build --no-daemon
       - uses: actions-hub/gcloud@master
         name: GCP deploy
         env:
@@ -25,8 +25,8 @@ jobs:
         with:
           args: |
             compute instances list
-            compute scp api/build/libs/api*.jar scouting:/scouting/api.jar
-            gcloud compute scp scouting-web/build/distributions/scouting-web.zip scouting:/scouting/archive.zip
+            compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
+            gcloud compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
             gcloud compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
             gcloud compute ssh scouting-test --command "sudo systemctl restart nginx"
             gcloud compute ssh scouting-test --command "sudo systemctl restart api"
