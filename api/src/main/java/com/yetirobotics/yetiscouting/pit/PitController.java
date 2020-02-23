@@ -85,6 +85,22 @@ public class PitController {
 
         rootNode.set("pictures", picturesArrayNode);
 
+        ArrayNode pitScoutingsArrayNode = mapper.createArrayNode();
+        List<PitData> pitScoutings = pitCommentRepository.findByTeamNumber(teamNumber);
+        for (PitData pitScouting: pitScoutings) {
+            ObjectNode pitScoutingNode = mapper.createObjectNode();
+            pitScoutingNode.put("id", pitScouting.getId());
+            pitScoutingNode.put("scouter", pitScouting.getScouter());
+            pitScoutingNode.put("height", pitScouting.getHeight());
+            pitScoutingNode.put("shooting", pitScouting.getShooting());
+            pitScoutingNode.put("climbing", pitScouting.getClimbing());
+            pitScoutingNode.put("rotationControl", pitScouting.getRotationControl());
+            pitScoutingNode.put("positionControl", pitScouting.getPositionControl());
+            pitScoutingsArrayNode.add(pitScoutingNode);
+        }
+
+        rootNode.set("pitData", pitScoutingsArrayNode);
+
         try {
             return ResponseEntity.ok(mapper.writeValueAsString(rootNode));
         } catch (JsonProcessingException e) {

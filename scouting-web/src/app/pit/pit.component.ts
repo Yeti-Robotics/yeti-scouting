@@ -28,6 +28,7 @@ export class PitComponent implements OnInit {
       .subscribe(data => {
         this.pictures = data["pictures"];
         this.comments = data["comments"];
+        this.pitData = data["pitData"];
       });
   }
 

@@ -17,7 +17,7 @@
     <p class="lead text-danger">No pictures are available of this team's pit</p>
   </div>
   <br />
-  
+
   <div class="card">
     <h3 class="card-header">Pit Scouting Data</h3>
     <div class="card-body table-responsive">
@@ -36,7 +36,8 @@
           <tr *ngFor="let data of pitData">
             <td>{{ data.scouter }}</td>
             <td>{{ data.height }}</td>
-            <td>{{ data.preload }}</td>
+            <td>{{ data.shooting }}</td>
+            <td>{{ data.climbing }}</td>
             <td>{{ data.rotationControl }}</td>
             <td>{{ data.positionControl }}</td>
           </tr>
