@@ -26,7 +26,7 @@ jobs:
           args: |
             compute instances list
             compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
-            gcloud compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
-            gcloud compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
-            gcloud compute ssh scouting-test --command "sudo systemctl restart nginx"
-            gcloud compute ssh scouting-test --command "sudo systemctl restart api"
+            compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
+            compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
+            compute ssh scouting-test --command "sudo systemctl restart nginx"
+            compute ssh scouting-test --command "sudo systemctl restart api"
