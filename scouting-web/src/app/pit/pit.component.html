@@ -35,11 +35,32 @@
         <tbody>
           <tr *ngFor="let data of pitData">
             <td>{{ data.scouter }}</td>
-            <td>{{ data.height }}</td>
-            <td>{{ data.shooting }}</td>
-            <td>{{ data.climbing }}</td>
-            <td>{{ data.rotationControl }}</td>
-            <td>{{ data.positionControl }}</td>
+            <td>{{ data.height | heightValues}}</td>
+            <td>{{ data.shooting | shootingValues}}</td>
+            <td>{{ data.climbing | climbingValues}}</td>
+            <td>
+              <i
+                *ngIf="data.positionControl"
+                class="material-icons text-success"
+              >check</i
+              >
+              <i
+                *ngIf="!data.positionControl"
+                class="material-icons text-danger"
+              >clear</i
+              >
+            </td>
+            <td>
+              <i
+                *ngIf="data.rotationControl"
+                class="material-icons text-success"
+              >check</i
+              >
+              <i
+                *ngIf="!data.rotationControl"
+                class="material-icons text-danger"
+              >clear</i
+              >
           </tr>
         </tbody>
       </table>

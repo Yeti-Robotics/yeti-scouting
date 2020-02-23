@@ -24,6 +24,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import { AdminComponent } from './admin/admin.component';
 import { EndPositionPipe } from './end-position.pipe';
+import { ShootingValuesPipe } from './shooting-values.pipe';
+import { ClimbingValuesPipe } from './climbing-values.pipe';
+import { HeightValuesPipe } from './height-values.pipe';
 
 export function appInit(userService: UserService): Function {
   return () =>
@@ -47,7 +50,10 @@ export function appInit(userService: UserService): Function {
     PitComponent,
     TableSortDirective,
     AdminComponent,
-    EndPositionPipe
+    EndPositionPipe,
+    ShootingValuesPipe,
+    ClimbingValuesPipe,
+    HeightValuesPipe
   ],
   imports: [
     BrowserModule,
