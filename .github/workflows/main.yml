@@ -18,8 +18,15 @@ jobs:
           java-version: 11
       - run: ./gradlew build
       - uses: actions-hub/gcloud@master
+      - name: GCP deploy
         env:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
-          args: compute instances list
+          args: |
+            compute instances list
+            compute scp api/build/libs/api*.jar scouting:/scouting/api.jar
+            gcloud compute scp scouting-web/build/distributions/scouting-web.zip scouting:/scouting/archive.zip
+            gcloud compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
+            gcloud compute ssh scouting-test --command "sudo systemctl restart nginx"
+            gcloud compute ssh scouting-test --command "sudo systemctl restart api"
