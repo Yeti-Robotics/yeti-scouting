@@ -12,6 +12,12 @@ jobs:
     name: build
     steps:
       - uses: actions/checkout@master
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Setup java
         uses: actions/setup-java@v1
         with:
@@ -23,10 +29,10 @@ jobs:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
-          args: |
-            compute instances list && \
-            compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar && \
-            compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip && \
-            compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/" && \
-            compute ssh scouting-test --command "sudo systemctl restart nginx" && \
-            compute ssh scouting-test --command "sudo systemctl restart api"
+          args:
+            - compute instances list
+            - compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
+            - compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
+            - compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
+            - compute ssh scouting-test --command "sudo systemctl restart nginx"
+            - compute ssh scouting-test --command "sudo systemctl restart api"
