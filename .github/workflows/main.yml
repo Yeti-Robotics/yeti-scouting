@@ -72,7 +72,7 @@ jobs:
       - name: GCP unzip angular zip
         uses: actions-hub/gcloud@master
         with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command='unzip -o /scouting/archive.zip -d /var/www/html/'
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command='sudo unzip -o /scouting/archive.zip -d /var/www/html/'
       - name: GCP restart nginx
         uses: actions-hub/gcloud@master
         with:
