@@ -49,10 +49,12 @@ jobs:
         uses: actions/download-artifact@v1.0.0
         with:
           name: api.jar
+          path: artifacts/api.jar
       - name: Download angular artifact
         uses: actions/download-artifact@v1.0.0
         with:
           name: scouting-web.zip
+          path: artifacts/scouting-web.zip
       - uses: actions-hub/gcloud@master
         name: GCP list instances
         with:
@@ -60,11 +62,11 @@ jobs:
       - name: GCP copy api jar
         uses: actions-hub/gcloud@master
         with:
-          args: compute scp api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
+          args: compute scp artifacts/api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
       - name: GCP angular zip
         uses: actions-hub/gcloud@master
         with:
-          args: compute scp scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
+          args: compute scp artifacts/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
       - name: GCP unzip angular zip
         uses: actions-hub/gcloud@master
         with:
