@@ -57,6 +57,8 @@ jobs:
           path: artifacts
       - name: View artifacts
         run: ls -lah artifacts
+      - name: Make api jar executable
+        run: chmod +x artifacts/api.jar
       - uses: actions-hub/gcloud@master
         name: GCP list instances
         with:
