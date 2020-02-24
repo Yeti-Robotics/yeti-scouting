@@ -6,12 +6,6 @@ on:
       # TODO: Change to master
       - test*
 
-env:
-  PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-  APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-  CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
-  CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
-  CLOUDSDK_COMPUTE_USER: ${{ secrets.CLOUDSDK_COMPUTE_USER }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,27 +23,56 @@ jobs:
         with:
           java-version: 11
       - run: ./gradlew build --no-daemon
+      - name: Upload api artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: api.jar
+          path: api/build/libs/api.jar
+      - name: Upload angular artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: scouting-web.zip
+          path: scouting-web/build/distributions/scouting-web.zip
+
+  deploy:
+    env:
+      PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+      APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
+      CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
+      CLOUDSDK_COMPUTE_USER: ${{ secrets.CLOUDSDK_COMPUTE_USER }}
+    runs-on: ubuntu-latest
+    name: deploy
+    steps:
+      - name: Download api artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: api.jar
+      - name: Download angular artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: scouting-web.zip
       - uses: actions-hub/gcloud@master
         name: GCP list instances
         with:
           args: compute instances list
-      - uses: actions-hub/gcloud@master
-        name: GCP copy api jar
+      - name: GCP copy api jar
+        uses: actions-hub/gcloud@master
         with:
-          args: compute scp api/build/libs/api*.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
-      - uses: actions-hub/gcloud@master
-        name: GCP angular zip
+          args: compute scp api/build/libs/api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
+      - name: GCP angular zip
+        uses: actions-hub/gcloud@master
         with:
           args: compute scp scouting-web/build/distributions/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
-      - uses: actions-hub/gcloud@master
-        name: GCP unzip angular zip
+      - name: GCP unzip angular zip
+        uses: actions-hub/gcloud@master
         with:
           args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
-      - uses: actions-hub/gcloud@master
-        name: GCP restart nginx
+      - name: GCP restart nginx
+        uses: actions-hub/gcloud@master
         with:
           args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart nginx"
-      - uses: actions-hub/gcloud@master
-        name: GCP restart api
+      - name: GCP restart api
+        uses: actions-hub/gcloud@master
         with:
           args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart api"
