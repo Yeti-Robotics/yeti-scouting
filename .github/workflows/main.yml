@@ -3,8 +3,7 @@ name: CI
 on:
   push:
     branches:
-      # TODO: Change to master
-      - test*
+      - master
 
 jobs:
   build:
