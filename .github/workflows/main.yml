@@ -42,6 +42,7 @@ jobs:
       CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
       CLOUDSDK_COMPUTE_USER: ${{ secrets.CLOUDSDK_COMPUTE_USER }}
     runs-on: ubuntu-latest
+    needs: build
     name: deploy
     steps:
       - name: Download api artifact
