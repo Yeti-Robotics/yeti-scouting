@@ -61,23 +61,27 @@ jobs:
         name: GCP list instances
         with:
           args: compute instances list
-      - name: GCP copy api jar
+      - name: GCP upload api jar
         uses: actions-hub/gcloud@master
         with:
           args: compute scp artifacts/api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
-      - name: GCP angular zip
+      - name: GCP upload angular zip
         uses: actions-hub/gcloud@master
         with:
           args: compute scp artifacts/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
       - name: GCP unzip angular zip
         uses: actions-hub/gcloud@master
         with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "unzip -o /scouting/archive.zip -d /var/www/html/"
-      - name: GCP restart nginx
-        uses: actions-hub/gcloud@master
-        with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart nginx"
-      - name: GCP restart api
-        uses: actions-hub/gcloud@master
-        with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart api"
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --help
+#      - name: GCP unzip angular zip
+#        uses: actions-hub/gcloud@master
+#        with:
+#          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "unzip -o /scouting/archive.zip -d /var/www/html/"
+#      - name: GCP restart nginx
+#        uses: actions-hub/gcloud@master
+#        with:
+#          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart nginx"
+#      - name: GCP restart api
+#        uses: actions-hub/gcloud@master
+#        with:
+#          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart api"
