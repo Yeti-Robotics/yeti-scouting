@@ -60,11 +60,11 @@ jobs:
       - name: GCP copy api jar
         uses: actions-hub/gcloud@master
         with:
-          args: compute scp api/build/libs/api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
+          args: compute scp api.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
       - name: GCP angular zip
         uses: actions-hub/gcloud@master
         with:
-          args: compute scp scouting-web/build/distributions/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
+          args: compute scp scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
       - name: GCP unzip angular zip
         uses: actions-hub/gcloud@master
         with:
