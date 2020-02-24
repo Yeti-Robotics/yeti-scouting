@@ -69,10 +69,10 @@ jobs:
         uses: actions-hub/gcloud@master
         with:
           args: compute scp artifacts/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
-      - name: GCP unzip angular zip
+      - name: GCP ssh test
         uses: actions-hub/gcloud@master
         with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --help
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "ls -lah /scouting"
 #      - name: GCP unzip angular zip
 #        uses: actions-hub/gcloud@master
 #        with:
