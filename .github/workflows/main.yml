@@ -11,7 +11,7 @@ env:
   APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
   CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
   CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
-
+  CLOUDSDK_COMPUTE_USER: ${{ secrets.CLOUDSDK_COMPUTE_USER }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,20 +36,20 @@ jobs:
       - uses: actions-hub/gcloud@master
         name: GCP copy api jar
         with:
-          args: compute scp api/build/libs/api*.jar scouting-test:/scouting/api.jar
+          args: compute scp api/build/libs/api*.jar $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/api.jar
       - uses: actions-hub/gcloud@master
         name: GCP angular zip
         with:
-          args: compute scp scouting-web/build/distributions/scouting-web.zip scouting-test:/scouting/archive.zip
+          args: compute scp scouting-web/build/distributions/scouting-web.zip $CLOUDSDK_COMPUTE_USER@scouting-test:/scouting/archive.zip
       - uses: actions-hub/gcloud@master
         name: GCP unzip angular zip
         with:
-          args: compute ssh scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "unzip /scouting/archive.zip -d /var/www/html/"
       - uses: actions-hub/gcloud@master
         name: GCP restart nginx
         with:
-          args: compute ssh scouting-test --command "sudo systemctl restart nginx"
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart nginx"
       - uses: actions-hub/gcloud@master
         name: GCP restart api
         with:
-          args: compute ssh scouting-test --command "sudo systemctl restart api"
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "sudo systemctl restart api"
