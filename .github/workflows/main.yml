@@ -72,7 +72,7 @@ jobs:
       - name: GCP ssh test
         uses: actions-hub/gcloud@master
         with:
-          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command "ls -lah /scouting"
+          args: compute ssh $CLOUDSDK_COMPUTE_USER@scouting-test --command="ls -lah /scouting"
 #      - name: GCP unzip angular zip
 #        uses: actions-hub/gcloud@master
 #        with:
