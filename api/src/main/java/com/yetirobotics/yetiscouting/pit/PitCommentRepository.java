@@ -8,9 +8,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * PitCommentRepository
  */
-public interface PitCommentRepository extends PagingAndSortingRepository<PitComment, Long> {
+public interface PitCommentRepository extends PagingAndSortingRepository<PitData, Long> {
 
     @Query(nativeQuery = true)
-    List<PitComment> findByTeamNumber(int teamNumber);
+    List<PitData> findByTeamNumber(int teamNumber);
     List<PitCommentInfo> pitCommentsInfo(int teamNumber);
 }

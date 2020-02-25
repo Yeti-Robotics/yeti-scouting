@@ -62,42 +62,49 @@ export class ScoutingFormComponent implements OnInit {
     this.form = this.fb.group({
       teamNumber: ["", numberValidators],
       matchNumber: ["", numberValidators],
-      crossHabitatLine: [false, Validators.required],
-      sandstormCargoHatchPanelCount: [
+      crossInitiationLine: [false, Validators.required],
+      autoUpperScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      sandstormCargoBallCount: [{value: 0, disabled: true}, numberValidators],
-      sandstormRocketHatchPanelCount: [
+      autoUpperMissedBalls: [{value: 0, disabled: true}, numberValidators],
+      
+      autoLowScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      sandstormRocketBallCount: [
+      autoLowMissedBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopCargoHatchPanelCount: [
+
+      spillBalls: [0, Validators.required],
+      
+      teleopUpperMissedBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopCargoBallCount: [{value: 0, disabled: true}, numberValidators],
-      teleopRocketHatchPanelCount: [
+      teleopUpperScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
       ],
-      teleopRocketBallCount: [{value: 0, disabled: true}, numberValidators],
+      teleopLowScoredBalls: [
+        {value: 0, disabled: true},
+        numberValidators
+      ],
+      teleopLowMissedBalls: [
+        {value: 0, disabled: true}, 
+        numberValidators
+      ],
+      
       comment: ["", Validators.required],
       score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
-      defense: [false, Validators.required],
       preload: [0, Validators.required],
-      habLevelStart: [0, Validators.required],
-      climbTime: [0, numberValidators],
-      lifted: [false, Validators.required],
-      gotLifted: [false, Validators.required],
-      buddyClimb: [false, Validators.required],
-      droppedGamePieces: [{value: 0, disabled: true}, numberValidators],
-      rocketLevel: [0, numberValidators]
+      positionControl: [false, Validators.required],
+      rotationControl: [false, Validators.required],
+      
+      endPosition: [0, Validators.required],
     });
 
     this.blueAlliance.getFutureMatches().subscribe(
@@ -168,9 +175,6 @@ export class ScoutingFormComponent implements OnInit {
     this.cachedForms.push(this.form.getRawValue());
     this.submitting = true;
 
-    if (this.form.value.habLevelClimb == 0) {
-      this.form.value.habLevelClimb = null;
-    }
     this.httpClient
       .post("/api/scoutingForm", this.cachedForms)
       .pipe(
@@ -190,7 +194,7 @@ export class ScoutingFormComponent implements OnInit {
             this.resetForm();
             this.toastrService.warning("Dear Scouter, due to a lack of internet, we regret to inform you we could not submit your " +
               "form. However, using recent advancements in technology and our big brain energy, we are storing (caching) your form. Sincerely, " +
-              "Yeti Programmers ", "Cashed (and moneyed)", {timeOut: 9000});
+              "Yeti Programmers ", "Cached (and moneyed)", {timeOut: 9000});
           } else {
             this.toastrService.error("Uh oh! Error: " + error.status + ". " + error.statusText);
           }
@@ -205,27 +209,22 @@ export class ScoutingFormComponent implements OnInit {
     this.form.reset({
       teamNumber: "",
       matchNumber: "",
-      crossHabitatLine: false,
-      sandstormCargoHatchPanelCount: 0,
-      sandstormCargoBallCount: 0,
-      sandstormRocketHatchPanelCount: 0,
-      sandstormRocketBallCount: 0,
-      teleopCargoHatchPanelCount: 0,
-      teleopCargoBallCount: 0,
-      teleopRocketHatchPanelCount: 0,
-      teleopRocketBallCount: 0,
+      crossInitiationLine: false,
+      autoUpperScoredBalls: 0,
+      autoUpperMissedBalls: 0,
+      autoLowScoredBalls: 0,
+      autoLowMissedBalls: 0,
+      spillBalls: 0,
+      teleopUpperMissedBalls: 0,
+      teleopUpperScoredBalls: 0,
+      teleopLowScoredBalls: 0,
+      teleopLowMissedBalls: 0,
       comment: "",
       score: "",
-      habLevelClimb: 0,
-      defense: false,
       preload: 0,
-      habLevelStart: 0,
-      climbTime: 0,
-      lifted: false,
-      gotLifted: false,
-      buddyClimb: false,
-      droppedGamePieces: 0,
-      rocketLevel: 0
+      positionControl: false,
+      rotationControl: false,
+      endPosition: 0,
     });
   }
 }

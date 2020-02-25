@@ -32,7 +32,12 @@ export class PitFormComponent implements OnInit {
       {
         teamNumber: ["", Validators.required],
         pictures: [],
-        comment: ""
+        height: ["", Validators.required],
+        climbing: ["", Validators.required],
+        shooting: ["", Validators.required],
+        rotationControl: [false],
+        positionControl: [false],
+        comment: ["", Validators.required]
       },
       {validators: this.pitFormValidator()}
     );
@@ -45,6 +50,11 @@ export class PitFormComponent implements OnInit {
     const formData = new FormData();
     formData.append("teamNumber", this.form.controls.teamNumber.value);
     formData.append("scouter", this.user.username);
+    formData.append("height", this.form.controls.height.value);
+    formData.append("shooting", this.form.controls.shooting.value);
+    formData.append("climbing", this.form.controls.climbing.value);
+    formData.append("rotationControl", this.form.controls.rotationControl.value);
+    formData.append("positionControl", this.form.controls.positionControl.value);
     for (let picture of this.pictures) {
       formData.append("files[]", picture);
     }
@@ -54,9 +64,12 @@ export class PitFormComponent implements OnInit {
 
     this.httpClient
       .post("/api/pit", formData)
-      .subscribe(() => this.form.reset(), error => console.error(error));
-    this.pictures = [];
-    this.picCounter = [];
+      .subscribe(() => {
+        this.form.reset();
+        this.pictures = [];
+        this.picCounter = [];
+      },
+      error => console.error(error));
   }
 
   onFileSelected(event, index) {

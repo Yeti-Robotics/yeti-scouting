@@ -23,11 +23,61 @@
                   <button class="btn btn-block btn-outline-dark" type="button" (click)="addPicture()">Add Picture</button>
               </div>
           </div>
+          <div class="form-group">
+            <label class="required">Height</label>
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="height" formControlName="height">
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="0"> Can drive through trench
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="1"> Cannot drive through trench
+              </label>  
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">How do they climb?</label>
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="climbing" formControlName="climbing">
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="0"> Cannot Climb
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="1"> Can Climb, not Level
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="2"> Can Climb, Level
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">Where do they shoot?</label>
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="shooting" formControlName="shooting">
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="0"> None
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="1"> Low
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="2"> High
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="3"> Both
+              </label>
+            </div>
+          </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="rotationControl" class="custom-control-input" formControlName="rotationControl">
+            <label for="rotationControl" class="custom-control-label">Rotation Control?</label>
+          </div>
+          <div class="form-group custom-control custom-checkbox">
+            <input type="checkbox" id="positionControl" class="custom-control-input" formControlName="positionControl">
+            <label for="positionControl" class="custom-control-label">Position Control?</label>
+          </div>
           <div class="card">
               <h5 class="card-header">Comments</h5>
               <div class="div card-body">
-                  <textarea class="form-control" id="comments" rows="3" cols="40" name='comments' formControlName="comment" placeholder='Enter comments about the team here'></textarea>
-              </div>
+                  <textarea class="form-control" id="comments" rows="3" cols="40" name='comments' formControlName="comment" placeholder='Enter other info, Ex: Avg. Cycle Time, Offense or Defense, Etc...'></textarea>
+              </div>  
           </div>
       </div>
       <div class="form-group">

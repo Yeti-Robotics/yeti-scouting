@@ -11,14 +11,17 @@
           <th scope="col">#</th>
           <th scope="col" sortable="teamNumber" (sort)="onSort($event)">Team</th>
           <th scope="col" sortable="teamName" (sort)="onSort($event)">Team Name</th>
-          <th scope="col" sortable="avgDisk" (sort)="onSort($event)">Avg Disks Scored</th>
-          <th scope="col" sortable="totalDisks" (sort)="onSort($event)">Total Disks</th>
-          <th scope="col" sortable="avgBall" (sort)="onSort($event)">Avg Balls Scored</th>
-          <th scope="col" sortable="totalBalls" (sort)="onSort($event)">Total Balls</th>
-          <th scope="col" sortable="avgClimbLevel" (sort)="onSort($event)">Average Level Climbed</th>
-          <th scope="col" sortable="climbLevelMode" (sort)="onSort($event)">Most Common Level Climbed</th>
-          <th scope="col" sortable="droppedGamePieces" (sort)="onSort($event)">Game Pieces Dropped</th>
-          <th scope="col" sortable="avgDefensePlays" (sort)="onSort($event)">Defensive Probability</th>
+          <th scope="col" sortable="percentInitiationLine" (sort)="onSort($event)">% Initiation Line</th>
+          <th scope="col" sortable="avgScoredAuto" (sort)="onSort($event)">Avg. Scored Auto</th>
+          <th scope="col" sortable="avgUpperAuto" (sort)="onSort($event)">Avg. Upper Auto</th>
+          <th scope="col" sortable="avgLowerAuto" (sort)="onSort($event)">Avg. Lower Auto</th>
+          <th scope="col" sortable="percentFeeding" (sort)="onSort($event)">% of Times Feeding</th>
+          <th scope="col" sortable="avgUpperTeleop" (sort)="onSort($event)">Avg. Upper Teleop</th>
+          <th scope="col" sortable="avgLowerTeleop" (sort)="onSort($event)">Avg. Lower Teleop</th>
+          <th scope="col" sortable="teleopAccuracy" (sort)="onSort($event)">Teleop Accuracy</th>
+          <th scope="col" sortable="rotationControl" (sort)="onSort($event)">Rotation Control</th>
+          <th scope="col" sortable="positionControl" (sort)="onSort($event)">Position Control</th>
+          <th scope="col" sortable="mostCommonEndPosition" (sort)="onSort($event)">Most Common End Pos.</th>
         </tr>
       </thead>
       <tbody>
@@ -26,19 +29,17 @@
           <td scope="row">{{i + 1}}</td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamNumber}}</a></td>
           <td><a routerLink="/team/{{team.teamNumber}}">{{team.teamName}}</a></td>
-          <td>{{team.avgDisk | number:'1.1-2'}}</td>
-          <td>{{team.totalDisks}}</td>
-          <td>{{team.avgBall | number:'1.1-2'}}</td>
-          <td>{{team.totalBalls}}</td>
-          <td>{{team.avgClimbLevel | number:'1.1-2'}}</td>
-          <td *ngIf="team.climbLevelMode > 0; else noClimb">
-            Level {{team.climbLevelMode}}
-          </td>
-          <ng-template #noClimb>
-            <td>No level</td>
-          </ng-template>
-          <td>{{team.droppedGamePieces}}</td>
-          <td>{{team.avgDefensePlays | percent:'1.0-2'}}</td>
+          <td>{{team.percentInitiationLine | percent}}</td>
+          <td>{{team.avgScoredAuto | number:'1.2-2'}}</td>
+          <td>{{team.avgUpperAuto | number:'1.2-2'}}</td>
+          <td>{{team.avgLowerAuto | number:'1.2-2'}}</td>
+          <td>{{team.percentFeeding | percent}}</td>
+          <td>{{team.avgUpperTeleop | number:'1.2-2'}}</td>
+          <td>{{team.avgLowerTeleop | number:'1.2-2'}}</td>
+          <td>{{team.teleopAccuracy | percent}}</td>
+          <td>{{team.rotationControl | percent}}</td>
+          <td>{{team.positionControl | percent}}</td>
+          <td>{{team.mostCommonEndPosition | endPosition}}</td>
         </tr>
       </tbody>
     </table>

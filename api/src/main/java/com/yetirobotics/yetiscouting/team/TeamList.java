@@ -17,14 +17,15 @@ public class TeamList {
     @Id
     private Integer teamNumber;
     private String teamName;
-    private Double avgSandstormDisks;
-    private Double avgDisk;
-    private Double avgSandstormBalls;
-    private Double avgBall;
-    private Double avgClimbLevel;
-    private Integer climbLevelMode;
-    private Integer droppedGamePieces;
-    private Double avgDefensePlays;
-    private Integer totalBalls;
-    private Integer totalDisks;
+    private Double percentInitiationLine;
+    private Double avgScoredAuto;
+    private Double avgUpperAuto;
+    private Double avgLowerAuto;
+    private Double percentFeeding;
+    private Double avgUpperTeleop;
+    private Double avgLowerTeleop;
+    private Double teleopAccuracy;
+    private Double rotationControl;
+    private Double positionControl;
+    private Integer mostCommonEndPosition;
 }

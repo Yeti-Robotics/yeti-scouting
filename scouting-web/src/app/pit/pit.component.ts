@@ -12,6 +12,7 @@ import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 export class PitComponent implements OnInit {
   teamNumber: number;
   pictures: any[];
+  pitData: any[];
   comments: any[];
 
 
@@ -27,6 +28,7 @@ export class PitComponent implements OnInit {
       .subscribe(data => {
         this.pictures = data["pictures"];
         this.comments = data["comments"];
+        this.pitData = data["pitData"];
       });
   }
 
