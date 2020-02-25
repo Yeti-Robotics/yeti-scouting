@@ -16,17 +16,16 @@ public class TeamStats {
 
     @Id
     private Integer teamNumber;
-    private String teamName;    
-    private Double avgSandCargoDisk;
-    private Double avgSandCargoBall;
-    private Double avgSandRocketBall;
-    private Double avgSandRocketDisk;
-    private Double avgTeleCargoDisk;
-    private Double avgTeleCargoBall;
-    private Double avgTeleRocketBall;
-    private Double avgTeleRocketDisk;
-    private Double percentSandCrossLine;
-    private Double avgDroppedTeleGamePieces;
-    private Double avgTeleDefensePlays;
-    private Integer mostCommonSandHabLevelStart;
+    private String teamName;
+    private Double percentInitiationLine;
+    private Double avgScoredAuto;
+    private Double avgUpperAuto;
+    private Double avgLowerAuto;
+    private Double percentFeeding;
+    private Double avgUpperTeleop;
+    private Double avgLowerTeleop;
+    private Double teleopAccuracy;
+    private Double rotationControl;
+    private Double positionControl;
+    private Integer mostCommonEndPosition;
 }

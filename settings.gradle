@@ -1,2 +1,3 @@
 rootProject.name = 'yeti-scouting'
 include 'api'
+include 'scouting-web'

@@ -52,8 +52,8 @@ public class PitController {
         ArrayNode commentsArrayNode = mapper.createArrayNode();
         String commentsJson;
 
-        List<PitComment> comments = pitCommentRepository.findByTeamNumber(teamNumber);
-        for (PitComment comment : comments) {
+        List<PitData> comments = pitCommentRepository.findByTeamNumber(teamNumber);
+        for (PitData comment : comments) {
             ObjectNode commentNode = mapper.createObjectNode();
             commentNode.put("comment", comment.getComment());
             commentNode.put("scouterFirstName", userRepository.findById(comment.getScouter()).get().getFirstName());
@@ -85,6 +85,22 @@ public class PitController {
 
         rootNode.set("pictures", picturesArrayNode);
 
+        ArrayNode pitScoutingsArrayNode = mapper.createArrayNode();
+        List<PitData> pitScoutings = pitCommentRepository.findByTeamNumber(teamNumber);
+        for (PitData pitScouting: pitScoutings) {
+            ObjectNode pitScoutingNode = mapper.createObjectNode();
+            pitScoutingNode.put("id", pitScouting.getId());
+            pitScoutingNode.put("scouter", pitScouting.getScouter());
+            pitScoutingNode.put("height", pitScouting.getHeight());
+            pitScoutingNode.put("shooting", pitScouting.getShooting());
+            pitScoutingNode.put("climbing", pitScouting.getClimbing());
+            pitScoutingNode.put("rotationControl", pitScouting.getRotationControl());
+            pitScoutingNode.put("positionControl", pitScouting.getPositionControl());
+            pitScoutingsArrayNode.add(pitScoutingNode);
+        }
+
+        rootNode.set("pitData", pitScoutingsArrayNode);
+
         try {
             return ResponseEntity.ok(mapper.writeValueAsString(rootNode));
         } catch (JsonProcessingException e) {
@@ -115,6 +131,11 @@ public class PitController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity submitPitForm(@RequestParam(name = "files[]", required = false) MultipartFile[] files,
                                         @RequestParam(name = "comment", required = false) String comment,
+                                        @RequestParam(name = "height", required = false) int height,
+                                        @RequestParam(name = "shooting", required = false) int shooting,
+                                        @RequestParam(name = "climbing", required = false) int climbing,
+                                        @RequestParam(name = "rotationControl", required = false) boolean rotationControl,
+                                        @RequestParam(name = "positionControl", required = false) boolean positionControl,
                                         @RequestParam("teamNumber") Integer teamNumber) throws Exception {
         if (files != null) {
             for (MultipartFile file : files) {
@@ -133,10 +154,15 @@ public class PitController {
             }
         }
         if (comment != null) {
-            PitComment pitComment = new PitComment();
-            pitComment.setComment(comment);
-            pitComment.setTeamNumber(teamNumber);
-            pitCommentRepository.save(pitComment);
+            PitData pitData = new PitData();
+            pitData.setComment(comment);
+            pitData.setTeamNumber(teamNumber);
+            pitData.setHeight(height);
+            pitData.setClimbing(climbing);
+            pitData.setShooting(shooting);
+            pitData.setRotationControl(rotationControl);
+            pitData.setPositionControl(positionControl);
+            pitCommentRepository.save(pitData);
         }
         return ResponseEntity.ok().build();
 
