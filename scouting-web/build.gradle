@@ -1,0 +1,16 @@
+plugins {
+  id "base"
+  id "com.moowork.node" version "1.3.1"
+}
+
+node {
+  version = nodeVersion
+  download = downloadNode
+}
+
+task buildZip(type: Zip) {
+  dependsOn npm_run_build
+  from "${buildDir}/${project.name}"
+}
+build.dependsOn buildZip
+npm_run_build.dependsOn npm_install
