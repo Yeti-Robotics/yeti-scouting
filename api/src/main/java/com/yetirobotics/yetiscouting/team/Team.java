@@ -29,7 +29,7 @@ import lombok.Data;
     "AVG(s.spill_balls) AS percentFeeding, " + 
     "AVG(s.teleop_upper_scored_balls) AS avgUpperTeleop, " + 
     "AVG(s.teleop_low_scored_balls) AS avgLowerTeleop, " + 
-    "SUM(s.teleop_low_scored_balls + s.teleop_upper_scored_balls) / SUM(s.teleop_low_missed_balls + s.teleop_low_scored_balls + s.teleop_upper_missed_balls + s.teleop_upper_scored_balls) AS teleopAccuracy, " +
+    "COALESCE(SUM(s.teleop_low_scored_balls + s.teleop_upper_scored_balls) / SUM(s.teleop_low_missed_balls + s.teleop_low_scored_balls + s.teleop_upper_missed_balls + s.teleop_upper_scored_balls), 0) AS teleopAccuracy, " +
     "AVG(s.position_control) AS positionControl, " + 
     "AVG(s.rotation_control) AS rotationControl, " +
     "x.mostCommonEndPosition " + 
