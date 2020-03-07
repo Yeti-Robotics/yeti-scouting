@@ -220,6 +220,7 @@ export class ScoutingFormComponent implements OnInit {
       teleopUpperScoredBalls: 0,
       teleopLowScoredBalls: 0,
       teleopLowMissedBalls: 0,
+      defense: 0,
       comment: "",
       score: "",
       preload: 0,
