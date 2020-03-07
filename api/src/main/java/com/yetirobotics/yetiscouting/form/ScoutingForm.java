@@ -58,6 +58,9 @@ public class ScoutingForm {
     @Column(name = "teleop_low_missed_balls", nullable = false)
     private Integer teleopLowMissedBalls;
 
+    @Column(name = "Defense", nullable = false)
+    private Integer defense;
+
     @Column(name = "comment", nullable = false)
     private String comment;
 

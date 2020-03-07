@@ -20,9 +20,9 @@ import lombok.Data;
 @NamedNativeQuery(
     name = "Team.teamList",
     query = "SELECT " +
-    "s.team_number AS teamNumber, " +
-    "t.team_name AS teamName, " +
-    "AVG(s.auto_low_scored_balls + s.auto_upper_scored_balls) AS avgScoredAuto, " +
+    "s.team_number AS teamNumber, " + 
+    "t.team_name AS teamName, " + 
+    "AVG(s.auto_low_scored_balls + s.auto_upper_scored_balls) AS avgScoredAuto, " + 
     "AVG(s.cross_initiation_line) AS percentInitiationLine, " + 
     "AVG(s.auto_upper_scored_balls) AS avgUpperAuto, " + 
     "AVG(s.auto_low_scored_balls) AS avgLowerAuto, " + 
@@ -33,8 +33,8 @@ import lombok.Data;
     "AVG(s.position_control) AS positionControl, " + 
     "AVG(s.rotation_control) AS rotationControl, " +
     "x.mostCommonEndPosition " + 
-    "FROM scouting_form s " +
-    "LEFT JOIN team t ON t.team_number = s.team_number " +
+    "FROM scouting_form s " + 
+    "LEFT JOIN team t ON t.team_number = s.team_number " + 
     "LEFT JOIN (SELECT team_number, end_position AS mostCommonEndPosition, MAX(endPositionCount) " + 
         "FROM (SELECT team_number, end_position, COUNT(*) AS endPositionCount " + 
             "FROM scouting_form " + 

@@ -62,6 +62,7 @@ export class ScoutingFormComponent implements OnInit {
     this.form = this.fb.group({
       teamNumber: ["", numberValidators],
       matchNumber: ["", numberValidators],
+      preload: [0, Validators.required],
       crossInitiationLine: [false, Validators.required],
       autoUpperScoredBalls: [
         {value: 0, disabled: true},
@@ -96,11 +97,11 @@ export class ScoutingFormComponent implements OnInit {
         {value: 0, disabled: true}, 
         numberValidators
       ],
+      defense: [0, Validators.required],
       
       comment: ["", Validators.required],
       score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
-      preload: [0, Validators.required],
       positionControl: [false, Validators.required],
       rotationControl: [false, Validators.required],
       
