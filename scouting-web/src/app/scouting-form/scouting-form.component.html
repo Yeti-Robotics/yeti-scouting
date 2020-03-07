@@ -242,7 +242,26 @@
               </div>
             </div>
           </div>
-
+          <div class="form-group">
+            <label class="required">How was there defense? (If they foul give them a one or two.)</label>
+            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="shooting" formControlName="shooting">
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="0"> 0 - No Defense
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="1"> 1 - Bad Defense
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="2"> 2 - Okay Defense
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="3"> 3 - Good Defense
+              </label>
+              <label class="btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton [value]="4"> 4 - Emaculate Defense
+              </label>
+            </div>
+          </div>
           <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="positionControl" class="custom-control-input" formControlName="positionControl">
             <label for="positionControl" class="custom-control-label">Did they do position control?</label>
@@ -281,7 +300,7 @@
             <textarea name="comment" id="comment" rows="3" formControlName="comment" class="form-control"
                       autocomplete="off"></textarea>
             <small class="form-text text-muted">Add comments about the robots strategy, failures, human players, fouls,
-              etc.
+              etc. Good Comments = Reward!! Good doesn't mean an essay, write concise useful information.
             </small>
           </div>
         </div>
