@@ -117,7 +117,7 @@
             <input type="checkbox" id="crossInitiationLine" class="custom-control-input" formControlName="crossInitiationLine">
             <label for="crossInitiationLine" class="custom-control-label">Did the robot cross the initiation line?</label>
           </div>
-          
+
           <div class="form-group">
             <label for="autoUpperScoredBalls" class="required">Balls scored in upper</label>
             <div class="input-group">
@@ -242,26 +242,6 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label class="required">How was their defense? (If they foul give them a one or two.)</label>
-            <div class="btn-group btn-group-toggle d-flex" ngbRadioGroup name="shooting" formControlName="shooting">
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="0"> 0 - No Defense
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="1"> 1 - Bad Defense
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="2"> 2 - Okay Defense
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="3"> 3 - Good Defense
-              </label>
-              <label class="btn-outline-primary" ngbButtonLabel>
-                <input type="radio" ngbButton [value]="4"> 4 - Emaculate Defense
-              </label>
-            </div>
-          </div>
           <div class="form-group custom-control custom-checkbox">
             <input type="checkbox" id="positionControl" class="custom-control-input" formControlName="positionControl">
             <label for="positionControl" class="custom-control-label">Did they do position control?</label>
@@ -281,11 +261,11 @@
               <option [value]="3">Buddy Climb Lifted</option>
               <option [value]="4">Solo Not Level</option>
               <option [value]="5">Solo And Level</option>
-            </select>         
+            </select>
         </div>
       </div>
     </div>
-    
+
 
       <div class="card">
         <h5 class="card-header">Other</h5>
