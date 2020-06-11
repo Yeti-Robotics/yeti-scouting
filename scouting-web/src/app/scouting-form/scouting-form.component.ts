@@ -69,7 +69,7 @@ export class ScoutingFormComponent implements OnInit {
         numberValidators
       ],
       autoUpperMissedBalls: [{value: 0, disabled: true}, numberValidators],
-      
+
       autoLowScoredBalls: [
         {value: 0, disabled: true},
         numberValidators
@@ -80,7 +80,7 @@ export class ScoutingFormComponent implements OnInit {
       ],
 
       spillBalls: [0, Validators.required],
-      
+
       teleopUpperMissedBalls: [
         {value: 0, disabled: true},
         numberValidators
@@ -94,17 +94,17 @@ export class ScoutingFormComponent implements OnInit {
         numberValidators
       ],
       teleopLowMissedBalls: [
-        {value: 0, disabled: true}, 
+        {value: 0, disabled: true},
         numberValidators
       ],
       defense: [0, Validators.required],
-      
+
       comment: ["", Validators.required],
       score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
       positionControl: [false, Validators.required],
       rotationControl: [false, Validators.required],
-      
+
       endPosition: [0, Validators.required],
     });
 
@@ -180,7 +180,10 @@ export class ScoutingFormComponent implements OnInit {
       .post("/api/scoutingForm", this.cachedForms)
       .pipe(
         timeout(3000),
-        finalize(() => this.submitting = false)
+        finalize(() => {
+          this.submitting = false;
+          this.resetForm();
+        })
       )
       .subscribe(
         data => {
@@ -227,6 +230,9 @@ export class ScoutingFormComponent implements OnInit {
       positionControl: false,
       rotationControl: false,
       endPosition: 0,
+    });
+    Object.keys(this.form.controls).forEach(key => {
+      this.form.get(key).setErrors(null) ;
     });
   }
 }
