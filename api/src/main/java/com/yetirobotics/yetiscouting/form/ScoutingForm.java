@@ -64,9 +64,6 @@ public class ScoutingForm {
     @Column(name = "comment", nullable = false)
     private String comment;
 
-    @Column(name = "score", nullable = false)
-    private Integer score;
-
     @Column(name = "preload", nullable = false)
     private Integer preload;
 
