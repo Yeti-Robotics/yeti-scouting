@@ -2,7 +2,7 @@
 
 ## Stuff to Add
 - [x] Submit timeout stores form data to be submitted later or generate json to give to admin
-- [ ] Just remove the score field, there's no hope
+- [x] Just remove the score field, there's no hope
 - [x] make admin page
 - [ ] Ability to add matches to list in case of replays
 - [ ] Add option for user to type in team and match number if internet is slow

@@ -100,7 +100,6 @@ export class ScoutingFormComponent implements OnInit {
       defense: [0, Validators.required],
       
       comment: ["", Validators.required],
-      score: ["", numberValidators],
       habLevelClimb: [0, Validators.required],
       positionControl: [false, Validators.required],
       rotationControl: [false, Validators.required],
