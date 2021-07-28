@@ -17,7 +17,6 @@ import {AdminPreference, PreferenceService} from "../preference.service";
 export class ScoutingFormComponent implements OnInit {
   form: FormGroup;
   user: any;
-  cachedForms = [];
   submitting = false;
   matches = [];
   filteredMatches$: Observable<any[]>;
@@ -25,6 +24,7 @@ export class ScoutingFormComponent implements OnInit {
   noMatches = false;
   selectedScouterPos = new FormControl('', Validators.required);
   teamSelected = false;
+  cachedForms = [];
 
   scouterPositions = [
     "red 1",
@@ -128,6 +128,7 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cachedForms = JSON.parse(localStorage.getItem('form')) || [];
   }
 
   incrementField(field: string) {
@@ -172,11 +173,9 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.cachedForms.push(this.form.getRawValue());
     this.submitting = true;
-
     this.httpClient
-      .post("/api/scoutingForm", this.cachedForms)
+      .post("/api/scoutingForm", [this.form.getRawValue()])
       .pipe(
         timeout(3000),
         finalize(() => this.submitting = false)
@@ -184,13 +183,15 @@ export class ScoutingFormComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.cachedForms = [];
           this.toastrService.success("Success!");
           this.resetForm();
         },
         error => {
           console.error(error);
-          if (error.name == "TimeoutError") {
+          if (error.name == "TimeoutError"){
+            this.cachedForms = JSON.parse(localStorage.getItem('form')) || [];
+            this.cachedForms.push(this.form.getRawValue());
+            localStorage.setItem('form', JSON.stringify(this.cachedForms));
             this.resetForm();
             this.toastrService.warning("Dear Scouter, due to a lack of internet, we regret to inform you we could not submit your " +
               "form. However, using recent advancements in technology and our big brain energy, we are storing (caching) your form. Sincerely, " +
@@ -200,6 +201,10 @@ export class ScoutingFormComponent implements OnInit {
           }
         }
       );
+  }
+
+  onSubmitCachedForms(){
+    console.log(this.cachedForms);
   }
 
   private resetForm() {
@@ -221,11 +226,11 @@ export class ScoutingFormComponent implements OnInit {
       teleopLowMissedBalls: 0,
       defense: 0,
       comment: "",
-      score: "",
+      habLevelClimb: 0,
       preload: 0,
       positionControl: false,
       rotationControl: false,
-      endPosition: 0,
+      endPosition: 0
     });
   }
 }
