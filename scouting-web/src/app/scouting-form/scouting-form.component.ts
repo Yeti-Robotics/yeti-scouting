@@ -188,7 +188,7 @@ export class ScoutingFormComponent implements OnInit {
         },
         error => {
           console.error(error);
-          if (error.name == "TimeoutError"){
+          if (error.name == "TimeoutError" || error.name == "HttpErrorResponse"){
             this.cachedForms = JSON.parse(localStorage.getItem('form')) || [];
             this.cachedForms.push(this.form.getRawValue());
             localStorage.setItem('form', JSON.stringify(this.cachedForms));
@@ -204,7 +204,29 @@ export class ScoutingFormComponent implements OnInit {
   }
 
   onSubmitCachedForms(){
-    console.log(this.cachedForms);
+    this.submitting = true; 
+    this.httpClient
+      .post("/api/scoutingForm", this.cachedForms)
+      .pipe(
+        timeout(3000), 
+        finalize(() => this.submitting = false)
+      )
+      .subscribe(
+        data => {
+          console.log(data);
+          this.cachedForms = [];
+          localStorage.clear();
+          this.toastrService.success("Success!");
+        }, 
+        error => {
+          console.error(error);
+          if (error.name == "TimeoutError" || error.name == "HttpErrorResponse"){
+            this.toastrService.warning("Please connect to the Internet before trying to submit cached forms!", error.name + "; " + error.statusText, {timeOut: 9000});
+          } else {
+            this.toastrService.error("Uh oh! Error: " + error.status + ". " + error.statusText);
+          }
+        }
+      );
   }
 
   private resetForm() {
