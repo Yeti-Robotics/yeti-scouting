@@ -40,6 +40,9 @@
 
 <!--Form-->
 <div class="container-fluid">
+  <button *ngIf="cachedForms.length > 0" class="btn btn-warning mb-2" (click)="onSubmitCachedForms()">
+    Submit {{cachedForms.length}} Cached Scouting Forms
+  </button>
   <form [formGroup]="form">
     <div class="card-columns">
       <div class="card">
