@@ -46,6 +46,8 @@
 - [ ] peaks
 - [x] sort by columns
 - [ ] add climbs to match data
+- [ ] rate robots by stars
+- [ ] reddit comment ranking system (w/medals for helpfulness)
 
 ## Setup
 - Install Java JDK
