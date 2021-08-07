@@ -1,6 +1,8 @@
 # Yeti Scouting
 
 ## Stuff to Add
+- [ ] add a page to view pit scouting data
+- [ ] add caching to pit scouting
 - [x] Submit timeout stores form data to be submitted later or generate json to give to admin
 - [x] Just remove the score field, there's no hope
 - [x] make admin page
