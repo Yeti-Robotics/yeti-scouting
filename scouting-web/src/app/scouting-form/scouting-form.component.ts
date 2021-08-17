@@ -15,6 +15,7 @@ import {AdminPreference, PreferenceService} from "../preference.service";
   styleUrls: ["./scouting-form.component.css"]
 })
 export class ScoutingFormComponent implements OnInit {
+  readonly MAX_COMMENT_LENGTH = 500;
   form: FormGroup;
   user: any;
   submitting = false;
@@ -99,7 +100,7 @@ export class ScoutingFormComponent implements OnInit {
       ],
       defense: [0, Validators.required],
       
-      comment: ["", Validators.required],
+      comment: ["", Validators.compose([Validators.required, Validators.maxLength(this.MAX_COMMENT_LENGTH)])],
       habLevelClimb: [0, Validators.required],
       positionControl: [false, Validators.required],
       rotationControl: [false, Validators.required],
