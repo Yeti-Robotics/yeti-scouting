@@ -61,7 +61,7 @@ public class ScoutingForm {
     @Column(name = "Defense", nullable = false)
     private Integer defense;
 
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment", nullable = false, length = 500)
     private String comment;
 
     @Column(name = "preload", nullable = false)

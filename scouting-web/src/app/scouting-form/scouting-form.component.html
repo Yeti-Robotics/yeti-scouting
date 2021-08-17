@@ -294,7 +294,7 @@
         <h5 class="card-header">Other</h5>
         <div class="card-body">
           <div class="form-group">
-            <label for="comment" class="required">Comments</label>
+            <label for="comment" class="required">Comments ({{form.controls['comment'].value.length}}/{{MAX_COMMENT_LENGTH}})</label>
             <textarea name="comment" id="comment" rows="3" formControlName="comment" class="form-control"
                       autocomplete="off"></textarea>
             <small class="form-text text-muted">Add comments about the robots strategy, failures, human players, fouls,
